@@ -9,10 +9,18 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+
+
 Route::get('auth', 'auth/index');
-Route::get('login', 'auth/login');
-Route::get('register', 'auth/register');
-Route::get('logout', 'auth/logout');
+Route::post('login', 'auth/login');
+Route::post('register', 'auth/register');
+Route::post('logout', 'auth/logout');
+
+
+Route::get('category/:cid/page/:page', 'category/index');
+
+Route::get('xs/:id', 'xs/index');
+Route::get('character/:id', 'character/index');
 
 return [
 
