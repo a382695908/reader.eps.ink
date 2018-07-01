@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登陆/注册</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/auth.css">
+</head>
+<body>
+
+<div class="wallpaper"></div>
+<div class="container">
+    <div class="auth" id="loginWrapper">
+        <h1 class="auth-title">登陆</h1>
+
+        <form id="login" class="auth-form" action="../index/index.html" method="post">
+            <div class="form-group">
+                <label for="account">Account</label>
+                <input class="form-control" type="text" name="account" value="" placeholder="账号">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" name="password" value="" placeholder="密码">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-primary btn-block" type="button" value="登陆">
+
+                <div class="auth-link">
+                    <div style="float:left;">
+                        <a href="../index/index.html">&lt; 返回主页面</a>
+                    </div>
+                    <div style="float:right">
+                        <a onclick="toogleWrapper(1)">还没有账号?立即注册! &gt;</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="auth" id="registerWrapper" style="display:none;">
+        <h1 class="auth-title">注册</h1>
+
+        <form id="register" class="auth-form" action="../index/index.html" method="post">
+            <div class="form-group">
+                <label for="account">Account</label>
+                <input class="form-control" type="text" name="account" value="" placeholder="账号">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" name="password" value="" placeholder="密码">
+            </div>
+            <div class="form-group">
+                <label for="password_confirm">Password Confirm</label>
+                <input class="form-control" type="password" name="password_confirm" value="" placeholder="确认密码">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-primary btn-block" type="button" value="注册">
+
+                <div class="auth-link">
+                    <div style="float:left;">
+                        <a onclick="toogleWrapper(2)">&lt; 已有账号?立即登陆!</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-color/2.1.2/jquery.color.min.js"></script>
+<script src="http://cdn1.lncld.net/static/js/3.4.2/av-min.js"></script>
+<script src="./js/init.js"></script>
+<script src="./js/function.js"></script>
+<script type="text/javascript">
+    // 页面切换
+    function toogleWrapper(number) {
+        switch (number) {
+            case 1:
+                $('#loginWrapper').css('display', 'none');
+                $('#registerWrapper').css('display', 'block');
+                break;
+            case 2:
+                $('#registerWrapper').css('display', 'none');
+                $('#loginWrapper').css('display', 'block');
+                break;
+        }
+    }
+
+    // 页面壁纸定时更换 每7s 一次
+    var wallpaperId = 1;
+    var wallpaperTimer = setInterval(function () {
+        $(".wallpaper").stop().animate({opacity: '0.5'}, 2000);
+        wallpaperId++;
+        if (wallpaperId > 6)
+            wallpaperId = 1;
+        setTimeout(function () {
+            $(".wallpaper").css('background-image', 'url(./images/wallpaper/' + wallpaperId + '.jpg)');
+            $(".wallpaper").stop().animate({opacity: '1'}, 2000);
+        }, 2000);
+    }, 7000);
+
+    /**
+     * ajax登陆请求
+     * @param data object 登陆数据
+     * @param cb function 回调函数
+     * @description 登陆请求
+     * @author somebody
+     */
+    function ajaxLogin(account, password) {
+        return AV.User.logIn(account, password).then(function (loginedUser) {
+            return loginedUser;
+        }, function (error) {
+            console.error(error);
+        });
+    }
+
+    /**
+     * ajax注册请求
+     * @param data object 注册数据
+     * @param cb function 回调函数
+     * @description 注册请求
+     * @author somebody
+     */
+    function ajaxRegister(account, password) {
+        var user = new AV.User();
+        user.setUsername(account);
+        user.setPassword(password);
+        return user.signUp().then(function (loginedUser) {
+            return loginedUser;
+        }, function (error) {
+            console.error(error);
+        });
+    }
+
+
+    // 登陆按钮 点击 事件
+    $('#loginWrapper input[type=button]').click(function () {
+        var account = $('#loginWrapper input[name=account]').val();
+        var password = $('#loginWrapper input[name=password]').val();
+        // console.log({account, password});
+        /*ajaxLogin(account, password).then(function(user){
+         console.log(user);
+         }, function(error){
+         });*/
+        console.log(account, password);
+        $.ajax({
+            url: 'http://110.64.211.64:8080/demo/user/login',
+            type: 'post',
+            data: {
+                username: account,
+                password: password
+            },
+            dataType: 'json',
+            success: function (respData) {
+                console.log(respData);
+            }
+        });
+    });
+
+    // 注册按钮 点击 事件
+    $('#registerWrapper input[type=button]').click(function () {
+        var account = $('#registerWrapper input[name=account]').val();
+        var password = $('#registerWrapper input[name=password]').val();
+        // console.log({account, password});
+        ajaxRegister(account, password).then(function (user) {
+            console.log(user);
+        }, function (error) {
+        });
+    });
+</script>
+</body>
+</html>
