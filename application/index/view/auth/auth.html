@@ -1,176 +1,71 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>登陆/注册</title>
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/auth.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="mobile-agent" content="format=html5; url=http://m.shuquge.com" />
+    <meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.shuquge.com" />
+    <title>用户登录</title>
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="/static/js/common.js"></script>
 </head>
 <body>
-
-<div class="wallpaper"></div>
-<div class="container">
-    <div class="auth" id="loginWrapper">
-        <h1 class="auth-title">登陆</h1>
-
-        <form id="login" class="auth-form" action="../index/index.html" method="post">
-            <div class="form-group">
-                <label for="account">Account</label>
-                <input class="form-control" type="text" name="account" value="" placeholder="账号">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input class="form-control" type="password" name="password" value="" placeholder="密码">
-            </div>
-            <div class="form-group">
-                <input class="btn btn-primary btn-block" type="button" value="登陆">
-
-                <div class="auth-link">
-                    <div style="float:left;">
-                        <a href="../index/index.html">&lt; 返回主页面</a>
-                    </div>
-                    <div style="float:right">
-                        <a onclick="toogleWrapper(1)">还没有账号?立即注册! &gt;</a>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <div class="auth" id="registerWrapper" style="display:none;">
-        <h1 class="auth-title">注册</h1>
-
-        <form id="register" class="auth-form" action="../index/index.html" method="post">
-            <div class="form-group">
-                <label for="account">Account</label>
-                <input class="form-control" type="text" name="account" value="" placeholder="账号">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input class="form-control" type="password" name="password" value="" placeholder="密码">
-            </div>
-            <div class="form-group">
-                <label for="password_confirm">Password Confirm</label>
-                <input class="form-control" type="password" name="password_confirm" value="" placeholder="确认密码">
-            </div>
-            <div class="form-group">
-                <input class="btn btn-primary btn-block" type="button" value="注册">
-
-                <div class="auth-link">
-                    <div style="float:left;">
-                        <a onclick="toogleWrapper(2)">&lt; 已有账号?立即登陆!</a>
-                    </div>
-                </div>
-            </div>
-        </form>
+<div class="header">
+    <div class="wrap">
+        <div class="logo">
+            <a href="/" title="书趣阁_笔趣阁">书趣阁_笔趣阁<em>www.shuquge.com</em></a>
+        </div>
+        <script>search();</script>
     </div>
 </div>
+<div class="nav">
+    <ul>
+        <li class="this"><a href="http://www.shuquge.com" title="书趣阁_笔趣阁">首页</a></li>
+        <li><a href="http://www.shuquge.com/category/1_1.html">玄幻</a></li>
+        <li><a href="http://www.shuquge.com/category/2_1.html">武侠</a></li>
+        <li><a href="http://www.shuquge.com/category/3_1.html">都市</a></li>
+        <li><a href="http://www.shuquge.com/category/4_1.html">历史</a></li>
+        <li><a href="http://www.shuquge.com/category/5_1.html">侦探</a></li>
+        <li><a href="http://www.shuquge.com/category/6_1.html">网游</a></li>
+        <li><a href="http://www.shuquge.com/category/7_1.html">科幻</a></li></li>
+        <li><a href="/top.html">排行榜</a></li>
+        <li><a href="/full/">全本</a></li>
+        <li><a href="/modules/article/bookcase.php">书架</a></li>
+    </ul>
+</div>
+<div class="clear"></div>
+<div class="wrap">
+    <br /><br />
+    <form name="frmlogin" method="post" action="/login.php?jumpurl=http%3A%2F%2Fwww.shuquge.com%2F">
+        <table class="grid" width="250" align="center">
+            <caption>用户登录</caption>
+            <tr align="center">
+                <td class="odd"><table width="100%" class="hide" border="0" cellspacing="0" cellpadding="5">
+                    <tr>
+                        <td width="37%" align="right" valign="middle">用户名：</td>
+                        <td width="63%"><input type="text" class="text" size="20" maxlength="30" style="width:120px" name="LoginForm[username]" onKeyPress="javascript: if (event.keyCode==32) return false;" ></td>
+                    </tr>
+                    <tr>
+                        <td align="right" valign="middle">密　码：</td>
+                        <td><input type="password" class="text" size="20" maxlength="30" style="width:120px" name="LoginForm[password]"></td>
+                    </tr>
 
-
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery-color/2.1.2/jquery.color.min.js"></script>
-<script src="http://cdn1.lncld.net/static/js/3.4.2/av-min.js"></script>
-<script src="./js/init.js"></script>
-<script src="./js/function.js"></script>
-<script type="text/javascript">
-    // 页面切换
-    function toogleWrapper(number) {
-        switch (number) {
-            case 1:
-                $('#loginWrapper').css('display', 'none');
-                $('#registerWrapper').css('display', 'block');
-                break;
-            case 2:
-                $('#registerWrapper').css('display', 'none');
-                $('#loginWrapper').css('display', 'block');
-                break;
-        }
-    }
-
-    // 页面壁纸定时更换 每7s 一次
-    var wallpaperId = 1;
-    var wallpaperTimer = setInterval(function () {
-        $(".wallpaper").stop().animate({opacity: '0.5'}, 2000);
-        wallpaperId++;
-        if (wallpaperId > 6)
-            wallpaperId = 1;
-        setTimeout(function () {
-            $(".wallpaper").css('background-image', 'url(./images/wallpaper/' + wallpaperId + '.jpg)');
-            $(".wallpaper").stop().animate({opacity: '1'}, 2000);
-        }, 2000);
-    }, 7000);
-
-    /**
-     * ajax登陆请求
-     * @param data object 登陆数据
-     * @param cb function 回调函数
-     * @description 登陆请求
-     * @author somebody
-     */
-    function ajaxLogin(account, password) {
-        return AV.User.logIn(account, password).then(function (loginedUser) {
-            return loginedUser;
-        }, function (error) {
-            console.error(error);
-        });
-    }
-
-    /**
-     * ajax注册请求
-     * @param data object 注册数据
-     * @param cb function 回调函数
-     * @description 注册请求
-     * @author somebody
-     */
-    function ajaxRegister(account, password) {
-        var user = new AV.User();
-        user.setUsername(account);
-        user.setPassword(password);
-        return user.signUp().then(function (loginedUser) {
-            return loginedUser;
-        }, function (error) {
-            console.error(error);
-        });
-    }
-
-
-    // 登陆按钮 点击 事件
-    $('#loginWrapper input[type=button]').click(function () {
-        var account = $('#loginWrapper input[name=account]').val();
-        var password = $('#loginWrapper input[name=password]').val();
-        // console.log({account, password});
-        /*ajaxLogin(account, password).then(function(user){
-         console.log(user);
-         }, function(error){
-         });*/
-        console.log(account, password);
-        $.ajax({
-            url: 'http://110.64.211.64:8080/demo/user/login',
-            type: 'post',
-            data: {
-                username: account,
-                password: password
-            },
-            dataType: 'json',
-            success: function (respData) {
-                console.log(respData);
-            }
-        });
-    });
-
-    // 注册按钮 点击 事件
-    $('#registerWrapper input[type=button]').click(function () {
-        var account = $('#registerWrapper input[name=account]').val();
-        var password = $('#registerWrapper input[name=password]').val();
-        // console.log({account, password});
-        ajaxRegister(account, password).then(function (user) {
-            console.log(user);
-        }, function (error) {
-        });
-    });
-</script>
+                    <tr>
+                        <td><input type="hidden" name="action" value="login"></td>
+                        <td><input type="submit" class="button" value="&nbsp;登&nbsp;&nbsp;录&nbsp;" name="submit"></td>
+                    </tr>
+                </table></td>
+            </tr>
+        </table>
+    </form><br /><br />
+</div>
+<div class="footer">
+    <hr />
+    <p>本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
+    <p>Copyright &copy; 2015 书趣阁_笔趣阁 All Rights Reserved.</p>
+    <script>tj();</script>
+</div>
 </body>
 </html>
