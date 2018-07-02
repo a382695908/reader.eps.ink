@@ -19,7 +19,6 @@
         <div class="logo">
             <a href="/" title="读读读_读读读">读读读_读读读<em>www.shuquge.com</em></a>
         </div>
-        <!--<script>search();</script>-->
         <div class="search">
             <form target="_blank" action="http://zhannei.baidu.com/cse/search" onsubmit="if(q.value==''){alert('提示：请输入小说名称或作者名字！');return false;}">
                 <input type="hidden" name="s" value="6445266503022880974"><input type="search" class="text" name="q" placeholder="小说名称、作者" value="">
@@ -31,630 +30,118 @@
 </div>
 <div class="nav">
     <ul>
-        <li class="this"><a href="" title="读读读_读读读">首页</a></li>
-        <li><a href="/category/1_1.html">玄幻</a></li>
-        <li><a href="/category/2_1.html">武侠</a></li>
-        <li><a href="/category/3_1.html">都市</a></li>
-        <li><a href="/category/4_1.html">历史</a></li>
-        <li><a href="/category/5_1.html">侦探</a></li>
-        <li><a href="/category/6_1.html">网游</a></li>
-        <li><a href="/category/7_1.html">科幻</a></li>
+        <li class="this"><a href="http://www.shuquge.com" title="读读读_读读读">首页</a></li>
+        {volist name="category_list" id="category"}
+            <li><a href="{$category.link}">{$category.alias}</a></li>
+        {/volist}
+
         <li><a href="/top.html">排行榜</a></li>
-        <li><a href="/full/">全本</a></li>
-        <li><a href="/modules/article/bookcase.php">书架</a></li>
+        <li><a href="{:url('/category/isend')}">全本</a></li>
+        <li><a href="{:url('/bookcase')}">书架</a></li>
     </ul>
 </div>
 <div class="clear"></div>
-<script type="text/javascript">top_bar();</script>
+
 <div class="wrap">
     <div class="hot">
         <div class="l bd">
-            <div class="item">
-                <div class="p10">
-                    <div class="image">
-                        <a href="/txt/63542/index.html" target="_blank"><img
-                                src="/files/article/image/63/63542/63542s.jpg" alt="三寸人间"/></a>
+            {volist name="hotest_list" id="hotest"}
+                <div class="item">
+                    <div class="p10">
+                        <div class="image">
+                            <a href="{$hotest.link}" target="_blank"><img src="{$hotest.cover}" alt="{$hotest.name}"/></a>
+                        </div>
+                        <dl>
+                            <dt>
+                                <span>{$hotest.author_name}</span>
+                                <a href="{$hotest.link}" target="_blank">{$hotest.name}</a>
+                            </dt>
+                            <dd>{$hotest.introduction}</dd>
+                        </dl>
                     </div>
-                    <dl>
-                        <dt>
-                            <span>耳根</span>
-                            <a href="/txt/63542/index.html" target="_blank">三寸人间</a>
-                        </dt>
-                        <dd>
-                            举头三尺无神明，掌心三寸是人间。这是耳根继《仙逆》《求魔》《我欲封天》《一念永恒》后，创作的第五部长篇小说《三寸人间》。
-                        </dd>
-                    </dl>
                 </div>
-            </div>
-            <div class="item">
-                <div class="p10">
-                    <div class="image">
-                        <a href="/txt/5809/index.html" target="_blank"><img
-                                src="/files/article/image/5/5809/5809s.jpg" alt="元尊"/></a>
-                    </div>
-                    <dl>
-                        <dt>
-                            <span>天蚕土豆</span>
-                            <a href="/txt/5809/index.html" target="_blank">元尊</a>
-                        </dt>
-                        <dd>
-                            吾有一口玄黄气，可吞天地日月星。天蚕土豆最新鼎力大作，2017年度必看玄幻小说。
-                        </dd>
-                    </dl>
-                </div>
-            </div>
-            <div class="item">
-                <div class="p10">
-                    <div class="image">
-                        <a href="/txt/8072/index.html" target="_blank"><img
-                                src="/files/article/image/8/8072/8072s.jpg" alt="飞剑问道"/></a>
-                    </div>
-                    <dl>
-                        <dt>
-                            <span>我吃西红柿</span>
-                            <a href="/txt/8072/index.html" target="_blank">飞剑问道</a>
-                        </dt>
-                        <dd>
-                            在这个世界，有狐仙、河神、水怪、大妖，也有求长生的修行者。 修行者们， 开法眼，可看妖魔鬼怪。 炼一口飞剑，可千里杀敌。 千里眼、顺风耳，更可探查四方。 ……
-                            秦府二公子‘秦云’，便是一位修行者……
-                        </dd>
-                    </dl>
-                </div>
-            </div>
-            <div class="item">
-                <div class="p10">
-                    <div class="image">
-                        <a href="/txt/8400/index.html" target="_blank"><img
-                                src="/files/article/image/8/8400/8400s.jpg" alt="凡人修仙传仙界篇"/></a>
-                    </div>
-                    <dl>
-                        <dt>
-                            <span>忘语</span>
-                            <a href="/txt/8400/index.html" target="_blank">凡人修仙传仙界篇</a>
-                        </dt>
-                        <dd>
-                            凡人修仙，风云再起时空穿梭，轮回逆转金仙太乙，大罗道祖三千大道，法则至尊《凡人修仙传》仙界篇，一个韩立叱咤仙界的故事，一个凡人小子修仙的不灭传说。
-                        </dd>
-                    </dl>
-                </div>
-            </div>
+            {/volist}
         </div>
         <div class="r bd">
             <h2>强力推荐</h2>
             <ul class="lis">
-                <li><span class="s1">[都市]</span><span class="s2"><a href="/txt/30668/index.html">修真聊天群</a></span><span
-                        class="s5">圣骑士的传说(书坊)</span></li>
-                <li><span class="s1">[玄幻]</span><span class="s2"><a href="/txt/8279/index.html">伏天氏</a></span><span
-                        class="s5">净无痕</span></li>
-                <li><span class="s1">[武侠]</span><span class="s2"><a href="/txt/8400/index.html">凡人修仙传仙界篇</a></span><span
-                        class="s5">忘语</span></li>
-                <li><span class="s1">[都市]</span><span class="s2"><a href="/txt/35077/index.html">极品全能学生</a></span><span
-                        class="s5">花都大少</span></li>
-                <li><span class="s1">[其他]</span><span class="s2"><a href="/txt/13139/index.html">修真四万年</a></span><span
-                        class="s5">卧牛真人</span></li>
-                <li><span class="s1">[网游]</span><span class="s2"><a href="/txt/76767/index.html">绿茵人生</a></span><span
-                        class="s5">半世散人</span></li>
-                <li><span class="s1">[玄幻]</span><span class="s2"><a href="/txt/75724/index.html">都市至强者降临</a></span><span
-                        class="s5">极地风刃</span></li>
-                <li><span class="s1">[网游]</span><span class="s2"><a href="/txt/75773/index.html">海贼：厌世之歌</a></span><span
-                        class="s5">农夫一拳</span></li>
-                <li><span class="s1">[武侠]</span><span class="s2"><a href="/txt/74440/index.html">最强神话帝皇</a></span><span
-                        class="s5">任我笑</span></li>
+                {volist name="hot_list" id="hot"}
+                    <li><span class="s1">[{$hot.category_alias}]</span><span class="s2"><a href="{$hot.link}">{$hot.name}</a></span><span class="s5">{$hot.author_name}</span></li>
+                {/volist}
             </ul>
         </div>
     </div>
     <div class="type bd">
+        {volist name="category_novel_list" id="category_novel"}
         <div class="block">
-            <h2>玄幻魔法</h2>
+            <h2>{$category_novel.name}</h2>
 
             <div class="p10">
                 <div class="top">
                     <div class="image">
-                        <a href="/txt/74440/index.html" target="_blank"><img
-                                src="/files/article/image/8/8279/8279s.jpg" alt="伏天氏"/></a>
+                        <a href="{$category_novel.top_novel.novel_link}" target="_blank"><img src="{$category_novel.top_novel.cover}" alt="{$category_novel.top_novel.name}"/></a>
                     </div>
                     <dl>
                         <dt>
-                            <a href="/txt/8279/index.html" target="_blank">伏天氏</a>
+                            <a href="{$category_novel.top_novel.novel_link}" target="_blank">{$category_novel.top_novel.name}</a>
                         </dt>
-                        <dd>
-                            东方神州，有人皇立道统，有圣贤宗门传道，有诸侯雄踞一方王国，诸强林立，神州动乱千万载，执此之时，一代天骄叶青帝及东凰大帝横空出世，斩人皇，驭圣贤，诸侯臣服，东方神州一统！
-                            然，叶青帝忽然暴毙，世间雕像尽皆被毁，于世间除名，沦为禁忌；从此神州唯东凰大帝独尊！ 十五年后，东海青州城，一名为叶伏天的少年，开启了他的传奇之路…
-                        </dd>
+                        <dd>{$category_novel.top_novel.introduction}</dd>
                     </dl>
                 </div>
                 <ul>
-                    <li><a href="/txt/75724/index.html" target="_blank"
-                           title="都市至强者降临">都市至强者降临</a>/极地风刃
-                    </li>
-                    <li><a href="/txt/38287/index.html" target="_blank" title="逆剑狂神">逆剑狂神</a>/一剑清新
-                    </li>
-                    <li><a href="/txt/5809/index.html" target="_blank" title="元尊">元尊</a>/天蚕土豆</li>
-                    <li><a href="/txt/38178/index.html" target="_blank" title="武破九荒">武破九荒</a>/无敌小贝
-                    </li>
-                    <li><a href="/txt/17684/index.html" target="_blank" title="全职法师">全职法师</a>/乱
-                    </li>
-                    <li><a href="/txt/41102/index.html" target="_blank" title="神道丹尊">神道丹尊</a>/孤单地飞
-                    </li>
-                    <li><a href="/txt/49177/index.html" target="_blank" title="不灭龙帝">不灭龙帝</a>/妖夜
-                    </li>
-                    <li><a href="/txt/76020/index.html" target="_blank" title="异能小神农">异能小神农</a>/张家三叔
-                    </li>
-                    <li><a href="/txt/80454/index.html" target="_blank" title="崛起诸天">崛起诸天</a>/冬日之阳
-                    </li>
-                    <li><a href="/txt/53240/index.html" target="_blank" title="民调局异闻录之勉传">民调局异闻录之勉传</a>/耳东水寿
-                    </li>
-                    <li><a href="/txt/80243/index.html" target="_blank" title="法师亚当">法师亚当</a>/流泪的啤酒
-                    </li>
-                    <li><a href="/txt/248/index.html" target="_blank" title="武炼巅峰">武炼巅峰</a>/莫默
-                    </li>
+                    {volist name="category_novel.novels" id="novel"}
+                        <li><a href="{$novel.novel_link}" target="_blank" title="{$novel.name}">{$novel.name}</a>/{$novel.author_name}</li>
+                    {/volist}
                 </ul>
             </div>
         </div>
-        <div class="block">
-            <h2>武侠修真</h2>
+        {/volist}
 
-            <div class="p10">
-                <div class="top">
-                    <div class="image">
-                        <a href="/txt/248/index.html" target="_blank"><img
-                                src="/files/article/image/8/8400/8400s.jpg" alt="凡人修仙传仙界篇"/></a>
-                    </div>
-                    <dl>
-                        <dt>
-                            <a href="/txt/8400/index.html" target="_blank">凡人修仙传仙界篇</a>
-                        </dt>
-                        <dd>
-                            凡人修仙，风云再起时空穿梭，轮回逆转金仙太乙，大罗道祖三千大道，法则至尊《凡人修仙传》仙界篇，一个韩立叱咤仙界的故事，一个凡人小子修仙的不灭传说。
-                        </dd>
-                    </dl>
-                </div>
-                <ul>
-                    <li><a href="/txt/74440/index.html" target="_blank" title="最强神话帝皇">最强神话帝皇</a>/任我笑
-                    </li>
-                    <li><a href="/txt/8072/index.html" target="_blank" title="飞剑问道">飞剑问道</a>/我吃西红柿
-                    </li>
-                    <li><a href="/txt/78930/index.html" target="_blank" title="木仙传">木仙传</a>/淡淡竹君
-                    </li>
-                    <li><a href="/txt/76853/index.html" target="_blank" title="大仙木">大仙木</a>/许轩陌
-                    </li>
-                    <li><a href="/txt/63542/index.html" target="_blank" title="三寸人间">三寸人间</a>/耳根
-                    </li>
-                    <li><a href="/txt/79041/index.html" target="_blank" title="江湖奇功录">江湖奇功录</a>/寒刀客
-                    </li>
-                    <li><a href="/txt/343/index.html" target="_blank" title="莽荒纪">莽荒纪</a>/我吃西红柿
-                    </li>
-                    <li><a href="/txt/74671/index.html" target="_blank" title="仙逆">仙逆</a>/耳根</li>
-                    <li><a href="/txt/78748/index.html" target="_blank" title="反套路快穿">反套路快穿</a>/良心
-                    </li>
-                    <li><a href="/txt/74966/index.html" target="_blank" title="细胞修神">细胞修神</a>/中华娇子大熊猫
-                    </li>
-                    <li><a href="/txt/2777/index.html" target="_blank" title="蛊真人">蛊真人</a>/蛊真人
-                    </li>
-                    <li><a href="/txt/78790/index.html" target="_blank" title="天神学院">天神学院</a>/写字板
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="block">
-            <h2>都市言情</h2>
-
-            <div class="p10">
-                <div class="top">
-                    <div class="image">
-                        <a href="/txt/78790/index.html" target="_blank"><img
-                                src="/files/article/image/30/30668/30668s.jpg" alt="修真聊天群"/></a>
-                    </div>
-                    <dl>
-                        <dt>
-                            <a href="/txt/30668/index.html" target="_blank">修真聊天群</a>
-                        </dt>
-                        <dd>
-                            某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。
-                            突然有一天，潜水良久的他突然发现……群里每一个群员，竟然全部是修真者，能移山倒海、长生千年的那种！
-                            啊啊啊啊，世界观在一夜间彻底崩碎啦！
-                        </dd>
-                    </dl>
-                </div>
-                <ul>
-                    <li><a href="/txt/35077/index.html" target="_blank" title="极品全能学生">极品全能学生</a>/花都大少
-                    </li>
-                    <li><a href="/txt/29752/index.html" target="_blank" title="近身狂兵">近身狂兵</a>/潇铭
-                    </li>
-                    <li><a href="/txt/43157/index.html" target="_blank" title="乡村艳妇">乡村艳妇</a>/叱咤风云
-                    </li>
-                    <li><a href="/txt/76138/index.html" target="_blank" title="重生之超级银行系统">重生之超级银行系统</a>/6号鼠标
-                    </li>
-                    <li><a href="/txt/58724/index.html" target="_blank" title="我的1979">我的1979</a>/争斤论两花花帽
-                    </li>
-                    <li><a href="/txt/67529/index.html" target="_blank" title="天庭小狱卒">天庭小狱卒</a>/零九二五
-                    </li>
-                    <li><a href="/txt/67262/index.html" target="_blank"
-                           title="我的冰山总裁老婆">我的冰山总裁老婆</a>/黄枫雨天
-                    </li>
-                    <li><a href="/txt/5873/index.html" target="_blank" title="还看今朝">还看今朝</a>/瑞根
-                    </li>
-                    <li><a href="/txt/1859/index.html" target="_blank" title="都市特种兵">都市特种兵</a>/无冬夜
-                    </li>
-                    <li><a href="/txt/75102/index.html" target="_blank" title="重生之大娱乐家系统">重生之大娱乐家系统</a>/潇潇清枫
-                    </li>
-                    <li><a href="/txt/75712/index.html" target="_blank"
-                           title="重塑人生三十年">重塑人生三十年</a>/皇家雇佣猫
-                    </li>
-                    <li><a href="/txt/67730/index.html" target="_blank" title="绝品透视眼">绝品透视眼</a>/莫辰子
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="block">
-            <h2>历史军事</h2>
-
-            <div class="p10">
-                <div class="top">
-                    <div class="image">
-                        <a href="/txt/67730/index.html" target="_blank"><img
-                                src="/files/article/image/76/76964/76964s.jpg" alt="绝对荣誉"/></a>
-                    </div>
-                    <dl>
-                        <dt>
-                            <a href="/txt/76964/index.html" target="_blank">绝对荣誉</a>
-                        </dt>
-                        <dd>
-                            这是一支没有番号的绝密部队，却是华夏最强大又最神秘的特种作战力量，每一名顶尖的特种兵都以能加入这支精英中的精英部队为荣。
-                            上等兵秦飞第一天走进这支部队的基地时，在那堵镶嵌着红色五星的白色大理石墙前站了许久，白色的墙上镌刻着一句话：你们的名字无人知晓，你们的功绩与世长存！
-                            很久之后他才发现墙的背面还刻着另一句话——我唯一的遗憾，就是只有一次生命可以献给祖国！
-                        </dd>
-                    </dl>
-                </div>
-                <ul>
-                    <li><a href="/txt/73627/index.html" target="_blank" title="山沟皇帝">山沟皇帝</a>/雨天下雨
-                    </li>
-                    <li><a href="/txt/74686/index.html" target="_blank" title="崇祯聊天群">崇祯聊天群</a>/叫天
-                    </li>
-                    <li><a href="/txt/79296/index.html" target="_blank"
-                           title="重生之战神吕布">重生之战神吕布</a>/流浪的猴
-                    </li>
-                    <li><a href="/txt/74243/index.html" target="_blank" title="新特工学生">新特工学生</a>/王大忽悠
-                    </li>
-                    <li><a href="/txt/38135/index.html" target="_blank" title="寒门贵子">寒门贵子</a>/地黄丸
-                    </li>
-                    <li><a href="/txt/81377/index.html" target="_blank" title="帝国吃相">帝国吃相</a>/牧尘客
-                    </li>
-                    <li><a href="/txt/1647/index.html" target="_blank" title="宰执天下">宰执天下</a>/cuslaa
-                    </li>
-                    <li><a href="/txt/77301/index.html" target="_blank" title="不朽大皇帝">不朽大皇帝</a>/沙眸
-                    </li>
-                    <li><a href="/txt/75180/index.html" target="_blank" title="红楼名侦探">红楼名侦探</a>/嗷世巅锋
-                    </li>
-                    <li><a href="/txt/79710/index.html" target="_blank" title="至尊特工">至尊特工</a>/8难
-                    </li>
-                    <li><a href="/txt/9553/index.html" target="_blank" title="唐砖">唐砖</a>/孑与2</li>
-                    <li><a href="/txt/74049/index.html" target="_blank"
-                           title="大唐贞观第一纨绔">大唐贞观第一纨绔</a>/危险的世界
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="block">
-            <h2>侦探推理</h2>
-
-            <div class="p10">
-                <div class="top">
-                    <div class="image">
-                        <a href="/txt/74049/index.html" target="_blank"><img
-                                src="/files/article/image/41/41188/41188s.jpg" alt="极灵混沌决"/></a>
-                    </div>
-                    <dl>
-                        <dt>
-                            <a href="/txt/41188/index.html" target="_blank">极灵混沌决</a>
-                        </dt>
-                        <dd>
-                        </dd>
-                    </dl>
-                </div>
-                <ul>
-                    <li><a href="/txt/38478/index.html" target="_blank" title="劫天运">劫天运</a>/浮梦流年
-                    </li>
-                    <li><a href="/txt/42939/index.html" target="_blank" title="情天可补">情天可补</a>/木士
-                    </li>
-                    <li><a href="/txt/42828/index.html" target="_blank"
-                           title="三国之兵临天下">三国之兵临天下</a>/高月
-                    </li>
-                    <li><a href="/txt/37745/index.html" target="_blank" title="阴阳师秘录">阴阳师秘录</a>/北国之鸟
-                    </li>
-                    <li><a href="/txt/41956/index.html" target="_blank" title="无上传承">无上传承</a>/落尘
-                    </li>
-                    <li><a href="/txt/58449/index.html" target="_blank" title="魔兽战神">魔兽战神</a>/龙人
-                    </li>
-                    <li><a href="/txt/39016/index.html" target="_blank" title="麻衣神算子">麻衣神算子</a>/骑马钓鱼
-                    </li>
-                    <li><a href="/txt/43163/index.html" target="_blank" title="风杀">风杀</a>/凭栏望北斗
-                    </li>
-                    <li><a href="/txt/58490/index.html" target="_blank" title="侠盗神医">侠盗神医</a>/风雨白鸽
-                    </li>
-                    <li><a href="/txt/42926/index.html" target="_blank" title="黄巾战三国">黄巾战三国</a>/太平道主
-                    </li>
-                    <li><a href="/txt/43426/index.html" target="_blank"
-                           title="网游之异世剑神">网游之异世剑神</a>/飞瓜
-                    </li>
-                    <li><a href="/txt/73228/index.html" target="_blank" title="国师重生之都市风水师">国师重生之都市风水师</a>/秦弄月
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="block">
-            <h2>网游动漫</h2>
-
-            <div class="p10">
-                <div class="top">
-                    <div class="image">
-                        <a href="/txt/73228/index.html" target="_blank"><img
-                                src="/files/article/image/76/76767/76767s.jpg" alt="绿茵人生"/></a>
-                    </div>
-                    <dl>
-                        <dt>
-                            <a href="/txt/76767/index.html" target="_blank">绿茵人生</a>
-                        </dt>
-                        <dd>
-                            足球作为爱好兴趣是很纯粹的快乐，很多男孩子年少时都有一个足球梦，无关其他，只是追求驰骋的喜悦与满足.......
-                        </dd>
-                    </dl>
-                </div>
-                <ul>
-                    <li><a href="/txt/75773/index.html" target="_blank"
-                           title="海贼：厌世之歌">海贼：厌世之歌</a>/农夫一拳
-                    </li>
-                    <li><a href="/txt/79077/index.html" target="_blank"
-                           title="奶爸的异界餐厅">奶爸的异界餐厅</a>/轻语江湖
-                    </li>
-                    <li><a href="/txt/75850/index.html" target="_blank"
-                           title="网游之神级炼妖师">网游之神级炼妖师</a>/青烟一夜
-                    </li>
-                    <li><a href="/txt/75907/index.html" target="_blank" title="最强齐天大圣">最强齐天大圣</a>/九尾玄龟
-                    </li>
-                    <li><a href="/txt/75881/index.html" target="_blank" title="时崎狂三的位面之旅">时崎狂三的位面之旅</a>/礼祐
-                    </li>
-                    <li><a href="/txt/78112/index.html" target="_blank" title="一拳超人之帝王引擎">一拳超人之帝王引擎</a>/我是贝币
-                    </li>
-                    <li><a href="/txt/80261/index.html" target="_blank" title="火影之英雄历练系统">火影之英雄历练系统</a>/咖啡香味
-                    </li>
-                    <li><a href="/txt/75036/index.html" target="_blank" title="宠物小精灵之全球在线">宠物小精灵之全球在线</a>/小小鲤鱼王
-                    </li>
-                    <li><a href="/txt/70209/index.html" target="_blank" title="网游之逍遥派大弟子">网游之逍遥派大弟子</a>/十年狂欢
-                    </li>
-                    <li><a href="/txt/75346/index.html" target="_blank" title="火影神树之果在异界">火影神树之果在异界</a>/天妒遗计
-                    </li>
-                    <li><a href="/txt/76330/index.html" target="_blank"
-                           title="篮球之天赋系统">篮球之天赋系统</a>/快没时间了1
-                    </li>
-                    <li><a href="/txt/79902/index.html" target="_blank" title="最强海贼猎人">最强海贼猎人</a>/舒萌萌萌
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
     <div class="up">
         <div class="l bd">
             <h2> 最近更新小说列表</h2>
             <ul>
-                <li><span class="s1">[都市言情]</span><span class="s2"><a
-                        href="/txt/29752/index.html">近身狂兵</a></span><span class="s3"><a
-                        href="/txt/29752/17345594.html">正文 第2525章 蛇精【第二更】</a></span><span
-                        class="s4">潇铭</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[玄幻魔法]</span><span class="s2"><a
-                        href="/txt/14786/index.html">玄动武魂</a></span><span class="s3"><a
-                        href="/txt/14786/17345592.html">第四百零三章 得手</a></span><span
-                        class="s4">沉默的番薯</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[武侠修真]</span><span class="s2"><a
-                        href="/txt/63028/index.html">萌娘神话世界</a></span><span class="s3"><a
-                        href="/txt/63028/17345591.html">第335章 百圣心塔，风行草偃</a></span><span
-                        class="s4">她酷的像冰</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[玄幻魔法]</span><span class="s2"><a
-                        href="/txt/11881/index.html">步步通天</a></span><span class="s3"><a
-                        href="/txt/11881/17345590.html">第六百九十九章 轻松击败王天（上）</a></span><span
-                        class="s4">我要做</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[都市言情]</span><span class="s2"><a
-                        href="/txt/73986/index.html">我被挖出来了</a></span><span class="s3"><a
-                        href="/txt/73986/17345589.html">第二百四十二章 小姐你快跑</a></span><span class="s4">麦丞</span><span
-                        class="s5">07-02</span></li>
-                <li><span class="s1">[玄幻魔法]</span><span class="s2"><a
-                        href="/txt/57473/index.html">人皇纪</a></span><span class="s3"><a
-                        href="/txt/57473/17345588.html">第一千二百五十二章 浮出水面！</a></span><span
-                        class="s4">皇甫奇</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[网游动漫]</span><span class="s2"><a
-                        href="/txt/26778/index.html">网游之绝学</a></span><span class="s3"><a
-                        href="/txt/26778/17345585.html">第七百七十七章 遍地高手</a></span><span
-                        class="s4">依郁</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[科幻灵异]</span><span class="s2"><a
-                        href="/txt/75166/index.html">全能庄园</a></span><span class="s3"><a
-                        href="/txt/75166/17345584.html">第842章：那逊利亚军工集团</a></span><span class="s4">君不见</span><span
-                        class="s5">07-02</span></li>
-                <li><span class="s1">[玄幻魔法]</span><span class="s2"><a
-                        href="/txt/42223/index.html">战神联盟之黑暗帝国</a></span><span class="s3"><a
-                        href="/txt/42223/17345582.html">第三百三十三章 战斗开始</a></span><span class="s4">绽放在血泊中的野蔷薇</span><span
-                        class="s5">07-02</span></li>
-                <li><span class="s1">[玄幻魔法]</span><span class="s2"><a
-                        href="/txt/74317/index.html">仙界科技</a></span><span class="s3"><a
-                        href="/txt/74317/17345581.html">第七百二十二章 真牛逼，不解释！</a></span><span
-                        class="s4">想枕头的瞌睡</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[玄幻魔法]</span><span class="s2"><a href="/txt/1092/index.html">百炼飞升录</a></span><span
-                        class="s3"><a href="/txt/1092/17345580.html">第四千九百六十五章 丹成</a></span><span
-                        class="s4">虚眞</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[都市言情]</span><span class="s2"><a
-                        href="/txt/74108/index.html">超级村主任</a></span><span class="s3"><a
-                        href="/txt/74108/17345578.html">第一百七十三章福德足球队</a></span><span class="s4">和光万物</span><span
-                        class="s5">07-02</span></li>
-                <li><span class="s1">[其他类型]</span><span class="s2"><a href="/txt/3598/index.html">官场特种兵</a></span><span
-                        class="s3"><a href="/txt/3598/17345577.html">第3058章 多头作战</a></span><span
-                        class="s4">天机变</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[都市言情]</span><span class="s2"><a href="/txt/741/index.html">宦海特种兵</a></span><span
-                        class="s3"><a href="/txt/741/17345574.html">第3058章 多头作战</a></span><span
-                        class="s4">天机变</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[其他类型]</span><span class="s2"><a href="/txt/3530/index.html">入仕</a></span><span
-                        class="s3"><a href="/txt/3530/17345571.html">第三章 奥斯卡演帝</a></span><span
-                        class="s4">寂寞一刀</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[玄幻魔法]</span><span class="s2"><a href="/txt/5809/index.html">元尊</a></span><span
-                        class="s3"><a href="/txt/5809/17345568.html">正文 第四百七十七章
-                    七大首席</a></span><span class="s4">天蚕土豆</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[网游动漫]</span><span class="s2"><a
-                        href="/txt/74924/index.html">变身国民女神</a></span><span class="s3"><a
-                        href="/txt/74924/17345567.html">第一百三十一章 关于v家的消息</a></span><span
-                        class="s4">半步深渊</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[其他类型]</span><span class="s2"><a
-                        href="/txt/70537/index.html">乡村小神医</a></span><span class="s3"><a
-                        href="/txt/70537/17345566.html">正文 第一千一百四十四章 一招镇压</a></span><span
-                        class="s4">赤焰神歌</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[其他类型]</span><span class="s2"><a
-                        href="/txt/10717/index.html">都市最强仙医</a></span><span class="s3"><a
-                        href="/txt/10717/17345564.html">正文 第2389章 铸造仙舟</a></span><span class="s4">菜农种菜</span><span
-                        class="s5">07-02</span></li>
-                <li><span class="s1">[历史军事]</span><span class="s2"><a href="/txt/835/index.html">渔色大宋</a></span><span
-                        class="s3"><a href="/txt/835/17345563.html">第917章：人渣</a></span><span
-                        class="s4">阿巽</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[侦探推理]</span><span class="s2"><a
-                        href="/txt/38478/index.html">劫天运</a></span><span class="s3"><a
-                        href="/txt/38478/17345562.html">第三千八百四十一章：弃子</a></span><span class="s4">浮梦流年</span><span
-                        class="s5">07-02</span></li>
-                <li><span class="s1">[网游动漫]</span><span class="s2"><a href="/txt/6149/index.html">王者时刻</a></span><span
-                        class="s3"><a href="/txt/6149/17345561.html">第六十章 声东击西</a></span><span
-                        class="s4">蝴蝶蓝</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[都市言情]</span><span class="s2"><a
-                        href="/txt/35102/index.html">超品战兵</a></span><span class="s3"><a
-                        href="/txt/35102/17345560.html">第2390章 帮萧思夏破心魔</a></span><span class="s4">梁不凡</span><span
-                        class="s5">07-02</span></li>
-                <li><span class="s1">[玄幻魔法]</span><span class="s2"><a
-                        href="/txt/53240/index.html">民调局异闻录之勉传</a></span><span class="s3"><a
-                        href="/txt/53240/17345557.html">第二百四十八章 传说当中的人和事</a></span><span
-                        class="s4">耳东水寿</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[都市言情]</span><span class="s2"><a
-                        href="/txt/27614/index.html">特种教师</a></span><span class="s3"><a
-                        href="/txt/27614/17345556.html">第3316章 显威</a></span><span
-                        class="s4">我本疯狂</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[都市言情]</span><span class="s2"><a href="/txt/1220/index.html">特种教师</a></span><span
-                        class="s3"><a href="/txt/1220/17345555.html">第3316章 显威</a></span><span
-                        class="s4">黑暗崛起</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[玄幻魔法]</span><span class="s2"><a href="/txt/541/index.html">不灭武尊</a></span><span
-                        class="s3"><a
-                        href="/txt/541/17345554.html">第四千六百九十八章　风水轮流转</a></span><span class="s4">梁家三少</span><span
-                        class="s5">07-02</span></li>
-                <li><span class="s1">[玄幻魔法]</span><span class="s2"><a
-                        href="/txt/28492/index.html">帝临鸿蒙</a></span><span class="s3"><a
-                        href="/txt/28492/17345553.html">第两千三百八十四章 密境深处，无尽残破</a></span><span
-                        class="s4">为尹染墨红尘</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[玄幻魔法]</span><span class="s2"><a
-                        href="/txt/60866/index.html">一世独尊</a></span><span class="s3"><a
-                        href="/txt/60866/17345552.html">正文 第八百七十六章 韬光养晦</a></span><span
-                        class="s4">月如火</span><span class="s5">07-02</span></li>
-                <li><span class="s1">[都市言情]</span><span class="s2"><a href="/txt/8556/index.html">医等狂兵</a></span><span
-                        class="s3"><a href="/txt/8556/17345551.html">正文 第八百七十三章
-                    要饭的</a></span><span class="s4">覆手</span><span class="s5">07-02</span></li>
+                {volist name="latest_updated_list" id="novel"}
+                <li>
+                    <span class="s1">[{$novel.category_name}]</span>
+                    <span class="s2">
+                        <a href="{$novel.novel_link}">{$novel.name}</a>
+                    </span>
+                    <span class="s3">
+                        <a href="{$novel.chapter_link}">{$novel.chapter_name}</a>
+                    </span>
+                    <span class="s4">{$novel.author_name}</span>
+                    <span class="s5">{$novel.updateAt}</span>
+                </li>
+                {/volist}
             </ul>
         </div>
         <div class="r bd">
             <h2>最新入库小说</h2>
             <ul>
-                <li><span class="s1">[都市]</span><span class="s2"><a href="/txt/81801/index.html">黑科技奶爸</a></span><span
-                        class="s5">宝石妖</span></li>
-                <li><span class="s1">[科幻]</span><span class="s2"><a href="/txt/81791/index.html">诸天投影</a></span><span
-                        class="s5">裴屠狗</span></li>
-                <li><span class="s1">[科幻]</span><span class="s2"><a href="/txt/81795/index.html">带着星际闯美幻</a></span><span
-                        class="s5">位面劫匪</span></li>
-                <li><span class="s1">[都市]</span><span class="s2"><a href="/txt/81786/index.html">重生之先声夺人</a></span><span
-                        class="s5">吹个大气球9</span></li>
-                <li><span class="s1">[科幻]</span><span class="s2"><a href="/txt/81803/index.html">明日支配者</a></span><span
-                        class="s5">杨平安</span></li>
-                <li><span class="s1">[都市]</span><span class="s2"><a href="/txt/81810/index.html">找到个宝藏</a></span><span
-                        class="s5">符宝</span></li>
-                <li><span class="s1">[科幻]</span><span class="s2"><a href="/txt/81814/index.html">末世狂喵</a></span><span
-                        class="s5">捕梦者</span></li>
-                <li><span class="s1">[武侠]</span><span class="s2"><a href="/txt/81811/index.html">一品修仙</a></span><span
-                        class="s5">不放心油条</span></li>
-                <li><span class="s1">[武侠]</span><span class="s2"><a href="/txt/81793/index.html">大夏纪</a></span><span
-                        class="s5">博耀</span></li>
-                <li><span class="s1">[都市]</span><span class="s2"><a href="/txt/81805/index.html">工业之王</a></span><span
-                        class="s5">隐为者</span></li>
-                <li><span class="s1">[历史]</span><span class="s2"><a href="/txt/81794/index.html">诗与刀</a></span><span
-                        class="s5">祝家大郎</span></li>
-                <li><span class="s1">[网游]</span><span class="s2"><a href="/txt/81789/index.html">落地一把98K</a></span><span
-                        class="s5">Iced子夜</span></li>
-                <li><span class="s1">[历史]</span><span class="s2"><a href="/txt/81809/index.html">手眼通天</a></span><span
-                        class="s5">暗形</span></li>
-                <li><span class="s1">[都市]</span><span class="s2"><a href="/txt/81797/index.html">重生之商霸两界</a></span><span
-                        class="s5">520农民</span></li>
-                <li><span class="s1">[玄幻]</span><span class="s2"><a href="/txt/81796/index.html">神话现实</a></span><span
-                        class="s5">江山如此多娇引无数英雄竞折腰</span></li>
-                <li><span class="s1">[玄幻]</span><span class="s2"><a href="/txt/81812/index.html">奶爸的歼星舰</a></span><span
-                        class="s5">继续倔强</span></li>
-                <li><span class="s1">[玄幻]</span><span class="s2"><a href="/txt/81802/index.html">一战惊九霄</a></span><span
-                        class="s5">夜雨闻铃0</span></li>
-                <li><span class="s1">[科幻]</span><span class="s2"><a href="/txt/81788/index.html">电视剧世界</a></span><span
-                        class="s5">五方行尽</span></li>
-                <li><span class="s1">[网游]</span><span class="s2"><a href="/txt/81799/index.html">网游大相师</a></span><span
-                        class="s5">我知鱼之乐</span></li>
-                <li><span class="s1">[都市]</span><span class="s2"><a href="/txt/81792/index.html">超级城市制造商</a></span><span
-                        class="s5">俗人汪</span></li>
-                <li><span class="s1">[科幻]</span><span class="s2"><a href="/txt/81813/index.html">超级母舰</a></span><span
-                        class="s5">空长青</span></li>
-                <li><span class="s1">[都市]</span><span class="s2"><a href="/txt/81804/index.html">夺标</a></span><span
-                        class="s5">飞翔的浪漫</span></li>
-                <li><span class="s1">[玄幻]</span><span class="s2"><a href="/txt/81807/index.html">异域降生</a></span><span
-                        class="s5">极冷</span></li>
-                <li><span class="s1">[玄幻]</span><span class="s2"><a href="/txt/81787/index.html">天行战记</a></span><span
-                        class="s5">七十二编</span></li>
-                <li><span class="s1">[武侠]</span><span class="s2"><a href="/txt/81815/index.html">超级无上至尊</a></span><span
-                        class="s5">棒扫乾坤</span></li>
-                <li><span class="s1">[网游]</span><span class="s2"><a href="/txt/81800/index.html">我最讨厌女人了</a></span><span
-                        class="s5">妙笔生污</span></li>
-                <li><span class="s1">[科幻]</span><span class="s2"><a href="/txt/81808/index.html">位面之召唤大军</a></span><span
-                        class="s5">疯狂的K</span></li>
-                <li><span class="s1">[玄幻]</span><span class="s2"><a href="/txt/81806/index.html">万能数据</a></span><span
-                        class="s5">鸿尘逍遥</span></li>
-                <li><span class="s1">[都市]</span><span class="s2"><a href="/txt/81798/index.html">文娱大戏精</a></span><span
-                        class="s5">何忙忙</span></li>
-                <li><span class="s1">[历史]</span><span class="s2"><a href="/txt/81790/index.html">战国野心家</a></span><span
-                        class="s5">最后一个名</span></li>
+                {volist name="latest_created_list" id="novel"}
+                <li>
+                    <span class="s1">[{$novel.category_alias}]</span>
+                    <span class="s2">
+                        <a href="{$novel.novel_link}">{$novel.name}</a>
+                    </span>
+                    <span class="s5">{$novel.author_name}</span>
+                </li>
+                {/volist}
             </ul>
         </div>
     </div>
 </div>
 <div class="footer">
     <div class="link">
-        <a href="/txt/5809/index.html" target="_blank" style="color:">元尊</a>、
-        <a href="/txt/8072/index.html" target="_blank" style="color:">飞剑问道</a>、
-        <a href="http://www.dy898.com" target="_blank" style="color:">电影898</a>、
-        <a href="http://www.xinqing100.net" target="_blank" style="color:">京师心晴网</a>、
-        <a href="http://www.xuanshu.cc" target="_blank" style="color:">选书网</a>、
-        <a href="http://www.kanshuhai.com" target="_blank" style="color:">看书海小说网</a>、
-        <a href="http://www.yxgdzs.com" target="_blank" style="color:">云轩阁</a>、
-        <a href="http://www.badcatxt.com" target="_blank" style="color:">幽默笑话</a>、
-        <a href="http://www.qmshu.com" target="_blank" style="color:">小说网站</a>、
-        <a href="http://www.gc022.com" target="_blank" style="color:">龙腾小说网</a>、
-        <a href="http://www.fenghai5.com" target="_blank" style="color:">枫海文学</a>、
-        <a href="http://923wx.com" target="_blank" style="color:">就爱上文学</a>、
-        <a href="http://www.z1z1.net" target="_blank" style="color:">耽美小说</a>、
-        <a href="http://www.022003.com" target="_blank" style="color:">读读读小说网</a>、
-        <a href="http://www.mxgwx.com/" target="_blank" style="color:">墨香阁文学</a>、
-        <a href="http://www.mowenfu.com/" target="_blank" style="color:">墨文府</a>、
-        <a href="http://www.tutufu.com/" target="_blank" style="color:">耽美漫画</a>、
-        <a href="http://www.5hxn.com/" target="_blank" style="color:">五号影院</a>、
-        <a href="http://www.aichaobao.com/" target="_blank" style="color:">手抄报</a>、
-        <a href="http://www.nsnovel.com/" target="_blank" style="color:">女生小说</a>、
-        <a href="http://www.rijixinqing.com/" target="_blank" style="color:">经典语录</a>、
-        <a href="http://www.txt68.com/" target="_blank" style="color:">免费小说阅读网</a>、
-        <a href="http://lafulafu.com.cn/" target="_blank" style="color:">时尚杂志</a>、
-        <a href="http://www.novmat.com/" target="_blank" style="color:">如何写小说</a>、
-        <a href="http://www.shuqii.com/" target="_blank" style="color:">书旗小说</a>、
-        <a href="http://www.xiuvi.com/" target="_blank" style="color:">女生小说网</a>、
-        <a href="http://www.shuquwu.com/" target="_blank" style="color:">书趣屋</a>、
-        <a href="/" target="_blank" style="color:">读读读_读读读</a>、
-        <a href="/txt/5809/index.html" target="_blank" style="color:">元尊最新章节</a>、
-        <a href="/txt/8072/index.html" target="_blank" style="color:">飞剑问道最新章节</a>
+        {volist name="friend_links" id="link"}
+            <a href="{$link.link}" target="_blank">{$link.name}</a>
+        {/volist}
     </div>
     <hr/>
     <p>本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
-
-    <p>Copyright &copy; 2015 读读读_读读读 All Rights Reserved.</p>
-    <script>tj();</script>
+    <p>Copyright &copy; 2018 读读读_读读读 All Rights Reserved.</p>
 </div>
 </body>
 </html>

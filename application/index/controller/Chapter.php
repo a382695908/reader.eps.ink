@@ -3,7 +3,7 @@ namespace app\index\controller;
 
 use think\Controller;
 
-class Character extends Controller {
+class Chapter extends Controller {
 
     public function index($id) {
         $id = intval($id);

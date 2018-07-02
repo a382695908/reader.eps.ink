@@ -7,11 +7,9 @@ class Category extends Controller {
 
     const PAGE_SIZE = 30;
 
-    public function index($cid) {
+    public function index($cid, $page = 1) {
 
         $category_id = intval($cid);
-        $page = intval($_POST['page']);
-        $isend = intval($_POST['isend']);
 
         // click xs limit 6
         // $this->assign('category', $category_list);
@@ -23,6 +21,10 @@ class Category extends Controller {
         // $this->assign('recommends', $category_list);
 
         return $this->fetch();
+    }
+
+    public function isend() {
+
     }
 
 }
