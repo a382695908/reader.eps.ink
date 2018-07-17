@@ -3,13 +3,18 @@ namespace app\index\controller;
 
 use think\Controller;
 
-class Index extends Controller {
-
-    public function index() {
-
+class Index extends Controller
+{
+    /**
+     * 首页
+     * @Author: eps
+     * @return mixed
+     */
+    public function index()
+    {
         $categoryModel = new \app\index\model\Category();
         $category_list = $categoryModel->select();
-        foreach($category_list as &$category) {
+        foreach ($category_list as &$category) {
             $category['link'] = url('/category/' . $category['id']);
         }
         unset($category);
@@ -112,9 +117,17 @@ class Index extends Controller {
             array('name' => '笔趣阁小说网', 'link' => 'http://www.022003.com/'),
             array('name' => '百度', 'link' => 'https://www.baidu.com'),
         );
-         $this->assign('friend_links', $friend_links);
+        $this->assign('friend_links', $friend_links);
 
         return $this->fetch();
     }
 
+    /**
+     * 搜索小说(名字, 作者)
+     * @Author: eps
+     */
+    public function search() {
+        $search = trim($_POST['search']);
+
+    }
 }

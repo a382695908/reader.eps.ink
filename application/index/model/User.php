@@ -3,7 +3,7 @@ namespace app\index\controller;
 
 use think\Model;
 
-class Auth extends Model {
+class User extends Model {
 
 
 }

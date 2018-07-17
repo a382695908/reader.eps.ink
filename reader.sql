@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-07-02 16:38:00
+Date: 2018-07-18 01:53:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,7 +23,7 @@ CREATE TABLE `r_author` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='作者表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COMMENT='作者表';
 
 -- ----------------------------
 -- Records of r_author
@@ -39,6 +39,9 @@ INSERT INTO `r_author` VALUES ('8', '半世散人');
 INSERT INTO `r_author` VALUES ('9', '牵牛喂大将军');
 INSERT INTO `r_author` VALUES ('10', '净无痕');
 INSERT INTO `r_author` VALUES ('11', '花都大少');
+INSERT INTO `r_author` VALUES ('12', '农夫一拳');
+INSERT INTO `r_author` VALUES ('13', '浮梦流年');
+INSERT INTO `r_author` VALUES ('14', '王大忽悠');
 
 -- ----------------------------
 -- Table structure for r_bookcase
@@ -49,7 +52,7 @@ CREATE TABLE `r_bookcase` (
   `novel` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL,
   PRIMARY KEY (`user`,`novel`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户 - 小说 表';
 
 -- ----------------------------
 -- Records of r_bookcase
@@ -65,7 +68,7 @@ CREATE TABLE `r_category` (
   `name` varchar(50) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='小说分类表';
 
 -- ----------------------------
 -- Records of r_category
@@ -95,7 +98,7 @@ CREATE TABLE `r_chapter` (
   `createtime` int(11) NOT NULL DEFAULT '0',
   `updatetime` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='小说章节表';
 
 -- ----------------------------
 -- Records of r_chapter
@@ -118,17 +121,28 @@ INSERT INTO `r_chapter` VALUES ('11', '11', '11', '11', '第一章 无敌', '好
 DROP TABLE IF EXISTS `r_chapter_group`;
 CREATE TABLE `r_chapter_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `name` varchar(50) NOT NULL,
   `novel` int(11) NOT NULL,
   `clicks` int(11) NOT NULL,
   `reports` int(11) NOT NULL,
   `text_length` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='小说章节组表';
 
 -- ----------------------------
 -- Records of r_chapter_group
 -- ----------------------------
+INSERT INTO `r_chapter_group` VALUES ('1', '少年英雄', '1', '0', '0', '0');
+INSERT INTO `r_chapter_group` VALUES ('2', '少年英雄', '2', '0', '0', '0');
+INSERT INTO `r_chapter_group` VALUES ('3', '少年英雄', '3', '0', '0', '0');
+INSERT INTO `r_chapter_group` VALUES ('4', '少年英雄', '4', '0', '0', '0');
+INSERT INTO `r_chapter_group` VALUES ('5', '少年英雄', '5', '0', '0', '0');
+INSERT INTO `r_chapter_group` VALUES ('6', '少年英雄', '6', '0', '0', '0');
+INSERT INTO `r_chapter_group` VALUES ('7', '少年英雄', '7', '0', '0', '0');
+INSERT INTO `r_chapter_group` VALUES ('8', '少年英雄', '8', '0', '0', '0');
+INSERT INTO `r_chapter_group` VALUES ('9', '少年英雄', '9', '0', '0', '0');
+INSERT INTO `r_chapter_group` VALUES ('10', '少年英雄', '10', '0', '0', '0');
+INSERT INTO `r_chapter_group` VALUES ('11', '少年英雄', '11', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for r_novel
@@ -152,7 +166,7 @@ CREATE TABLE `r_novel` (
   `ishotest` tinyint(4) NOT NULL DEFAULT '0',
   `ishot` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COMMENT='小说表';
 
 -- ----------------------------
 -- Records of r_novel
@@ -168,6 +182,9 @@ INSERT INTO `r_novel` VALUES ('8', '绿茵人生', '8', '6', '0', '0', '0', '0',
 INSERT INTO `r_novel` VALUES ('9', '穿梭时空的侠客', '9', '7', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/76/76696/76696s.jpg', '十步杀一人，千里不留行。事了拂衣去，深藏功与名......侠之大者，为国为民，侠之小者，锄奸扶弱。 穿梭诸天万界，身份角色不停变换，沈炼的堂弟、衡山最没用的弟子、靠山王的孙子、悟空的同门、通天的徒弟....... ', '0', '1');
 INSERT INTO `r_novel` VALUES ('10', '伏天氏', '10', '1', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/8/8279/8279s.jpg', '\r\n              东方神州，有人皇立道统，有圣贤宗门传道，有诸侯雄踞一方王国，诸强林立，神州动乱千万载，执此之时，一代天骄叶青帝及东凰大帝横空出世，斩人皇，驭圣贤，诸侯臣服，东方神州一统！    然，叶青帝忽然暴毙，世间雕像尽皆被毁，于世间除名，沦为禁忌；从此神州唯东凰大帝独尊！    十五年后，东海青州城，一名为叶伏天的少年，开启了他的传奇之路…        ', '0', '1');
 INSERT INTO `r_novel` VALUES ('11', '极品全能学生', '11', '3', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/35/35077/35077s.jpg', '一场车祸改变了我的屌丝人生。 各种奇遇接连而来。 考试满分，刮刮乐必中，篮球天才，游泳健将选一个？ 不，老子就是全能。 美女校花主动跟我表白，霸道女总裁做我知心大姐姐，可爱小萝莉要我做她的贴心大哥哥。 qq群：203799451 [四组://.longtengx.品，老虎座下，://.longtengx.级好书，绝对包爽] ', '0', '1');
+INSERT INTO `r_novel` VALUES ('12', '海贼：厌世之歌', '12', '6', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/75/75773/75773s.jpg', '一颗恶魔果实，一身用血与汗换来的体术，一身用牵挂与疯狂换来的霸气。 病态，冷血，无情，偏执是他的代名词。至始至终，他只有一个目的，任何踩了他底线的人，哪怕是世界，他也会毁灭殆尽，一个不留。 其实，这只是一个平凡少年的故事。特此声明：此书与原著有些不同，至少时间有些错别，不喜欢的请路过，看不惯的请闭嘴。 ', '0', '1');
+INSERT INTO `r_novel` VALUES ('13', '劫天运', '13', '5', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/38/38478/38478s.jpg', '我从出生前就给人算计了，五阴俱全，天生招厉鬼，懂行的先生说我活不过七岁，死后是要给人养成血衣小鬼害人的。 外婆为了救我，给我娶了童养媳，让我过起了安生日子，虽然后来我发现媳妇姐姐不是人…… 从小苟延馋喘的我能活到现在，本已习惯逆来顺受，可唯独外婆被人害死了这件事。 为此，我不顾因果报应，继承了外婆养鬼的职业，发誓要把害死她的人全都送下地狱', '0', '1');
+INSERT INTO `r_novel` VALUES ('14', '新特工学生', '14', '4', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/74/74243/74243s.jpg', '【免费新书】华夏顶级特工重生回到18岁，清纯班长和美女老师竟然争相让他做这个…… ', '0', '0');
 
 -- ----------------------------
 -- Table structure for r_user
@@ -183,7 +200,7 @@ CREATE TABLE `r_user` (
   `createtime` int(11) NOT NULL,
   `logintime` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of r_user

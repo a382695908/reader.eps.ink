@@ -3,9 +3,15 @@ namespace app\index\controller;
 
 use think\Controller;
 
-class Bookcase extends Controller {
-
-    public function index() {
+class Bookcase extends Controller
+{
+    /**
+     * 书架主页面
+     * @Author: eps
+     * @return mixed
+     */
+    public function index()
+    {
 
         // session('userinfo')
 
@@ -19,7 +25,13 @@ class Bookcase extends Controller {
         return $this->fetch();
     }
 
-    public function add($id) {
+    /**
+     * 新增书籍到书架
+     * @Author: eps
+     * @param $id
+     */
+    public function add($id)
+    {
 
         // session('userinfo')
 
@@ -33,7 +45,13 @@ class Bookcase extends Controller {
         // insert
     }
 
-    public function delete($id) {
+    /**
+     * 删除书架里的书籍
+     * @Author: eps
+     * @param $id
+     */
+    public function delete($id)
+    {
 
         // session('userinfo')
 

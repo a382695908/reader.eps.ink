@@ -3,11 +3,20 @@ namespace app\index\controller;
 
 use think\Controller;
 
-class Category extends Controller {
+class Category extends Controller
+{
 
     const PAGE_SIZE = 30;
 
-    public function index($cid, $page = 1) {
+    /**
+     * 分类主页面
+     * @Author: eps
+     * @param $cid 分类id
+     * @param int $page 页数
+     * @return mixed
+     */
+    public function index($cid, $page = 1)
+    {
 
         $category_id = intval($cid);
 
@@ -23,7 +32,12 @@ class Category extends Controller {
         return $this->fetch();
     }
 
-    public function isend() {
+    /**
+     * 全本主页面
+     * @Author: eps
+     */
+    public function isend()
+    {
 
     }
 

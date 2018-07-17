@@ -3,9 +3,15 @@ namespace app\index\controller;
 
 use think\Controller;
 
-class Top extends Controller {
-
-    public function index() {
+class Top extends Controller
+{
+    /**
+     * 排行榜的主页面
+     * @Author: eps
+     * @return mixed
+     */
+    public function index()
+    {
         // category
 
 

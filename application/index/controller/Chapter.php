@@ -3,9 +3,16 @@ namespace app\index\controller;
 
 use think\Controller;
 
-class Chapter extends Controller {
-
-    public function index($id) {
+class Chapter extends Controller
+{
+    /**
+     * 小说的章节页面
+     * @Author: eps
+     * @param $id
+     * @return mixed
+     */
+    public function index($id)
+    {
         $id = intval($id);
 
         // character

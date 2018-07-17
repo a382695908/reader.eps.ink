@@ -3,16 +3,27 @@ namespace app\index\controller;
 
 use think\Controller;
 
-class Auth extends Controller {
-
-    public function index() {
+class Auth extends Controller
+{
+    /**
+     * 登陆主页面
+     * @Author: eps
+     * @return mixed
+     */
+    public function index()
+    {
         // session read user
         // $user = session('userinfo');
         // $this->assign('user', $user);
         return $this->fetch('auth');
     }
 
-    public function login() {
+    /**
+     * 登陆
+     * @Author: eps
+     */
+    public function login()
+    {
         $account = trim($_POST['account']);
         $password = trim($_POST['password']);
 
@@ -21,8 +32,7 @@ class Auth extends Controller {
         $condition = array();
         if (!empty($_POST['email'])) {
             $condition['email'] = $email;
-        }
-        else {
+        } else {
             $condition['account'] = $account;
         }
         // find
@@ -34,13 +44,23 @@ class Auth extends Controller {
         }
     }
 
-    public function logout() {
+    /**
+     * 注销
+     * @Author: eps
+     */
+    public function logout()
+    {
         // session('userinfo', NULL);
         // session_destory
         // apiSuccess
     }
 
-    public function register() {
+    /**
+     * 注册
+     * @Author: eps
+     */
+    public function register()
+    {
         $account = trim($_POST['account']);
         $password = trim($_POST['password']);
         $email = trim($_POST['email']);
