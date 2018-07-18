@@ -1,9 +1,9 @@
 <?php
 namespace app\index\controller;
 
-use think\Controller;
+use think\facade\Session;
 
-class Index extends Controller
+class Index extends Common
 {
     /**
      * 首页
@@ -13,7 +13,7 @@ class Index extends Controller
     public function index()
     {
         $categoryModel = new \app\index\model\Category();
-        $category_list = $categoryModel->select();
+        $category_list = Session::get('category_list');
         foreach ($category_list as &$category) {
             $category['link'] = url('/category/' . $category['id']);
         }

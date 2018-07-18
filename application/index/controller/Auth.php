@@ -1,9 +1,7 @@
 <?php
 namespace app\index\controller;
 
-use think\Controller;
-
-class Auth extends Controller
+class Auth extends Common
 {
     /**
      * 登陆主页面
@@ -32,7 +30,8 @@ class Auth extends Controller
         $condition = array();
         if (!empty($_POST['email'])) {
             $condition['email'] = $email;
-        } else {
+        }
+        else {
             $condition['account'] = $account;
         }
         // find

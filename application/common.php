@@ -10,3 +10,15 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+
+function array_keyby($arr, $key)
+{
+    $result = array();
+    foreach ($arr as $val) {
+        $key_value = $val[$key];
+        $result[$key_value] = $val;
+    }
+    return $result;
+//    $keys = array_column($arr, $key);
+//    return array_combine($keys, $arr);
+}

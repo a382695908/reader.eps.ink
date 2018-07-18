@@ -1,9 +1,7 @@
 <?php
 namespace app\index\controller;
 
-use think\Controller;
-
-class Top extends Controller
+class Top extends Common
 {
     /**
      * 排行榜的主页面

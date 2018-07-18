@@ -1,9 +1,7 @@
 <?php
 namespace app\index\controller;
 
-use think\Controller;
-
-class Bookcase extends Controller
+class Bookcase extends Common
 {
     /**
      * 书架主页面

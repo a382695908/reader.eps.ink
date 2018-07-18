@@ -1,9 +1,7 @@
 <?php
 namespace app\index\controller;
 
-use think\Controller;
-
-class Chapter extends Controller
+class Chapter extends Common
 {
     /**
      * 小说的章节页面

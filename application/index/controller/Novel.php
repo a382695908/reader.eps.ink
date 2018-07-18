@@ -1,9 +1,7 @@
 <?php
 namespace app\index\controller;
 
-use think\Controller;
-
-class Novel extends Controller
+class Novel extends Common
 {
     /**
      * 小说主页面
