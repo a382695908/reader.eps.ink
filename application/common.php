@@ -13,6 +13,9 @@
 
 function array_keyby($arr, $key)
 {
+    if (empty($arr)) {
+        return [];
+    }
     $result = array();
     foreach ($arr as $val) {
         $key_value = $val[$key];
