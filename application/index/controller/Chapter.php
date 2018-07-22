@@ -1,6 +1,8 @@
 <?php
 namespace app\index\controller;
 
+use think\Facade\Session;
+
 class Chapter extends Common
 {
     /**
@@ -11,14 +13,26 @@ class Chapter extends Common
      */
     public function index($id)
     {
-        $id = intval($id);
+        // 获取小说分类信息
+        $category_list = Session::get('category_list');
+        foreach ($category_list as &$category) {
+            $category['link'] = url('/category/' . $category['id']);
+        }
+        unset($category);
+        $this->assign('category_list', $category_list);
 
-        // character
-        $condition = array(
-            'xid' => $id,
-        );
-        // find
-        // $this->assign('character', $xs);
+        $id = intval($id);
+        $chapterModel = new \app\index\model\Chapter();
+        $chapter = $chapterModel->where('id', $id)->find();
+        $chapter['content'] = html_entity_decode($chapter['content']);
+//        echo $chapter['content'];
+//        dump($chapter['content']);exit;
+        $this->assign('chapter', $chapter);
+
+        $novelModel = new \app\index\model\Novel();
+        $novel = $novelModel->where('id', $chapter['novel'])->find();
+        $novel['link_url'] = url('/novel/' . $novel['id']);
+        $this->assign('novel', $novel);
 
         return $this->fetch();
     }

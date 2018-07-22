@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>三寸人间_第一百零六章 强悍的九寸_书趣阁_笔趣阁</title>
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="/static/js/common.js"></script>
+    <script src="/static/js/read.js"></script>
+    <script type="text/javascript">
+        var preview_page = "17468919.html";
+        var next_page = "/txt/63542/index.html";
+        var index_page = "/txt/63542/index.html";
+        function jumpPage() {
+            if (event.keyCode==37) location=preview_page;
+            if (event.keyCode==39) location=next_page;
+            if (event.keyCode==13) location=index_page;
+        }
+        document.onkeydown=jumpPage;
+    </script>
+</head>
+<body id="wrapper">
+<div class="header">
+    <div class="wrap">
+        <div class="logo">
+            <a href="/" title="读读读">读读读</a>
+        </div>
+        <div class="search">
+            <form target="_blank" action="http://zhannei.baidu.com/cse/search"
+                  onsubmit="if(q.value==''){alert('提示：请输入小说名称或作者名字！');return false;}">
+                <input type="hidden" name="s" value="6445266503022880974"><input type="search" class="text" name="q" placeholder="小说名称、作者" value="">
+                <input type="submit" class="btn" value="搜 索">
+            </form>
+        </div>
+        <div style="float: right;" class="search">欢迎您，[<a href="/login.php?jumpurl=http://localhost/">登录</a>]或[<a href="/register.php?jumpurl=http://localhost/">注册</a>]
+        </div>
+    </div>
+</div>
+<div class="nav">
+    <ul>
+        <li class="this"><a href="/" title="读读读">首页</a></li>
+        {volist name="category_list" id="category"}
+        <li><a href="{$category.link}">{$category.alias}</a></li>
+        {/volist}
+        <li><a href="/top.html">排行榜</a></li>
+        <li><a href="{:url('/category/isend')}">全本</a></li>
+        <li><a href="{:url('/bookcase')}">书架</a></li>
+    </ul>
+</div>
+<div class="clear"></div>
+
+<div class="book reader">
+    <div class="path">
+        <div class="p">
+            <a href="/">读读读</a> &gt;
+            <a href="{$novel.link_url}">{$novel.name}</a> &gt;{$chapter.name}<span class="oninfo"><script>textselect();</script></span>
+            <div style="float: right;">
+                <a style="margin: 15px;padding: 5px;background-color: #459DF5;color: #ffffff;" href="Javascript:void(0);" onclick="javascript:$.ajax({cache:false,url:'/addbookcase/63542/17474043.php',success:function(data){if('-1'==data){alert('先登录再收藏！');}else{alert('加入书架成功！');}},error:function(){alert('加入书架成功！');}});">加入书架</a><a style="margin: 15px;padding: 5px;background-color: #459DF5;color: #ffffff;"  href="Javascript:void(0);" onclick="javascript:$.ajax({cache:false,url:'/recommend/63542.php',success:function(data){alert('推荐本书成功！');}});">推荐本书</a>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <h1>{$chapter.name}</h1>
+        <!--<div class="link">-->
+        <!--<span>-->
+        <!--推荐阅读：-->
+        <!--<a href="http://www.shuquge.com/txt/71331/index.html">系统之长姐难为</a>-->
+        <!--<a href="http://www.shuquge.com/txt/73269/index.html">修真之我是女主</a>-->
+        <!--<a href="http://www.shuquge.com/txt/30668/index.html">修真聊天群</a>-->
+        <!--</span>-->
+        <!--</div>-->
+        <div id="content" class="showtxt"><?php echo $chapter['content'];?></div>
+        <div class="page_chapter">
+            <ul>
+                <li><a href="17468919.html">上一章</a></li>
+                <li><a href="/txt/63542/index.html">返回目录</a></li>
+                <li><a href="/txt/63542/index.html">下一章</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <hr/>
+    <p>本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
+
+    <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
+</div>
+</body>
+</html>

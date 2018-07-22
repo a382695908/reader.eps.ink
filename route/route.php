@@ -20,7 +20,7 @@ Route::get('/category/isend', 'category/isend');
 
 Route::get('/novel/:id', 'novel/index');
 
-Route::get('/chapter/:id', 'character/index');
+Route::get('/chapter/:id', 'chapter/index');
 
 Route::get('/bookcase', 'bookcase/index');
 Route::post('/bookcase/add/:id', 'bookcase/delete');
