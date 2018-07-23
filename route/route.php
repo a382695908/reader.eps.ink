@@ -16,11 +16,11 @@ Route::post('/logout', 'auth/logout');
 
 Route::get('/category/:cid', 'category/index');
 Route::get('/category/:cid/page/:page', 'category/index');
-Route::get('/category/isend', 'category/isend');
-
+Route::get('/full', 'category/isend');
+Route::get('/full/page/:page', 'category/isend');
 Route::get('/novel/:id', 'novel/index');
-
 Route::get('/chapter/:id', 'chapter/index');
+Route::get('/top', 'top/index');
 
 Route::get('/bookcase', 'bookcase/index');
 Route::post('/bookcase/add/:id', 'bookcase/delete');

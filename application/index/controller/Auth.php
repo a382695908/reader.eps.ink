@@ -1,6 +1,8 @@
 <?php
 namespace app\index\controller;
 
+use think\Facade\Session;
+
 class Auth extends Common
 {
     /**
@@ -10,9 +12,19 @@ class Auth extends Common
      */
     public function index()
     {
+        // 获取小说分类信息
+        $category_list = Session::get('category_list');
+        foreach ($category_list as &$category) {
+            $category['link'] = url('/category/' . $category['id']);
+        }
+        unset($category);
+        $this->assign('category_list', $category_list);
+
         // session read user
         // $user = session('userinfo');
         // $this->assign('user', $user);
+
+
         return $this->fetch('auth');
     }
 
@@ -30,8 +42,7 @@ class Auth extends Common
         $condition = array();
         if (!empty($_POST['email'])) {
             $condition['email'] = $email;
-        }
-        else {
+        } else {
             $condition['account'] = $account;
         }
         // find
