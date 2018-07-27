@@ -9,6 +9,7 @@ namespace app\index\controller;
 
 use think\Controller;
 use think\facade\Cache;
+use think\facade\Env;
 use think\facade\Session;
 
 class Common extends Controller
@@ -27,6 +28,8 @@ class Common extends Controller
             }
             Session::set('category_list', $category_list);
         }
+        // 是否打开trace
+        Env::set('app_trace', false);
     }
 
 }

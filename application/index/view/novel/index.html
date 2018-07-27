@@ -4,97 +4,101 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>{$novel.name}</title>
     <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
-    <script src="/static/js/common.js"></script>
-    <script src="/js/common.js"></script>
 </head>
 <body>
-<div class="header">
-    <div class="wrap">
-        <div class="logo">
-            <a href="/" title="读读读">读读读</a>
-        </div>
-        <div class="search">
-            <form target="_blank" action="http://zhannei.baidu.com/cse/search"
-                  onsubmit="if(q.value==''){alert('提示：请输入小说名称或作者名字！');return false;}">
-                <input type="hidden" name="s" value="6445266503022880974"><input type="search" class="text" name="q" placeholder="小说名称、作者" value="">
-                <input type="submit" class="btn" value="搜 索">
-            </form>
-        </div>
-        <div style="float: right;" class="search">欢迎您，[<a href="{:url('/auth')}">登录</a>]或[<a href="{:url('/auth')}">注册</a>]
-        </div>
-    </div>
-</div>
-<div class="nav">
-    <ul>
-        <li class="this"><a href="/" title="读读读">首页</a></li>
-        {volist name="category_list" id="category"}
-        <li><a href="{$category.link}">{$category.alias}</a></li>
-        {/volist}
-        <li><a href="{:url('/top')}">排行榜</a></li>
-        <li><a href="{:url('/full')}">全本</a></li>
-        <li><a href="{:url('/bookcase')}">书架</a></li>
-    </ul>
-</div>
-<div class="clear"></div>
-
-<div class="book">
-    <div class="path">
-        <div class="p">
-            <a href="/">读读读</a> &gt;
-            <a href="{$novel.link_url}">伏天氏</a>
-
-            <div style="float: right;">
-                <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="Javascript:void(0);" onclick="javascript:$.ajax({cache:false,url:'/addbookcase/8279.php',success:function(data){if('-1'==data){alert('先登录再收藏！');}else{alert('加入书架成功！');}},error:function(){alert('加入书架成功！');}});">加入书架</a>
-                <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;"  href="Javascript:void(0);" onclick="javascript:$.ajax({cache:false,url:'/recommend/8279.php',success:function(data){alert('推荐本书成功！');}});">推荐本书</a>
+    <div class="header">
+        <div class="wrap">
+            <div class="logo">
+                <a href="/" title="读读读">读读读</a>
             </div>
+            <div class="search">
+                <div class="form">
+                    <input type="search" class="text" name="q" placeholder="小说名称、作者" value="">
+                    <input type="submit" class="btn" value="搜 索" onclick="novel_search()">
+                </div>
+            </div>
+            <div style="float: right;" class="search">欢迎您，[<a href="{:url('/auth')}">登录</a>]或[<a href="{:url('/auth')}">注册</a>]
+            </div>
+        </div>
+    </div>
 
-        </div>
-    </div>
-    <div class="info">
-        <div class="cover">
-            <img src="{$novel.cover}" alt="{$novel.name}" />
-        </div>
-        <h2>{$novel.name}</h2>
-        <div class="small">
-            <span>作者：{$novel.author_name}</span>
-            <span>分类：{$novel.category_name}</span>
-            <span>状态：{$novel.state_text}</span>
-            <span>字数：{$novel.words}</span>
-            <span class="last">更新时间：{$novel.updateAt}</span>
-            <span class="last">最新章节：<a href="{$novel.last_chapter_url}">{$novel.last_chapter_name}</a></span>
-        </div>
-        <div class="intro">
-            <span>简介：</span>
-            {$novel.introduction}
-        </div>
-        <!--<div class="link">-->
-        <!--<span>-->
-        <!--推荐阅读：-->
-        <!--<a href="http://www.shuquge.com/txt/71331/index.html">系统之长姐难为</a>-->
-        <!--<a href="http://www.shuquge.com/txt/73269/index.html">修真之我是女主</a>-->
-        <!--<a href="http://www.shuquge.com/txt/30668/index.html">修真聊天群</a>-->
-        <!--</span>-->
-        <!--</div>-->
-    </div>
-</div>
-<script>list2();</script>
-<div class="listmain">
-    <dl>
-        <dt>《{$novel.name}》最新章节</dt>
-        {volist name='last_chapter_list' id='item'}
-        <dd><a href="{$item.link_url}">{$item.name}</a></dd>
-        {/volist}
-        {volist name='chapter_group_chapters' id='chapter_group'}
-            <dt>{$chapter_group.name}</dt>
-            {volist name="chapter_group['chapters']" id='chapter'}
-            <dd><a href="{$chapter.link_url}">{$chapter.name}</a></dd>
+    <div class="nav">
+        <ul>
+            <li class="this"><a href="/" title="读读读">首页</a></li>
+            {volist name="category_list" id="category"}
+            <li><a href="{$category.link}">{$category.alias}</a></li>
             {/volist}
-        {/volist}
-    </dl>
-</div>
-<div class="footer">
-    <p>本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
-    <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
-</div>
+            <li><a href="{:url('/top')}">排行榜</a></li>
+            <li><a href="{:url('/full')}">全本</a></li>
+            <li><a href="{:url('/bookcase')}">书架</a></li>
+        </ul>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="book">
+        <div class="path">
+            <div class="p">
+                <a href="/">读读读</a> &gt;
+                <a href="{$novel.link_url}">伏天氏</a>
+
+                <div style="float: right;">
+                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="Javascript:void(0);" onclick="javascript:$.ajax({cache:false,url:'/addbookcase/8279.php',success:function(data){if('-1'==data){alert('先登录再收藏！');}else{alert('加入书架成功！');}},error:function(){alert('加入书架成功！');}});">加入书架</a>
+                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;"  href="Javascript:void(0);" onclick="javascript:$.ajax({cache:false,url:'/recommend/8279.php',success:function(data){alert('推荐本书成功！');}});">推荐本书</a>
+                </div>
+
+            </div>
+        </div>
+        <div class="info">
+            <div class="cover">
+                <img src="{$novel.cover}" alt="{$novel.name}" />
+            </div>
+            <h2>{$novel.name}</h2>
+            <div class="small">
+                <span>作者：{$novel.author_name}</span>
+                <span>分类：{$novel.category_name}</span>
+                <span>状态：{$novel.state_text}</span>
+                <span>字数：{$novel.words}</span>
+                <span class="last">更新时间：{$novel.updateAt}</span>
+                <span class="last">最新章节：<a href="{$novel.last_chapter_url}">{$novel.last_chapter_name}</a></span>
+            </div>
+            <div class="intro">
+                <span>简介：</span>
+                {$novel.introduction}
+            </div>
+            <!--<div class="link">-->
+            <!--<span>-->
+            <!--推荐阅读：-->
+            <!--<a href="http://www.shuquge.com/txt/71331/index.html">系统之长姐难为</a>-->
+            <!--<a href="http://www.shuquge.com/txt/73269/index.html">修真之我是女主</a>-->
+            <!--<a href="http://www.shuquge.com/txt/30668/index.html">修真聊天群</a>-->
+            <!--</span>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <div class="listmain">
+        <dl>
+            <dt>《{$novel.name}》最新章节</dt>
+            {volist name='last_chapter_list' id='item'}
+            <dd><a href="{$item.link_url}">{$item.name}</a></dd>
+            {/volist}
+            {volist name='chapter_group_chapters' id='chapter_group'}
+                <dt>{$chapter_group.name}</dt>
+                {volist name="chapter_group['chapters']" id='chapter'}
+                <dd><a href="{$chapter.link_url}">{$chapter.name}</a></dd>
+                {/volist}
+            {/volist}
+        </dl>
+    </div>
+
+    <div class="footer">
+        <p>本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
+        <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
+    </div>
+
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/js/common.js"></script>
+    <script src="https://cdn.staticfile.org/js-cookie/latest/js.cookie.min.js"></script>
 </body>
 </html>

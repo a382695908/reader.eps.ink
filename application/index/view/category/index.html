@@ -6,7 +6,6 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <title>{$category.name}</title>
     <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
-    <script src="/static/js/common.js"></script>
     <style type="text/css">
         .a-btn {
             float: left;
@@ -25,111 +24,116 @@
     </style>
 </head>
 <body>
-<div class="header">
-    <div class="wrap">
-        <div class="logo">
-            <a href="/" title="读读读">读读读</a>
-        </div>
-        <div class="search">
-            <form target="_blank" action="http://zhannei.baidu.com/cse/search" onsubmit="if(q.value==''){alert('提示：请输入小说名称或作者名字！');return false;}">
-                <input type="hidden" name="s" value="6445266503022880974"><input type="search" class="text" name="q" placeholder="小说名称、作者" value="">
-                <input type="submit" class="btn" value="搜 索">
-            </form>
-        </div>
-        <div style="float: right;" class="search">欢迎您，[<a href="{:url('/auth')}">登录</a>]或[<a href="{:url('/auth')}">注册</a>]
-        </div>
-    </div>
-</div>
-<div class="nav">
-    <ul>
-        <li class="this"><a href="/" title="读读读">首页</a></li>
-        {volist name="category_list" id="item"}
-        <li><a href="{$item.link}">{$item.alias}</a></li>
-        {/volist}
-
-        <li><a href="{:url('/top')}">排行榜</a></li>
-        <li><a href="{:url('/full')}">全本</a></li>
-        <li><a href="{:url('/bookcase')}">书架</a></li>
-    </ul>
-</div>
-<div class="clear"></div>
-
-<div class="wrap">
-    <div class="hot bd">
-        <div class="ll">
-            {volist name="hotest_list" id="item"}
-            <div class="item">
-                <div class="p10">
-                    <div class="image">
-                        <a href="{$item.link}" target="_blank"><img src="{$item.cover}" alt="{$item.name}" width="120"
-                                                                    height="150" border="0"/></a>
-                    </div>
-                    <dl>
-                        <dt>
-                            <span>{$item.author_name}</span>
-                            <a href="{$item.link}" target="_blank">{$item.name}</a>
-                        </dt>
-                        <dd>{$item.introduction}</dd>
-                    </dl>
+    <div class="header">
+        <div class="wrap">
+            <div class="logo">
+                <a href="/" title="读读读">读读读</a>
+            </div>
+            <div class="search">
+                <div class="form">
+                    <input type="search" class="text" name="q" placeholder="小说名称、作者" value="">
+                    <input type="submit" class="btn" value="搜 索" onclick="novel_search()">
                 </div>
             </div>
+            <div style="float: right;" class="search">欢迎您，[<a href="{:url('/auth')}">登录</a>]或[<a href="{:url('/auth')}">注册</a>]
+            </div>
+        </div>
+    </div>
+
+    <div class="nav">
+        <ul>
+            <li class="this"><a href="/" title="读读读">首页</a></li>
+            {volist name="category_list" id="item"}
+            <li><a href="{$item.link}">{$item.alias}</a></li>
             {/volist}
-        </div>
+
+            <li><a href="{:url('/top')}">排行榜</a></li>
+            <li><a href="{:url('/full')}">全本</a></li>
+            <li><a href="{:url('/bookcase')}">书架</a></li>
+        </ul>
     </div>
-    <div class="up">
-        <div class="l bd">
-            <h2>最近更新列表</h2>
-            <ul>
-                {volist name="latest_updated_list" id="novel"}
-                <li>
-                    <span class="s1">[{$category.name}]</span>
-                    <span class="s2">
-                        <a href="{$novel.novel_link}">{$novel.name}</a>
-                    </span>
-                    <span class="s3">
-                        <a href="{$novel.chapter_link}">{$novel.chapter_name}</a>
-                    </span>
-                    <span class="s4">{$novel.author_name}</span>
-                    <span class="s5">{$novel.updateAt}</span>
-                </li>
-                {/volist}
-                <div class="wrap" style="margin-top:10px;width: 700px;">
-                    <a class="a-btn" href="/category/1_1.html">首页</a>
-                    <b class="a-btn a-active">1</b>
-                    <a class="a-btn" href="/category/1_2.html">2</a>
-                    <a class="a-btn" href="/category/1_3.html">3</a>
-                    <a class="a-btn" href="/category/1_4.html">4</a>
-                    <a class="a-btn" href="/category/1_5.html">5</a>
-                    <a class="a-btn" href="/category/1_6.html">6</a>
-                    <a class="a-btn" href="/category/1_7.html">7</a>
-                    <a class="a-btn" href="/category/1_8.html">8</a>
-                    <a class="a-btn" href="/category/1_9.html">9</a>
-                    <a class="a-btn" href="/category/1_10.html">10</a>
-                    <a class="a-btn" style="width:50px;" href="/category/1_2.html" class="next">下一页</a>
-                    <a class="a-btn" href="/category/1_951.html">尾页</a>
+
+    <div class="clear"></div>
+
+    <div class="wrap">
+        <div class="hot bd">
+            <div class="ll">
+                {volist name="hotest_list" id="item"}
+                <div class="item">
+                    <div class="p10">
+                        <div class="image">
+                            <a href="{$item.link}" target="_blank"><img src="{$item.cover}" alt="{$item.name}" width="120"
+                                                                        height="150" border="0"/></a>
+                        </div>
+                        <dl>
+                            <dt>
+                                <span>{$item.author_name}</span>
+                                <a href="{$item.link}" target="_blank">{$item.name}</a>
+                            </dt>
+                            <dd>{$item.introduction}</dd>
+                        </dl>
+                    </div>
                 </div>
-            </ul>
-        </div>
-        <div class="r bd">
-            <h2>小说相关推荐</h2>
-            <ul>
-                {volist name="recommend_novels" id="novel"}
-                <li>
-                    <span class="s1">[{$category.alias}]</span>
-                    <span class="s2"><a href="{$novel.link}">{$novel.name}</a></span>
-                    <span class="s5">{$novel.author_name}</span>
-                </li>
                 {/volist}
-            </ul>
+            </div>
+        </div>
+        <div class="up">
+            <div class="l bd">
+                <h2>最近更新列表</h2>
+                <ul>
+                    {volist name="latest_updated_list" id="novel"}
+                    <li>
+                        <span class="s1">[{$category.name}]</span>
+                        <span class="s2">
+                            <a href="{$novel.novel_link}">{$novel.name}</a>
+                        </span>
+                        <span class="s3">
+                            <a href="{$novel.chapter_link}">{$novel.chapter_name}</a>
+                        </span>
+                        <span class="s4">{$novel.author_name}</span>
+                        <span class="s5">{$novel.updateAt}</span>
+                    </li>
+                    {/volist}
+                    <div class="wrap" style="margin-top:10px;width: 700px;">
+                        <a class="a-btn" href="/category/1_1.html">首页</a>
+                        <b class="a-btn a-active">1</b>
+                        <a class="a-btn" href="/category/1_2.html">2</a>
+                        <a class="a-btn" href="/category/1_3.html">3</a>
+                        <a class="a-btn" href="/category/1_4.html">4</a>
+                        <a class="a-btn" href="/category/1_5.html">5</a>
+                        <a class="a-btn" href="/category/1_6.html">6</a>
+                        <a class="a-btn" href="/category/1_7.html">7</a>
+                        <a class="a-btn" href="/category/1_8.html">8</a>
+                        <a class="a-btn" href="/category/1_9.html">9</a>
+                        <a class="a-btn" href="/category/1_10.html">10</a>
+                        <a class="a-btn" style="width:50px;" href="/category/1_2.html" class="next">下一页</a>
+                        <a class="a-btn" href="/category/1_951.html">尾页</a>
+                    </div>
+                </ul>
+            </div>
+            <div class="r bd">
+                <h2>小说相关推荐</h2>
+                <ul>
+                    {volist name="recommend_novels" id="novel"}
+                    <li>
+                        <span class="s1">[{$category.alias}]</span>
+                        <span class="s2"><a href="{$novel.link}">{$novel.name}</a></span>
+                        <span class="s5">{$novel.author_name}</span>
+                    </li>
+                    {/volist}
+                </ul>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="footer">
-    <hr/>
-    <p>本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
+    <div class="footer">
+        <hr/>
+        <p>本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
 
-    <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
-</div>
+        <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
+    </div>
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/js/common.js"></script>
+    <script src="https://cdn.staticfile.org/js-cookie/latest/js.cookie.min.js"></script>
 </body>
 </html>

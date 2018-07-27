@@ -1,6 +1,8 @@
 <?php
 namespace app\index\controller;
 
+use think\Facade\Session;
+
 class Bookcase extends Common
 {
     /**
@@ -10,13 +12,17 @@ class Bookcase extends Common
      */
     public function index()
     {
+        $userinfo = Session::get('userinfo');
+        if (empty($userinfo)) {
+            return redirect(url('/auth'));
+        }
 
         // session('userinfo')
 
         // bookcases
-        $condition = array(
-            'userid' => $user['id'],
-        );
+//        $condition = array(
+//            'userid' => $user['id'],
+//        );
         // select
         // $this->assign('bookcases', $xs);
 
