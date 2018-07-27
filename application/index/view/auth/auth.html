@@ -19,8 +19,7 @@
                 <input type="submit" class="btn" value="搜 索">
             </form>
         </div>
-        <div style="float: right;" class="search">欢迎您，[<a href="/login.php?jumpurl=http://localhost/">登录</a>]或[<a
-                href="/register.php?jumpurl=http://localhost/">注册</a>]
+        <div style="float: right;" class="search">欢迎您，[<a href="{:url('/auth')}">登录</a>]或[<a href="{:url('/auth')}">注册</a>]
         </div>
     </div>
 </div>
@@ -40,7 +39,7 @@
 <div class="wrap">
     <br/><br/>
 
-    <form name="frmlogin" method="post" action="/login.php?jumpurl=http%3A%2F%2Fwww.shuquge.com%2F">
+    <form name="frmlogin" method="post" action="">
         <table class="grid" width="250" align="center">
             <caption>用户登录</caption>
             <tr align="center">
