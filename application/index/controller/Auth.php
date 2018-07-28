@@ -1,6 +1,7 @@
 <?php
 namespace app\index\controller;
 
+use think\facade\Cookie;
 use think\Facade\Session;
 
 class Auth extends Common
@@ -21,10 +22,9 @@ class Auth extends Common
         $this->assign('category_list', $category_list);
 
         if (intval($t) === 1) {
-            $this->assign('btn', ['注','册']);
-        }
-        else {
-            $this->assign('btn', ['登','录']);
+            $this->assign('btn', ['注', '册']);
+        } else {
+            $this->assign('btn', ['登', '录']);
         }
         $this->assign('t', $t);
 
@@ -34,6 +34,7 @@ class Auth extends Common
     /**
      * 登陆
      * @Author: eps
+     * @return \think\response\Json
      */
     public function login()
     {
@@ -41,14 +42,18 @@ class Auth extends Common
         $password = trim($_POST['password']);
 
         $condition = [
-
+            'account' => $email,
         ];
-//        $user = find();
-//        if ($user['password'] == md5($password . $user['salt'])) {
-            // session
+        $userModel = new \app\index\model\User();
+        $user = $userModel->where($condition)->find();
 
-            // apiSuccess
-//        }
+        if ($user['password'] == md5($password . $user['salt'])) {
+            $userinfo = $user;
+            Session::set('userinfo', $userinfo);
+            return $this->apiSuccess(1, $userinfo);
+        }
+
+        return $this->apiError(0, '密码错误');
     }
 
     /**
@@ -57,9 +62,8 @@ class Auth extends Common
      */
     public function logout()
     {
-        // session('userinfo', NULL);
-        // session_destory
-        // apiSuccess
+        Session::clear();
+        return $this->apiSuccess(1, '退出成功!');
     }
 
     /**
@@ -68,18 +72,27 @@ class Auth extends Common
      */
     public function register()
     {
-        $email = trim($_POST['username']);
         $password = trim($_POST['password']);
-        $email = trim($_POST['email']);
+        $email = trim($_POST['username']);
 
-        // verifycode
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-        // check email
+        }
 
-        // check unique user
+        $userModel = new \app\index\model\User();
+        $condition = [
+            'account' => $email
+        ];
+        $user = $userModel->where($condition)->find();
+        if (!empty($user)) {
 
-        $createtime = time();
+        }
 
-        // save
+        $salt = rand(10000, 1000000);
+        $userModel->account = $email;
+        $userModel->password = md5($password . $salt);
+        $userModel->createtime = time();
+        $userModel->logintime = time();
+        $userModel->save();
     }
 }

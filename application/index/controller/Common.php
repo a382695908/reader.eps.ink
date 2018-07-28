@@ -36,4 +36,22 @@ class Common extends Controller
         // TODO: 以分析的信息, 更新visit表
     }
 
+    public function apiSuccess($code, $message, $data = []) {
+        $responseData = [
+            'code' => $code,
+            'message' => $message,
+            'data' => $data
+        ];
+        return json($responseData);
+    }
+
+    public function apiError($code, $message, $data = []) {
+        $responseData = [
+            'code' => $code,
+            'message' => $message,
+            'data' => $data
+        ];
+        return json($responseData);
+    }
+
 }
