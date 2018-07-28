@@ -17,7 +17,10 @@ class Common extends Controller
     public function __construct()
     {
         parent::__construct();
-        // 分类数据
+        // 是否打开trace
+        Env::set('app_trace', false);
+
+        // 分类数据做缓存
         if (!Session::get('category_list')) {
             $category_list = Cache::get('category_list');
             if ($category_list === FALSE) {
@@ -28,8 +31,9 @@ class Common extends Controller
             }
             Session::set('category_list', $category_list);
         }
-        // 是否打开trace
-        Env::set('app_trace', false);
+
+        // TODO: 分析当前请求的信息, 决定是插入还是更新访客表
+        // TODO: 以分析的信息, 更新visit表
     }
 
 }

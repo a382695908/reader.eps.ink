@@ -4,12 +4,32 @@ function novel_search(e) {
     }, 3000);
 }
 
-function login() {
-
+function login(username, password, url) {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            username: username,
+            password: password
+        },
+        success: function() {
+            alert('登录成功!');
+        }
+    });
 }
 
-function register() {
-
+function register(username, password, url) {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            username: username,
+            password: password
+        },
+        success: function() {
+            alert('注册成功!');
+        }
+    });
 }
 
 

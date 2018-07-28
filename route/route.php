@@ -10,6 +10,8 @@
 // +----------------------------------------------------------------------
 
 Route::get('/auth', 'auth/index');
+Route::get('/auth/t/1', 'auth/index');
+
 Route::post('/login', 'auth/login');
 Route::post('/register', 'auth/register');
 Route::post('/logout', 'auth/logout');

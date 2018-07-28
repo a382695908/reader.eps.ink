@@ -45,7 +45,7 @@ img {
     overflow: hidden;
 }
 
-/*ÍÐÅÌ0078B6*/
+/*æ‰˜ç›˜0078B6*/
 .header {
     padding: 20px 0 10px;
 }
@@ -980,7 +980,7 @@ h1 {
     margin: 10px 0;
 }
 
-/*ÁÙÊ±Êé¼Ü*/
+/*ä¸´æ—¶ä¹¦æž¶*/
 .wrap .bookcase {
     border: 3px solid #88C6E5;
     overflow: hidden;
@@ -1080,4 +1080,12 @@ h1 {
     display: block;
     color: #EEE;
     font-size: 16px;
+}
+
+#login {
+    
+}
+
+#register{
+    display: none;
 }

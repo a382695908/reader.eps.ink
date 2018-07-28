@@ -10,7 +10,7 @@ class Auth extends Common
      * @Author: eps
      * @return mixed
      */
-    public function index()
+    public function index($t = 0)
     {
         // 获取小说分类信息
         $category_list = Session::get('category_list');
@@ -20,10 +20,13 @@ class Auth extends Common
         unset($category);
         $this->assign('category_list', $category_list);
 
-        // session read user
-        // $user = session('userinfo');
-        // $this->assign('user', $user);
-
+        if (intval($t) === 1) {
+            $this->assign('btn', ['注','册']);
+        }
+        else {
+            $this->assign('btn', ['登','录']);
+        }
+        $this->assign('t', $t);
 
         return $this->fetch('auth');
     }
@@ -34,24 +37,18 @@ class Auth extends Common
      */
     public function login()
     {
-        $account = trim($_POST['account']);
+        $email = trim($_POST['username']);
         $password = trim($_POST['password']);
 
-        $email = (!empty($_POST['email'])) ? trim($_POST['email']) : '';
+        $condition = [
 
-        $condition = array();
-        if (!empty($_POST['email'])) {
-            $condition['email'] = $email;
-        } else {
-            $condition['account'] = $account;
-        }
-        // find
-        $user = find();
-        if ($user['password'] == md5($password . $user['salt'])) {
+        ];
+//        $user = find();
+//        if ($user['password'] == md5($password . $user['salt'])) {
             // session
 
             // apiSuccess
-        }
+//        }
     }
 
     /**
@@ -71,7 +68,7 @@ class Auth extends Common
      */
     public function register()
     {
-        $account = trim($_POST['account']);
+        $email = trim($_POST['username']);
         $password = trim($_POST['password']);
         $email = trim($_POST['email']);
 
