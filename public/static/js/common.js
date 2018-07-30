@@ -12,7 +12,7 @@ function login(username, password, url) {
             username: username,
             password: password
         },
-        success: function() {
+        success: function () {
             alert('登录成功!');
         }
     });
@@ -26,7 +26,7 @@ function register(username, password, url) {
             username: username,
             password: password
         },
-        success: function() {
+        success: function () {
             alert('注册成功!');
         }
     });
@@ -37,7 +37,7 @@ function cookieInit() {
     // 判断是否已经初始化了
     var isInit = Cookies.get('is_init');
     if (isInit) {
-        return ;
+        return;
     }
 
 }
@@ -82,8 +82,29 @@ function addIntoBookCase() {
 }
 
 /**
+ *
+ */
+function getVisitorInfo() {
+    var info = $('#visitor_info').text();
+    console.log(info);
+    // TODO: 将info转成对象
+    $.ajax({
+        url: '',
+        success: function () {
+            console.log('ok');
+        }
+    })
+}
+
+
+/**
  * 推荐本书
  */
 function recommendNovel() {
 
 }
+
+
+$(function () {
+    //getVisitorInfo();
+});

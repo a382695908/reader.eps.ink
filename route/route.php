@@ -9,24 +9,39 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('/auth', 'auth/index');
+// 注册 && 登录 && 退出
 Route::get('/auth/t/1', 'auth/index');
-
+Route::get('/auth', 'auth/index');
 Route::post('/login', 'auth/login');
 Route::post('/register', 'auth/register');
 Route::post('/logout', 'auth/logout');
 
+// 分类页面
 Route::get('/category/:cid', 'category/index');
 Route::get('/category/:cid/page/:page', 'category/index');
+
+// 全本页面
 Route::get('/full', 'category/isend');
 Route::get('/full/page/:page', 'category/isend');
+
+// 小说页面
 Route::get('/novel/:id', 'novel/index');
+Route::get('/novel/search', 'novel/search');
+
+// 小说章节阅读界面
 Route::get('/chapter/:id', 'chapter/index');
+
+// 排行榜
 Route::get('/top', 'top/index');
 
+// 我的书架
 Route::get('/bookcase', 'bookcase/index');
 Route::post('/bookcase/add/:id', 'bookcase/delete');
 Route::post('/bookcase/delete/:id', 'bookcase/delete');
+
+// 访问网站
+Route::post('/visitor_log', 'visit/visitor_log');
+
 
 return [
 

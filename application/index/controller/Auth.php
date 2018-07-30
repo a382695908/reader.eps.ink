@@ -38,6 +38,10 @@ class Auth extends Common
      */
     public function login()
     {
+        if (!empty(Session::get('userinfo'))) {
+            return redirect(url('/'));
+        }
+
         $email = trim($_POST['username']);
         $password = trim($_POST['password']);
 
@@ -63,6 +67,7 @@ class Auth extends Common
     public function logout()
     {
         Session::clear();
+        Session::destroy();
         return $this->apiSuccess(1, '退出成功!');
     }
 
@@ -72,11 +77,15 @@ class Auth extends Common
      */
     public function register()
     {
-        $password = trim($_POST['password']);
         $email = trim($_POST['username']);
+        $password = $_POST['password'];
+
+        if (empty($email) || empty($password)) {
+            return $this->apiError(0, '空');
+        }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
+            return $this->apiError(0, '不符合电子邮件格式');
         }
 
         $userModel = new \app\index\model\User();
@@ -85,14 +94,27 @@ class Auth extends Common
         ];
         $user = $userModel->where($condition)->find();
         if (!empty($user)) {
-
+            return $this->apiError(0, '已存在该用户');
         }
 
         $salt = rand(10000, 1000000);
         $userModel->account = $email;
-        $userModel->password = md5($password . $salt);
         $userModel->createtime = time();
+        $userModel->salt = $salt;
+        $userModel->status = 2; // 默认已通过
+        $userModel->password = md5($password . $salt);
         $userModel->logintime = time();
         $userModel->save();
+
+        if (empty(Session::get('userinfo'))) {
+            Session::set('userinfo', $userModel);
+            // TODO: 初始化
+            $chapterSetting = [
+
+            ];
+            $chapterSetting = json_encode($chapterSetting);
+            Cookie::set('chapter_setting', $chapterSetting);
+        }
+        return $this->apiSuccess(1, $userModel);
     }
 }

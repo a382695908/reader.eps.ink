@@ -31,9 +31,6 @@ class Common extends Controller
             }
             Session::set('category_list', $category_list);
         }
-
-        // TODO: 分析当前请求的信息, 决定是插入还是更新访客表
-        // TODO: 以分析的信息, 更新visit表
     }
 
     public function apiSuccess($code, $message, $data = []) {

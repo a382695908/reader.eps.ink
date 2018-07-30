@@ -79,4 +79,14 @@ class Novel extends Common
         return $this->fetch();
     }
 
+    /**
+     * search
+     * @Author: eps
+     * @return \think\response\Json
+     */
+    public function search() {
+        $searchData = [];
+        return $this->apiSuccess(1, '搜索成功', $searchData);
+    }
+
 }
