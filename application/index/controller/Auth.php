@@ -115,11 +115,7 @@ class Auth extends Common
         if (empty(Session::get('userinfo'))) {
             Session::set('userinfo', $userModel);
             // TODO: 用户浏览章节的配置初始化
-            $chapterSetting = [
 
-            ];
-            $chapterSetting = json_encode($chapterSetting);
-            Cookie::set('chapter_setting', $chapterSetting);
         }
         return $this->apiSuccess(1, '注册成功', $userModel);
     }

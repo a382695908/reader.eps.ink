@@ -56,28 +56,33 @@ function register() {
 
 function cookieInit() {
     // 判断是否已经初始化了
-    var isInit = Cookies.get('chapter_setting');
+    var isInit = Cookies.get('is_init');
     if (isInit) {
-        return ;
+        return;
     }
-    setBackgroundColor(0);
+    // 章节cookie
     setFont(0);
-    setSize(0);
     setColor(0);
+    setSize(0);
+    setSpeed(0);
+    setBackgroundColor(0);
     setWidth(0);
     setAutopage(0);
     setNight(0);
+    Cookies.set('is_init', 1, {expires: 365, path: '/'});
 }
 
 /**
  * 设置字体
  */
 function setFont(isSetView) {
-    if (isSetView && Cookies.get('font')) {
-        $('#content').css('font', Cookies.get('font'));
+    var font = Cookies.get('font');
+    if (isSetView && font) {
+        $('#content').css('font', font);
+        $('#font').val(font);
         return;
     }
-    var font = $('#font').val();
+    font = $('#font').val();
     $('#content').css('fontFamily', font);
     Cookies.set('font', font, {expires: 365, path: '/'});
 }
@@ -86,11 +91,13 @@ function setFont(isSetView) {
  * 设置字体颜色
  */
 function setColor(isSetView) {
-    if (isSetView && Cookies.get('color')) {
-        $('#content').css('color', Cookies.get('color'));
+    var color = Cookies.get('color');
+    if (isSetView && color) {
+        $('#content').css('color', color);
+        $('#color').val(color)
         return;
     }
-    var color = $('#color').val();
+    color = $('#color').val();
     $('#content').css('color', color);
     Cookies.set('color', color, {expires: 365, path: '/'});
 }
@@ -99,11 +106,13 @@ function setColor(isSetView) {
  * 设置字体大小
  */
 function setSize(isSetView) {
-    if (isSetView && Cookies.get('size')) {
-        $('#content').css('size', Cookies.get('size'));
+    var size = Cookies.get('size');
+    if (isSetView && size) {
+        $('#content').css('fontSize', size);
+        $('#size').val(size);
         return;
     }
-    var size = $('#size').val();
+    size = $('#size').val();
     $('#content').css('fontSize', size);
     Cookies.set('size', size, {expires: 365, path: '/'});
 }
@@ -112,23 +121,27 @@ function setSize(isSetView) {
  * 设置滚屏速度
  */
 function setSpeed(isSetView) {
-    if (isSetView && Cookies.get('scrollspeed')) {
-        $('#content').css('scrollspeed', Cookies.get('scrollspeed'));
+    var scrollspeed = Cookies.get('scrollspeed');
+    if (isSetView && scrollspeed) {
+        $('#content').css('scrollspeed', scrollspeed);
+        $('#scrollspeed').val(scrollspeed);
         return;
     }
-    var scrollspeed = $('#scrollspeed').val();
-    Cookie.set('scrollspeed', scrollspeed, {expires: 365, path: '/'});
+    scrollspeed = $('#scrollspeed').val();
+    Cookies.set('scrollspeed', scrollspeed, {expires: 365, path: '/'});
 }
 
 /**
  * 设置背景颜色
  */
 function setBackgroundColor(isSetView) {
-    if (isSetView && Cookies.get('bgcolor')) {
-        $('#content').css('bgcolor', Cookies.get('bgcolor'));
+    var bgcolor = Cookies.get('bgcolor');
+    if (isSetView && bgcolor) {
+        $('#content').css('backgroundColor', bgcolor);
+        $('#bgcolor').val(bgcolor);
         return;
     }
-    var bgcolor = $('#bgcolor').val();
+    bgcolor = $('#bgcolor').val();
     $('#wrapper').css('backgroundColor', bgcolor);
     Cookies.set('bgcolor', bgcolor, {expires: 365, path: '/'});
 }
@@ -137,11 +150,13 @@ function setBackgroundColor(isSetView) {
  * 设置宽度
  */
 function setWidth(isSetView) {
-    if (isSetView && Cookies.get('width')) {
-        $('#content').css('width', Cookies.get('width'));
+    var width = Cookies.get('width');
+    if (isSetView && width) {
+        $('#content').css('width', width);
+        $('#width').val(width);
         return;
     }
-    var width = $('#width').val();
+    width = $('#width').val();
     $('#content').css('width', width);
     Cookies.set('width', width, {expires: 365, path: '/'});
 }
@@ -172,10 +187,9 @@ function setAutopage(isSetView) {
 function setNight(isSetView) {
     if (isSetView) {
         if (Cookies.get('night') == 1) {
+            $('#night').attr('checked', true);
             $('body,div,.this').css('backgroundColor', '#111111');
             $('div,a').css('color', '#999999');
-            // todo: 修改导航栏
-            // todo: 修改按钮样式
         }
         return;
     }
@@ -183,8 +197,6 @@ function setNight(isSetView) {
     if ($('#night').is(':checked') == true) {
         $('body,div,.this').css('backgroundColor', '#111111');
         $('div,a').css('color', '#999999');
-        // todo: 修改导航栏
-        // todo: 修改按钮样式
         Cookies.set('night', 1, {path: '/', expires: 365});
     } else {
         $('body,div,.this').css('backgroundColor', '');
@@ -245,9 +257,10 @@ function logVisitorInfo() {
     var info = $('#visitor_info').text();
     info = (new Function('return ' + info))();
     $.ajax({
-        url: logVisitorUrl,
+        url: data.logVisitorUrl,
         data: info
     });
+    Cookie.set('visitor_info', JSON.stringify(info), {path: '/', expires: 365})
 }
 
 
@@ -257,51 +270,42 @@ function stopScroll() {
 
 function scrollwindow() {
     var speed = Cookies.get('scrollspeed');
-    timer = setInterval("scrolling()", 250 / speed);
+    timer = setInterval(function () {
+        scrolling()
+    }, 250 / speed);
 }
 
 function scrolling() {
-    var currentpos = 1;
-    if (browser_is == 'chrome' | document.compatMode == 'BackCompat') {
-        currentpos = document.body.scrollTop;
-    } else {
-        currentpos = document.documentElement.scrollTop;
-    }
-
     window.scroll(0, ++currentpos);
-    if (browser_is == 'chrome' || document.compatMode == 'BackCompat') {
-        temPos = document.body.scrollTop;
-    } else {
-        temPos = document.documentElement.scrollTop;
-    }
-
-    if (currentpos != temPos) {
-        //var autopage = Cookies.get('autopage');
-        //if (autopage == 1 && /next_page/.test(document.referrer) == false) {
-        //    location.href = data.next_page;
-        //}
+    if (currentpos == temPos) {
         stopScroll();
     }
 }
 
 timer = null;
-
+currentpos = 0;
+temPos = 0;
 $(function () {
     // logVisitorInfo();
 
-    var ua = navigator.userAgent.toLowerCase();
-    var is = (ua.match(/\b(chrome|opera|safari|msie|firefox)\b/) || ['', 'mozilla'])[1];
-    browser_is = is;
 
-    cookieInit();
-    setBackgroundColor(1);
-    setFont(1);
-    setSize(1);
-    setColor(1);
-    setWidth(1);
-    setAutopage(1);
-    setNight(1);
+    if (data.reading) {
+        var ua = navigator.userAgent.toLowerCase();
+        var is = (ua.match(/\b(chrome|opera|safari|msie|firefox)\b/) || ['', 'mozilla'])[1];
+        browser_is = is;
 
-    document.onmousedown = stopScroll;
-    document.ondblclick = scrollwindow;
+        cookieInit();
+        setFont(1);
+        setColor(1);
+        setSize(1);
+        setSpeed(1);
+        setBackgroundColor(1);
+        setWidth(1);
+        setAutopage(1);
+        setNight(1);
+
+        document.onmousedown = stopScroll;
+        document.ondblclick = scrollwindow;
+    }
+
 });
