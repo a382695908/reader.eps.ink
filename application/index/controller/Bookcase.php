@@ -5,6 +5,7 @@ use think\Facade\Session;
 
 class Bookcase extends Common
 {
+
     /**
      * 书架主页面
      * @Author: eps
@@ -12,14 +13,10 @@ class Bookcase extends Common
      */
     public function index()
     {
-        $userinfo = Session::get('userinfo');
-        if (empty($userinfo)) {
+        if (empty(Session::get('userinfo'))) {
             return redirect(url('/register'));
         }
 
-        // session('userinfo')
-
-        // bookcases
 //        $condition = array(
 //            'userid' => $user['id'],
 //        );
@@ -32,29 +29,28 @@ class Bookcase extends Common
     /**
      * 新增书籍到书架
      * @Author: eps
-     * @param $id
+     * @return \think\response\Json
      */
-    public function add($id)
+    public function add()
     {
+        if (empty(Session::get('userinfo'))) {
+            return $this->apiError(-1, '先登录再收藏!');
+        }
 
-        // session('userinfo')
+        $novel_id = intval($_POST['novel_id']);
 
-        // bookcase
-        $condition = array(
-            'xsid' => $id,
-            'userid' => $user['id'],
-        );
-        // find
-        // if
-        // insert
+        // todo: if exists
+
+        // todo: insert row into bookcase
+
+        return $this->apiSuccess(1, '加入书架成功');
     }
 
     /**
      * 删除书架里的书籍
      * @Author: eps
-     * @param $id
      */
-    public function delete($id)
+    public function delete()
     {
 
         // session('userinfo')

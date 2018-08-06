@@ -43,8 +43,8 @@
                 <a href="{$novel.link_url}">{$novel.name}</a>
 
                 <div style="float: right;">
-                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="Javascript:void(0);" onclick="javascript:$.ajax({cache:false,url:'/addbookcase/8279.php',success:function(data){if('-1'==data){alert('先登录再收藏！');}else{alert('加入书架成功！');}},error:function(){alert('加入书架成功！');}});">加入书架</a>
-                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;"  href="Javascript:void(0);" onclick="javascript:$.ajax({cache:false,url:'/recommend/8279.php',success:function(data){alert('推荐本书成功！');}});">推荐本书</a>
+                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="" data-novelid="{$novel.id}" onclick="addIntoBookCase()">加入书架</a>
+                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="" data-novelid="{$novel.id}" onclick="recommendNovel()">推荐本书</a>
                 </div>
 
             </div>
@@ -106,7 +106,9 @@
         var data = {
             logVisitorUrl: "{:url('/visitor_log')}",
             loginUrl: "{:url('/login')}",
-            registerUrl: "{:url('/register')}"
+            registerUrl: "{:url('/register')}",
+            addIntoBookCaseUrl: "{:url('/bookcase/add')}",
+            recommendNovelUrl: "{:url('/novel/recommend')}",
         }
     </script>
 </body>

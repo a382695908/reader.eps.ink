@@ -27,6 +27,7 @@ Route::get('/full/page/:page', 'category/isend');
 // 小说页面
 Route::get('/novel/:id', 'novel/index');
 Route::get('/novel/search', 'novel/search');
+Route::post('/novel/recommend', 'novel/recommend');
 
 // 小说章节阅读界面
 Route::get('/chapter/:id', 'chapter/index');
@@ -36,8 +37,8 @@ Route::get('/top', 'top/index');
 
 // 我的书架
 Route::get('/bookcase', 'bookcase/index');
-Route::post('/bookcase/add/:id', 'bookcase/delete');
-Route::post('/bookcase/delete/:id', 'bookcase/delete');
+Route::post('/bookcase/add', 'bookcase/add');
+Route::post('/bookcase/delete', 'bookcase/delete');
 
 // 访问网站
 Route::post('/visitor_log', 'visit/visitor_log');

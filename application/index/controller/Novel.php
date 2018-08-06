@@ -76,6 +76,9 @@ class Novel extends Common
         unset($chapterGroup);
         $this->assign('chapter_group_chapters', $chapterGroupList);
 
+
+        // todo: update novel field `click`
+
         return $this->fetch();
     }
 
@@ -84,9 +87,25 @@ class Novel extends Common
      * @Author: eps
      * @return \think\response\Json
      */
-    public function search() {
+    public function search()
+    {
+        $search = trim($_POST['search']);
         $searchData = [];
         return $this->apiSuccess(1, '搜索成功', $searchData);
     }
 
+    /**
+     * recommend
+     * @Author: eps
+     * @return \think\response\Json
+     */
+    public function recommend()
+    {
+        $novel_id = intval($_POST['novel_id']);
+
+//        return $this->apiSuccess(-1, '你已经推荐三次了!');
+
+        // todo: update novel field `recommends`
+        return $this->apiSuccess(1, '推荐成功');
+    }
 }
