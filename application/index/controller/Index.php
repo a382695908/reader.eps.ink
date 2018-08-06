@@ -113,10 +113,8 @@ class Index extends Common
         unset($novel);
         $this->assign('latest_created_list', $latest_created_list);
 
-        $friend_links = array(
-            array('name' => '笔趣阁小说网', 'link' => 'http://www.022003.com/'),
-            array('name' => '百度', 'link' => 'https://www.baidu.com'),
-        );
+        $friendLinkModel = new \app\index\model\FriendLink();
+        $friend_links = $friendLinkModel->select();
         $this->assign('friend_links', $friend_links);
 
         return $this->fetch();
@@ -126,8 +124,10 @@ class Index extends Common
      * 搜索小说(名字, 作者)
      * @Author: eps
      */
-    public function search() {
+    public function search()
+    {
         $search = trim($_POST['search']);
 
     }
+
 }

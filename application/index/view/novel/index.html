@@ -17,7 +17,7 @@
                     <input type="submit" class="btn" value="搜 索" onclick="novel_search()">
                 </div>
             </div>
-            <div style="float: right;" class="search">欢迎您，[<a href="{:url('/auth')}">登录</a>]或[<a href="{:url('/auth', ['t' => 1])}">注册</a>]
+            <div style="float: right;" class="search">欢迎您，[<a href="{:url('/login')}">登录</a>]或[<a href="{:url('/register')}">注册</a>]
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
         <div class="path">
             <div class="p">
                 <a href="/">读读读</a> &gt;
-                <a href="{$novel.link_url}">伏天氏</a>
+                <a href="{$novel.link_url}">{$novel.name}</a>
 
                 <div style="float: right;">
                     <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="Javascript:void(0);" onclick="javascript:$.ajax({cache:false,url:'/addbookcase/8279.php',success:function(data){if('-1'==data){alert('先登录再收藏！');}else{alert('加入书架成功！');}},error:function(){alert('加入书架成功！');}});">加入书架</a>
@@ -97,8 +97,17 @@
         <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
     </div>
 
+    <div style="display: none" id="visitor_info"><script type="text/javascript" src="http://ip.chinaz.com/getip.aspx"></script></div>
+
     <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
     <script src="/static/js/common.js"></script>
     <script src="https://cdn.staticfile.org/js-cookie/latest/js.cookie.min.js"></script>
+    <script>
+        var data = {
+            logVisitorUrl: "{:url('/visitor_log')}",
+            loginUrl: "{:url('/login')}",
+            registerUrl: "{:url('/register')}"
+        }
+    </script>
 </body>
 </html>

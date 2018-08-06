@@ -17,7 +17,7 @@
                     <input type="submit" class="btn" value="搜 索" onclick="novel_search()">
                 </div>
             </div>
-            <div style="float: right;" class="search">欢迎您，[<a href="{:url('/auth')}">登录</a>]或[<a href="{:url('/auth', ['t' => 1])}">注册</a>]
+            <div style="float: right;" class="search">欢迎您，[<a href="{:url('/login')}">登录</a>]或[<a href="{:url('/register')}">注册</a>]
             </div>
         </div>
     </div>
@@ -153,19 +153,26 @@
         <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
     </div>
 
+    <div style="display: none" id="visitor_info"><script type="text/javascript" src="http://ip.chinaz.com/getip.aspx"></script></div>
+
     <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
     <script src="/static/js/common.js"></script>
     <script src="https://cdn.staticfile.org/js-cookie/latest/js.cookie.min.js"></script>
     <script type="text/javascript">
-        var preview_page = "17468919.html";
-        var next_page = "/txt/63542/index.html";
-        var index_page = "/txt/63542/index.html";
-        function jumpPage() {
-            if (event.keyCode==37) location=preview_page;
-            if (event.keyCode==39) location=next_page;
-            if (event.keyCode==13) location=index_page;
+        var data = {
+            logVisitorUrl: "{:url('/visitor_log')}",
+            loginUrl: "{:url('/login')}",
+            registerUrl: "{:url('/register')}"
         }
-        document.onkeydown=jumpPage;
+//        var preview_page = "17468919.html";
+//        var next_page = "/txt/63542/index.html";
+//        var index_page = "/txt/63542/index.html";
+//        function jumpPage() {
+//            if (event.keyCode==37) location=preview_page;
+//            if (event.keyCode==39) location=next_page;
+//            if (event.keyCode==13) location=index_page;
+//        }
+//        document.onkeydown=jumpPage;
     </script>
 </body>
 </html>

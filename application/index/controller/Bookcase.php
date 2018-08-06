@@ -14,7 +14,7 @@ class Bookcase extends Common
     {
         $userinfo = Session::get('userinfo');
         if (empty($userinfo)) {
-            return redirect(url('/auth'));
+            return redirect(url('/register'));
         }
 
         // session('userinfo')

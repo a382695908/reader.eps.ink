@@ -4,30 +4,51 @@ function novel_search(e) {
     }, 3000);
 }
 
-function login(username, password, url) {
+/**
+ * 登录
+ */
+function login() {
+    var username = $('#username').val();
+    var password = $('#password').val();
     $.ajax({
-        url: url,
+        url: data.loginUrl,
         type: 'POST',
         data: {
             username: username,
             password: password
         },
-        success: function () {
-            alert('登录成功!');
+        success: function (data) {
+            console.log(data);
+            if (data.code == 0) {
+                alert(data.message)
+            }
+            else {
+                alert('登录成功!');
+            }
         }
     });
 }
 
-function register(username, password, url) {
+/**
+ * 注册
+ */
+function register() {
+    var username = $('#username').val();
+    var password = $('#password').val();
     $.ajax({
-        url: url,
+        url: data.registerUrl,
         type: 'POST',
         data: {
             username: username,
             password: password
         },
-        success: function () {
-            alert('注册成功!');
+        success: function (data) {
+            if (data.code == 0) {
+                alert(data.message)
+            }
+            else {
+                alert('注册成功!');
+            }
         }
     });
 }
@@ -35,7 +56,7 @@ function register(username, password, url) {
 
 function cookieInit() {
     // 判断是否已经初始化了
-    var isInit = Cookies.get('is_init');
+    var isInit = Cookies.get('chapter_setting');
     if (isInit) {
         return;
     }
@@ -82,20 +103,16 @@ function addIntoBookCase() {
 }
 
 /**
- *
+ * 获取访客信息
  */
-function getVisitorInfo() {
+function logVisitorInfo(url) {
     var info = $('#visitor_info').text();
-    console.log(info);
-    // TODO: 将info转成对象
+    info = (new Function("return " + info))();
     $.ajax({
         url: '',
-        success: function () {
-            console.log('ok');
-        }
-    })
+        data: info
+    });
 }
-
 
 /**
  * 推荐本书
@@ -106,5 +123,5 @@ function recommendNovel() {
 
 
 $(function () {
-    //getVisitorInfo();
+    //logVisitorInfo(data.);
 });

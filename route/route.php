@@ -10,8 +10,8 @@
 // +----------------------------------------------------------------------
 
 // 注册 && 登录 && 退出
-Route::get('/auth/t/1', 'auth/index');
-Route::get('/auth', 'auth/index');
+Route::get('/login', 'auth/login_view');
+Route::get('/register', 'auth/register_view');
 Route::post('/login', 'auth/login');
 Route::post('/register', 'auth/register');
 Route::post('/logout', 'auth/logout');

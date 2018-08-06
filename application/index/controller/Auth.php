@@ -6,12 +6,7 @@ use think\Facade\Session;
 
 class Auth extends Common
 {
-    /**
-     * 登陆主页面
-     * @Author: eps
-     * @return mixed
-     */
-    public function index($t = 0)
+    public function login_view()
     {
         // 获取小说分类信息
         $category_list = Session::get('category_list');
@@ -21,14 +16,20 @@ class Auth extends Common
         unset($category);
         $this->assign('category_list', $category_list);
 
-        if (intval($t) === 1) {
-            $this->assign('btn', ['注', '册']);
-        } else {
-            $this->assign('btn', ['登', '录']);
-        }
-        $this->assign('t', $t);
+        return $this->fetch('login');
+    }
 
-        return $this->fetch('auth');
+    public function register_view()
+    {
+        // 获取小说分类信息
+        $category_list = Session::get('category_list');
+        foreach ($category_list as &$category) {
+            $category['link'] = url('/category/' . $category['id']);
+        }
+        unset($category);
+        $this->assign('category_list', $category_list);
+
+        return $this->fetch('register');
     }
 
     /**
@@ -54,7 +55,7 @@ class Auth extends Common
         if ($user['password'] == md5($password . $user['salt'])) {
             $userinfo = $user;
             Session::set('userinfo', $userinfo);
-            return $this->apiSuccess(1, $userinfo);
+            return $this->apiSuccess(1, '登录成功', $userinfo);
         }
 
         return $this->apiError(0, '密码错误');
@@ -80,8 +81,11 @@ class Auth extends Common
         $email = trim($_POST['username']);
         $password = $_POST['password'];
 
-        if (empty($email) || empty($password)) {
-            return $this->apiError(0, '空');
+        if (empty($email)) {
+            return $this->apiError(0, '邮箱为空');
+        }
+        if (empty($password)) {
+            return $this->apiError(0, '密码为空');
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -97,6 +101,8 @@ class Auth extends Common
             return $this->apiError(0, '已存在该用户');
         }
 
+        // todo: 打开事务
+
         $salt = rand(10000, 1000000);
         $userModel->account = $email;
         $userModel->createtime = time();
@@ -108,13 +114,13 @@ class Auth extends Common
 
         if (empty(Session::get('userinfo'))) {
             Session::set('userinfo', $userModel);
-            // TODO: 初始化
+            // TODO: 用户浏览章节的配置初始化
             $chapterSetting = [
 
             ];
             $chapterSetting = json_encode($chapterSetting);
             Cookie::set('chapter_setting', $chapterSetting);
         }
-        return $this->apiSuccess(1, $userModel);
+        return $this->apiSuccess(1, '注册成功', $userModel);
     }
 }
