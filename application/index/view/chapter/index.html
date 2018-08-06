@@ -43,16 +43,17 @@
                 <a href="{$novel.link_url}">{$novel.name}</a> &gt;{$chapter.name}
                 <span class="oninfo">
                     <div id="page_set">
-                        <select onchange="javascript:setFont();" id="bcolor" name="bcolor">
-                            <option value="宋体">字体</option>
+                        <select onchange="setFont(0);" id="font" name="font">
+                            <option value="方正启体简体">字体</option>
                             <option value="方正启体简体">默认</option>
+                            <option value="宋体">宋体</option>
                             <option value="黑体">黑体</option>
                             <option value="楷体_GB2312">楷体</option>
                             <option value="微软雅黑">雅黑</option>
                             <option value="方正启体简体">启体</option>
                             <option value="宋体">宋体</option>
                         </select>
-                        <select onchange="javascript:setColor();" id="bcolor" name="bcolor">
+                        <select onchange="setColor(0);" id="color" name="color">
                             <option value="#000">颜色</option>
                             <option value="#000">默认</option>
                             <option value="#9370DB">暗紫</option>
@@ -66,8 +67,8 @@
                             <option value="#F5F5DC">米色</option>
                             <option value="#F5F5F5">雾白</option>
                         </select>
-                        <select onchange="javascript:setSize();" id="bcolor" name="bcolor">
-                            <option value="#E9FAFF">大小</option>
+                        <select onchange="setSize(0);" id="size" name="size">
+                            <option value="19pt">大小</option>
                             <option value="19pt">默认</option>
                             <option value="10pt">10pt</option>
                             <option value="12pt">12pt</option>
@@ -79,7 +80,7 @@
                             <option value="25pt">25pt</option>
                             <option value="30pt">30pt</option>
                         </select>
-                        <select name="scrollspeed" id="scrollspeed" onchange="javascript:setSpeed();">
+                        <select name="scrollspeed" id="scrollspeed" onchange="setSpeed(0);">
                             <option value="5">滚屏</option>
                             <option value="1">最慢</option>
                             <option value="2">慢2</option>
@@ -92,7 +93,7 @@
                             <option value="9">快9</option>
                             <option value="10">最快</option>
                         </select>
-                        <select onchange="javascript:setBackgroundColor();" id="bcolor" name="bcolor">
+                        <select onchange="setBackgroundColor(0);" id="bgcolor" name="bgcolor">
                             <option value="#E9FAFF" style="background-color: #E9FAFF;">背景</option>
                             <option value="#E9FAFF" style="background-color: #E9FAFF;">默认</option>
                             <option value="#FFFFFF" style="background-color: #FFFFFF;">白雪</option>
@@ -106,7 +107,7 @@
                             <option value="#D2B48C" style="background-color: #D2B48C;">茶色</option>
                             <option value="#C0C0C0" style="background-color: #E7F4FE;">银色</option>
                         </select>
-                        <select onchange="javascript:setWidth();" id="bcolor" name="bcolor">
+                        <select onchange="setWidth(0);" id="width" name="width">
                             <option value="95%">宽度</option>
                             <option value="95%">默认</option>
                             <option value="85%">85%</option>
@@ -115,14 +116,12 @@
                             <option value="53%">50%</option>
                             <option value="41%">40%</option>
                         </select>
-                        翻页
-                        <input type="checkbox" name="autopage" id="autopage" onchange="javascript:setAutopage();" value="">&nbsp;夜间
-                        <input type="checkbox" name="night" id="night" onchange="javascript:setNight();" value="">
+                        翻页<input type="checkbox" name="autopage" id="autopage" onchange="setAutopage(0);" value="">&nbsp;夜间<input type="checkbox" name="night" id="night" onchange="setNight(0);" value="">
                     </div>
                 </span>
                 <div style="float: right;">
-                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="" data-novelid="{$novel.id}" onclick="addIntoBookCase()">加入书架</a>
-                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="" data-novelid="{$novel.id}" onclick="recommendNovel()">推荐本书</a>
+                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()" data-novelid="{$novel.id}" onclick="addIntoBookCase()">加入书架</a>
+                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()" data-novelid="{$novel.id}" onclick="recommendNovel()">推荐本书</a>
                 </div>
             </div>
         </div>
@@ -164,7 +163,7 @@
             logVisitorUrl: "{:url('/visitor_log')}",
             loginUrl: "{:url('/login')}",
             registerUrl: "{:url('/register')}",
-
+            next_page: ""
         }
 //        var preview_page = "17468919.html";
 //        var next_page = "/txt/63542/index.html";
