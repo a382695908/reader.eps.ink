@@ -258,11 +258,12 @@ function logVisitorInfo() {
     info = (new Function('return ' + info))();
     $.ajax({
         url: data.logVisitorUrl,
+        type: 'POST',
         data: {
             info: JSON.stringify(info)
-        }
+        },
     });
-    Cookie.set('visitor_info', JSON.stringify(info), {path: '/', expires: 365})
+    Cookies.set('visitor_info', JSON.stringify(info), {path: '/', expires: 365})
 }
 
 
@@ -288,8 +289,7 @@ timer = null;
 currentpos = 0;
 temPos = 0;
 $(function () {
-    // logVisitorInfo();
-
+     logVisitorInfo();
 
     if (data.reading) {
         var ua = navigator.userAgent.toLowerCase();

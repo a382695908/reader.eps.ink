@@ -1,6 +1,7 @@
 <?php
 namespace app\index\controller;
 
+use Jenssegers\Agent\Agent;
 use think\Facade\Session;
 
 class Visit extends Common
@@ -36,12 +37,17 @@ class Visit extends Common
 
         // user base info
         $visitor_info = $_POST['info'];
-        $visitor_info = json_decode($visitor_info);
+        $visitor_info = json_decode($visitor_info, true);
         $ip = $visitor_info['ip'];
         $address = $visitor_info['address'];
 
-        // todo: check user agent
-        $from = 0; // 0: pc 1: 移动端 2: 微信
+        $agent = new Agent();
+        if ($agent->isDesktop()) {
+            $from = 0;
+        }
+        else if ($agent->isPhone()) {
+            $from = 1;
+        }
 
         $condition = [
             'visitor_ip' => $ip,
