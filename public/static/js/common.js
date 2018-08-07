@@ -258,7 +258,9 @@ function logVisitorInfo() {
     info = (new Function('return ' + info))();
     $.ajax({
         url: data.logVisitorUrl,
-        data: info
+        data: {
+            info: JSON.stringify(info)
+        }
     });
     Cookie.set('visitor_info', JSON.stringify(info), {path: '/', expires: 365})
 }

@@ -43,6 +43,11 @@ Route::post('/bookcase/delete', 'bookcase/delete');
 // 访问网站
 Route::post('/visitor_log', 'visit/visitor_log');
 
+// 反馈
+Route::post('/advise', 'feedBack/advise');
+Route::post('/report', 'feedBack/report');
+Route::post('/sponsor', 'feedBack/sponsor');
+
 
 return [
 
