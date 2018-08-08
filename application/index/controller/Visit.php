@@ -6,12 +6,14 @@ use think\Facade\Session;
 
 class Visit extends Common
 {
+    const TOKEN_SECRET = 'h8hnfoasd1';
     /**
      * 访客访问记录
      * @Author: eps
      * @return \think\response\Json
      */
-    public function visitor_log() {
+    public function visitor_log()
+    {
         $time = time();
         $year = date('Y', $time);
         $month = date('n', $time);
@@ -24,48 +26,53 @@ class Visit extends Common
         $visitModel = new \app\index\model\Visit();
         $visitRow = $visitModel->where($condition)->find();
         if ($visitRow) {
-            // todo; update field `visit`
+            // todo: 并发
+            $visitModel->where($condition)->update(['visit' => $visitRow->visit + 1]);
             $visit_id = $visitRow['id'];
-        }
-        else {
-            // todo: insert into visit
+        } else {
             $date = date('w', $time);
             if ($date == 0) {
                 $date = 7;
             }
+            $visitData = [
+                'year' => $year,
+                'month' => $month,
+                'day' => $day,
+                'date' => $date,
+                'visit' => 1
+            ];
+            $visit_id = $visitModel->insert($visitData, false, true);
         }
 
-        // user base info
-        $visitor_info = $_POST['info'];
-        $visitor_info = json_decode($visitor_info, true);
-        $ip = $visitor_info['ip'];
-        $address = $visitor_info['address'];
+        // visitor info
+        $ip = getIp();
+        $address = trim($_POST['address']);
+        if (empty($ip)) {
+            return $this->apiError(0, '错误1', [$ip]);
+        }
+        if (empty($address)) {
+            return $this->apiError(0, '错误2', $address);
+        }
 
         $agent = new Agent();
         if ($agent->isDesktop()) {
             $from = 0;
-        }
-        else if ($agent->isPhone()) {
+        } else if ($agent->isPhone()) {
             $from = 1;
         }
 
-        $condition = [
-            'visitor_ip' => $ip,
-        ];
+        $condition = ['visitor_ip' => $ip];
         $visitorModel = new \app\index\model\Visitor();
         $visitor = $visitorModel->where($condition)->find();
         if ($visitor) {
-
             if ($visitor['is_black']) {
                 Session::set('access_denied', 1);
-                die;
+                return $this->apiError(1, '拒绝访问!');
             }
-            // update field `last_visit_time`
-            $visitorModel->where($condition)->save(['last_visit_time' => $time]);
+            $visitorModel->where($condition)->update(['last_visit_time' => $time]);
             $visitor['last_visit_time'] = $time;
-            $visitorData  = $visitor;
-        }
-        else {
+            $visitorData = $visitor;
+        } else {
             $userinfo = Session::get('userinfo');
             $user_id = ($userinfo) ? $userinfo['id'] : 0;
 
@@ -79,11 +86,13 @@ class Visit extends Common
                 'is_black' => 0,
                 'last_visit_time' => $time,
             ];
-            $visitor_id = $visitorModel->save($visitorData);
+            $visitor_id = $visitorModel->insert($visitorData, false, true);
             $visitorData['id'] = $visitor_id;
         }
         Session::set('visitor_info', $visitorData);
-        return $this->apiSuccess(1, '访问成功');
+        $visitorToken = json_encode($visitorData) . self::TOKEN_SECRET;
+        $visitorToken = md5($visitorToken);
+        return $this->apiSuccess(1, '访问成功', ['visitor_token' => $visitorToken]);
     }
 
 }

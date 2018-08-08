@@ -1,4 +1,7 @@
-function novel_search(e) {
+/**
+ * 搜索
+ */
+function novel_search() {
     setTimeout(function () {
         console.log('request ok');
     }, 3000);
@@ -53,6 +56,65 @@ function register() {
     });
 }
 
+
+/**
+ * 加入书架
+ */
+function addIntoBookCase() {
+    var novelid = $(this).attr('novelid');
+
+    $.ajax({
+        cache: false,
+        url: data.addIntoBookCaseUrl,
+        data: {
+            novel_id: novelid
+        },
+        success: function (data) {
+            if (data.code == '-1') {
+                alert('先登录再收藏！');
+            }
+            else {
+                alert('加入书架成功！');
+            }
+        }
+    });
+}
+
+/**
+ * 推荐本书
+ */
+function recommendNovel() {
+    var novelid = $(this).attr('novelid');
+    $.ajax({
+        cache: false,
+        data: {
+            novel_id: novelid
+        },
+        url: data.recommendNovelUrl,
+        success: function (data) {
+            if (data.code == '-1') {
+                alert('你已经推荐三次了!');
+            }
+            else {
+                alert('推荐本书成功！');
+            }
+        }
+    });
+}
+
+function recordVisitedChapter() {
+
+}
+
+function nextChapter() {
+
+}
+
+function lastChapter() {
+
+}
+
+// ---------------- 章节主题  ----------------------
 
 function cookieInit() {
     // 判断是否已经初始化了
@@ -205,68 +267,6 @@ function setNight(isSetView) {
     }
 }
 
-/**
- * 加入书架
- */
-function addIntoBookCase() {
-    var novelid = $(this).attr('novelid');
-
-    $.ajax({
-        cache: false,
-        url: data.addIntoBookCaseUrl,
-        data: {
-            novel_id: novelid
-        },
-        success: function (data) {
-            if (data.code == '-1') {
-                alert('先登录再收藏！');
-            }
-            else {
-                alert('加入书架成功！');
-            }
-        }
-    });
-}
-
-/**
- * 推荐本书
- */
-function recommendNovel() {
-    var novelid = $(this).attr('novelid');
-    $.ajax({
-        cache: false,
-        data: {
-            novel_id: novelid
-        },
-        url: data.recommendNovelUrl,
-        success: function (data) {
-            if (data.code == '-1') {
-                alert('你已经推荐三次了!');
-            }
-            else {
-                alert('推荐本书成功！');
-            }
-        }
-    });
-}
-
-/**
- * 获取访客信息
- */
-function logVisitorInfo() {
-    var info = $('#visitor_info').text();
-    info = (new Function('return ' + info))();
-    $.ajax({
-        url: data.logVisitorUrl,
-        type: 'POST',
-        data: {
-            info: JSON.stringify(info)
-        },
-    });
-    Cookies.set('visitor_info', JSON.stringify(info), {path: '/', expires: 365})
-}
-
-
 function stopScroll() {
     clearInterval(timer);
 }
@@ -285,6 +285,7 @@ function scrolling() {
     }
 }
 
+/*
 timer = null;
 currentpos = 0;
 temPos = 0;
@@ -310,4 +311,32 @@ $(function () {
         document.ondblclick = scrollwindow;
     }
 
+});
+*/
+
+define('/static/js/common', ['$', 'jscookie'], function (require, exports, module) {
+    var jquery = require('$');
+    var jscookie = require('jscookie');
+    var reload = {};
+
+
+    reload.init = function () {
+        if (!Cookies.get('ggbuf_visitor_token')) {
+            var info = $('#visitor_info').text();
+            info = (new Function('return ' + info))();
+            $.ajax({
+                url: '/visitor_log',
+                type: 'POST',
+                data: {
+                    address: info.address
+                },
+                success: function(data) {
+                    if (data.code == 1) {
+                        Cookies.set('ggbuf_visitor_token', data.data.visitor_token)
+                    }
+                }
+            });
+        }
+    };
+    return reload;
 });

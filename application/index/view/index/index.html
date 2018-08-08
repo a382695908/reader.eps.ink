@@ -21,7 +21,8 @@
                     <input type="submit" class="btn" value="搜 索" onclick="novel_search()">
                 </div>
             </div>
-            <div style="float: right;" class="search">欢迎您，[<a href="{:url('/login')}">登录</a>]或[<a href="{:url('/register')}">注册</a>]</div>
+                <div style="float: right;" class="search">欢迎您，[<a href="{:url('/login')}">登录</a>]或[<a href="{:url('/register')}">注册</a>]</div>
+            </div>
         </div>
     </div>
 
@@ -29,7 +30,7 @@
         <ul>
             <li class="this"><a href="/" title="读读读">首页</a></li>
             {volist name="category_list" id="category"}
-                <li><a href="{$category.link}">{$category.alias}</a></li>
+            <li><a href="{$category.link}">{$category.alias}</a></li>
             {/volist}
 
             <li><a href="{:url('/top')}">排行榜</a></li>
@@ -44,27 +45,27 @@
         <div class="hot">
             <div class="l bd">
                 {volist name="hotest_list" id="hotest"}
-                    <div class="item">
-                        <div class="p10">
-                            <div class="image">
-                                <a href="{$hotest.link}" target="_blank"><img src="{$hotest.cover}" alt="{$hotest.name}"/></a>
-                            </div>
-                            <dl>
-                                <dt>
-                                    <span>{$hotest.author_name}</span>
-                                    <a href="{$hotest.link}" target="_blank">{$hotest.name}</a>
-                                </dt>
-                                <dd>{$hotest.introduction}</dd>
-                            </dl>
+                <div class="item">
+                    <div class="p10">
+                        <div class="image">
+                            <a href="{$hotest.link}" target="_blank"><img src="{$hotest.cover}" alt="{$hotest.name}"/></a>
                         </div>
+                        <dl>
+                            <dt>
+                                <span>{$hotest.author_name}</span>
+                                <a href="{$hotest.link}" target="_blank">{$hotest.name}</a>
+                            </dt>
+                            <dd>{$hotest.introduction}</dd>
+                        </dl>
                     </div>
+                </div>
                 {/volist}
             </div>
             <div class="r bd">
                 <h2>强力推荐</h2>
                 <ul class="lis">
                     {volist name="hot_list" id="hot"}
-                        <li><span class="s1">[{$hot.category_alias}]</span><span class="s2"><a href="{$hot.link}">{$hot.name}</a></span><span class="s5">{$hot.author_name}</span></li>
+                            <li><span class="s1">[{$hot.category_alias}]</span><span class="s2"><a href="{$hot.link}">{$hot.name}</a></span><span class="s5">{$hot.author_name}</span></li>
                     {/volist}
                 </ul>
             </div>
@@ -77,7 +78,7 @@
                 <div class="p10">
                     <div class="top">
                         <div class="image">
-                            <a href="{$category_novel.top_novel.novel_link}" target="_blank"><img src="{$category_novel.top_novel.cover}" alt="{$category_novel.top_novel.name}"/></a>
+                                <a href="{$category_novel.top_novel.novel_link}" target="_blank"><img src="{$category_novel.top_novel.cover}" alt="{$category_novel.top_novel.name}"/></a>
                         </div>
                         <dl>
                             <dt>
@@ -88,7 +89,7 @@
                     </div>
                     <ul>
                         {volist name="category_novel.novels" id="novel"}
-                            <li><a href="{$novel.novel_link}" target="_blank" title="{$novel.name}">{$novel.name}</a>/{$novel.author_name}</li>
+                                <li><a href="{$novel.novel_link}" target="_blank" title="{$novel.name}">{$novel.name}</a>/{$novel.author_name}</li>
                         {/volist}
                     </ul>
                 </div>
@@ -103,12 +104,12 @@
                     {volist name="latest_updated_list" id="novel"}
                     <li>
                         <span class="s1">[{$novel.category_name}]</span>
-                        <span class="s2">
-                            <a href="{$novel.novel_link}">{$novel.name}</a>
-                        </span>
-                        <span class="s3">
-                            <a href="{$novel.chapter_link}">{$novel.chapter_name}</a>
-                        </span>
+                            <span class="s2">
+                                <a href="{$novel.novel_link}">{$novel.name}</a>
+                            </span>
+                            <span class="s3">
+                                <a href="{$novel.chapter_link}">{$novel.chapter_name}</a>
+                            </span>
                         <span class="s4">{$novel.author_name}</span>
                         <span class="s5">{$novel.updateAt}</span>
                     </li>
@@ -121,9 +122,9 @@
                     {volist name="latest_created_list" id="novel"}
                     <li>
                         <span class="s1">[{$novel.category_alias}]</span>
-                        <span class="s2">
-                            <a href="{$novel.novel_link}">{$novel.name}</a>
-                        </span>
+                            <span class="s2">
+                                <a href="{$novel.novel_link}">{$novel.name}</a>
+                            </span>
                         <span class="s5">{$novel.author_name}</span>
                     </li>
                     {/volist}
@@ -135,25 +136,31 @@
     <div class="footer">
         <div class="link">
             {volist name="friend_links" id="link"}
-                <a href="{$link.url}" target="_blank">{$link.name}</a>
+            <a href="{$link.url}" target="_blank">{$link.name}</a>
             {/volist}
         </div>
         <hr/>
         <p>本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
+
         <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
     </div>
 
     <div style="display: none" id="visitor_info"><script type="text/javascript" src="http://ip.chinaz.com/getip.aspx"></script></div>
 
-    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/static/js/common.js"></script>
-    <script src="https://cdn.staticfile.org/js-cookie/latest/js.cookie.min.js"></script>
+    <script src="/static/js/third_party/sea.js"></script>
+    <script src="/static/js/entry.js"></script>
     <script>
-        var data = {
-            logVisitorUrl: "{:url('/visitor_log')}",
-            loginUrl: "{:url('/login')}",
-            registerUrl: "{:url('/register')}"
-        }
+//        var data = {
+//            logVisitorUrl: "{:url('/visitor_log')}",
+//            loginUrl: "{:url('/login')}",
+//            registerUrl: "{:url('/register')}"
+//        };
+        seajs.use('/static/js/home/index', function (reload) {
+            reload.init();
+        });
+        seajs.use('/static/js/common', function (reload) {
+            reload.init();
+        });
     </script>
 </body>
 </html>

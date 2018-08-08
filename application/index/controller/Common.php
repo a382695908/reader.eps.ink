@@ -17,6 +17,9 @@ class Common extends Controller
     public function __construct()
     {
         parent::__construct();
+        if (Session::get('assess_denied') == 1) {
+            die;
+        }
         // 是否打开trace
         Env::set('app_trace', false);
 

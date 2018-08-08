@@ -12,7 +12,7 @@ use think\Facade\Session;
 class FeedBack extends Common
 {
     /**
-     * 建议
+     * 寤鸿
      * @Author: eps
      */
     public function advise()
@@ -21,7 +21,7 @@ class FeedBack extends Common
     }
 
     /**
-     * 举报
+     * 涓炬姤
      * @Author: eps
      */
     public function report()
@@ -30,7 +30,7 @@ class FeedBack extends Common
     }
 
     /**
-     * 赞助
+     * 璧炲姪
      * @Author: eps
      */
     public function sponsor()
