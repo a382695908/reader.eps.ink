@@ -1,4 +1,4 @@
-const method = require('./method.js');
+const method = require('./logic/method.js');
 const spider = require('./spider.js');
 const file = require('./file.js');
 
@@ -9,4 +9,12 @@ var start = async function () {
     console.log(htmlData);
 };
 
-start();
+//start();
+
+const model = require('./model/index.js');
+
+let c = async function() {
+    let d = model.cdo();
+    model.end();
+};
+c();

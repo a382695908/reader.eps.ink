@@ -1,44 +1,24 @@
 const cheerio = require('cheerio');
 
-// 分析请求到的html, 解析出数据
-let analyze = function (content) {
-    let $ = cheerio.load(content.text);
-    let menuList = [];
-    // menuList
-    $('#subnav_pk ul li a').each((index, item) => {
-        menuList.push({
-            href: $(item).attr('href'),
-            text: $(item).text()
-        });
-    });
-    // 获取每个图集块的封面, 图集链接等
-    let blockList = [];
-    $('li.box').each((index, item) => {
-        if (index == 0) {
-            return;
-        }
-        let obj = {};
-        obj.cover = $(item).find('a img').attr('src');
-        obj.link = $(item).children('a').attr('href');
-        obj.title = $(item).find('em a').text();
-        obj.crawlTime = Date.now();
-        obj.galleryId = obj.link.match(/[0-9]+/)[0];
-        blockList.push(obj);
-    });
-    return {
-        menus: menuList,
-        blocks: blockList
-    };
-};
-
+/**
+ * 分析主页面
+ * @param content
+ * @returns {{hotestNovel: Array, veryRecommendNovel: Array, categoryNovel: Array, latestUpdateNovel: Array, latestAddNovel: Array}}
+ */
 let analyzeHome = function (content) {
     let $ = cheerio.load(content.text);
+    // 最热数据
     let hotestNovel = [];
+    // 强力推荐
     let veryRecommendNovel = [];
+    // 分类下的数据
     let categoryNovel = [];
+    // 最近更新
     let latestUpdateNovel = [];
+    // 最近入库
     let latestAddNovel = [];
 
+    // 最热数据
     $('body > div.wrap > div.hot > div.l.bd > div').each(function (index, item) {
         let $item = $(item);
         let novelImg = $item.find('.p10 .image a img').attr('src');
@@ -55,6 +35,7 @@ let analyzeHome = function (content) {
         });
     });
 
+    // 强力推荐
     $('body > div.wrap > div.hot > div.r.bd > ul > li').each(function (index, item) {
         let $item = $(item);
         let categoryAlias = $item.find('span.s1').text();
@@ -69,6 +50,7 @@ let analyzeHome = function (content) {
         });
     });
 
+    // 分类下的数据
     $('body > div.wrap > div.type.bd > div').each(function (index, item) {
         let $item = $(item);
         let categoryName = $(item).find('h2').text();
@@ -108,6 +90,7 @@ let analyzeHome = function (content) {
         });
     });
 
+    // 最近更新
     $('body > div.wrap > div.up > div.l.bd > ul > li').each(function (index, item) {
         let $item = $(item);
         let categoryName = $item.find('span.s1').text();
@@ -129,6 +112,7 @@ let analyzeHome = function (content) {
         });
     });
 
+    // 最近入库
     $('body > div.wrap > div.up > div.r.bd > ul > li').each(function (index, item) {
         let $item = $(item);
         let categoryAlias = $item.find('span.s1').text();
@@ -153,7 +137,42 @@ let analyzeHome = function (content) {
     };
 };
 
+/**
+ * 分析分类页面
+ * @param content
+ */
+let analyzeCategory = function (content) {
+
+
+};
+
+/**
+ * 分析排行榜
+ * @param content
+ */
+let analyzeTop = function (content) {
+
+};
+
+/**
+ * 分析小说页
+ * @param content
+ */
+let analyzeNovel = function (content) {
+
+};
+
+/**
+ * 分析小说章节页
+ * @param content
+ */
+let analyzeChapter = function (content) {
+
+};
+
+
 module.exports = {
-    analyze,
-    analyzeHome
+    analyzeHome,
+    analyzeCategory,
+    analyzeTop
 };
