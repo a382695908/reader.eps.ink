@@ -1,19 +1,12 @@
 const pool = require('./db.js');
 
-async function cdo() {
-    return new Promise(function (resolve, reject) {
-        pool.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-            if (error) {
-                reject(error);
-            }
-            else {
-                resolve(results)
-            }
-        });
-    });
-}
+let authorModel = require('./author.js');
+let categoryModel = require('./category.js');
+let chapterModel = require('./chapter.js');
+let chapterGroupModel = require('./chapterGroup.js');
+let novelModel = require('./novel.js');
 
-async function end() {
+function closePool() {
     return new Promise(function (resolve, reject) {
         pool.end(function (error) {
             if (error) {
@@ -28,6 +21,10 @@ async function end() {
 }
 
 module.exports = {
-    cdo,
-    end
+    authorModel,
+    categoryModel,
+    chapterModel,
+    chapterGroupModel,
+    novelModel,
+    closePool
 };
