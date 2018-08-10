@@ -131,6 +131,12 @@ function getNovelsByWhere(where, field, limit, offset, orderby) {
     });
 }
 
+function addNovel(data) {
+    return new Promise(function (resolve, reject) {
+
+    });
+}
+
 module.exports = {
     getNovelById,
     getNovelsByName,
@@ -138,5 +144,6 @@ module.exports = {
     getNovelByIdAndAuthorId,
     getNovelsByCategoryId,
     countNovelsByCategoryId,
-    getNovelsByWhere
+    getNovelsByWhere,
+    addNovel
 };
