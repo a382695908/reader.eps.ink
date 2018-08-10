@@ -174,5 +174,7 @@ let analyzeChapter = function (content) {
 module.exports = {
     analyzeHome,
     analyzeCategory,
-    analyzeTop
+    analyzeTop,
+    analyzeNovel,
+    analyzeChapter,
 };

@@ -1,18 +1,41 @@
-const method = require('./logic/method.js');
-const spider = require('./spider.js');
-const file = require('./file.js');
-const model = require('./model/index.js');
+const crawler = require('./logic/crawler.js');
+const updater = require('./logic/updater.js');
 
-var start = async function () {
-    //let homeUrl = 'http://www.shuquge.com/';
-    //let htmlContent = await spider.crawl(homeUrl);
-    //let htmlData = method.analyzeHome(htmlContent);
-    //console.log(htmlData);
+let argvList = process.argv.splice(2);
+let params = {};
+let command = '';
 
-    //let categoryList = await model.categoryModel.getCategoryList();
-    model.closePool();
-};
+for (let argv of argvList) {
+    if (typeof argv == 'string') {
+        argv = argv.split('=');
+        if (argv.length == 2) {
+            params[argv[0]] = argv[1];
+        }
+        else if (argv.length == 1) {
+            command = argv;
+        }
+    }
+}
+if (!command) {
+    process.exit(1);
+}
 
-start();
+(function (e) {
+    var t;
+    for (t in e) {
+        break;
+    }
+    process.exit(1);
+}(params));
 
 
+switch (command) {
+    case 'crawler':
+        crawler.run(params);
+        break;
+    case 'updater':
+        updater.run(params);
+        break;
+    default:
+        console.log('invalid command !');
+}
