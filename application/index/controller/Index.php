@@ -1,6 +1,11 @@
 <?php
 namespace app\index\controller;
 
+use app\index\model\Author;
+use app\index\model\Category;
+use app\index\model\FriendLink;
+use app\index\model\Novel;
+use app\index\model\Chapter;
 use think\facade\Session;
 
 class Index extends Common
@@ -12,49 +17,37 @@ class Index extends Common
      */
     public function index()
     {
-        $categoryModel = new \app\index\model\Category();
-        $category_list = Session::get('category_list');
-        foreach ($category_list as &$category) {
+        $categoryModel = new Category();
+        $categoryList = Session::get('category_list');
+        foreach ($categoryList as &$category) {
             $category['link'] = url('/category/' . $category['id']);
         }
         unset($category);
-//        dump($category_list);
-        $this->assign('category_list', $category_list);
+        $this->assign('category_list', $categoryList);
 
-        $authorModel = new \app\index\model\Author();
-        $novelModel = new \app\index\model\Novel();
-        $novelCondition = array(
-            'isend' => 0,
-            'ishotest' => 1,
-        );
-        $hotest_list = $novelModel->where($novelCondition)->limit(4)->select();
-        foreach ($hotest_list as &$novel) {
+        $authorModel = new Author();
+        $novelModel = new Novel();
+        $hotestNovels = $novelModel->getHotestNovels();
+        foreach ($hotestNovels as &$novel) {
             $novel['author_name'] = $authorModel->get($novel['author'])['name'];
             $novel['link'] = url('/novel/' . $novel['id']);
         }
         unset($novel);
-//        dump($hotest_list);
-        $this->assign('hotest_list', $hotest_list);
+        $this->assign('hotest_list', $hotestNovels);
 
-        $novelCondition = array(
-            'isend' => 0,
-            'ishot' => 1,
-            'ishotest' => 0,
-        );
-        $hot_list = $novelModel->where($novelCondition)->limit(9)->select();
+        $hot_list = $novelModel->getHotNovels();
         foreach ($hot_list as &$novel) {
             $novel['author_name'] = $authorModel->get($novel['author'])['name'];
             $novel['link'] = url('/novel/' . $novel['id']);
             $novel['category_alias'] = $categoryModel->get($novel['category'])['alias'];
         }
         unset($novel);
-//        dump($hot_list);
         $this->assign('hot_list', $hot_list);
 
         // block
         $i = 1;
         $category_novel_list = array();
-        foreach ($category_list as $category) {
+        foreach ($categoryList as $category) {
             if ($i > 6) {
                 break;
             }
@@ -85,7 +78,7 @@ class Index extends Common
         $this->assign('category_novel_list', $category_novel_list);
 
         // 最近更新
-        $chapterModel = new \app\index\model\Chapter();
+        $chapterModel = new Chapter();
         $novelCondition = array('isend' => 0);
         $latest_updated_list = $novelModel->where($novelCondition)->order('updatetime DESC')->limit(30)->select();
 
@@ -113,7 +106,7 @@ class Index extends Common
         unset($novel);
         $this->assign('latest_created_list', $latest_created_list);
 
-        $friendLinkModel = new \app\index\model\FriendLink();
+        $friendLinkModel = new FriendLink();
         $friend_links = $friendLinkModel->select();
         $this->assign('friend_links', $friend_links);
 
@@ -121,13 +114,14 @@ class Index extends Common
     }
 
     /**
-     * 搜索小说(名字, 作者)
+     * search
      * @Author: eps
+     * @return \think\response\Json
      */
     public function search()
     {
         $search = trim($_POST['search']);
-
+        return $this->apiSuccess(1, '', [$search]);
     }
 
 }

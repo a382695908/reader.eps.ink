@@ -7,9 +7,8 @@
 
 namespace app\index\controller;
 
+use app\index\model\Category;
 use think\Controller;
-use think\facade\Cache;
-use think\facade\Env;
 use think\facade\Session;
 
 class Common extends Controller
@@ -20,19 +19,11 @@ class Common extends Controller
         if (Session::get('assess_denied') == 1) {
             die;
         }
-        // 是否打开trace
-        Env::set('app_trace', false);
 
-        // 分类数据做缓存
         if (!Session::get('category_list')) {
-            $category_list = Cache::get('category_list');
-            if ($category_list === FALSE) {
-                $categoryModel = new \app\index\model\Category();
-                $category_list = $categoryModel->select();
-                $category_list = (empty($category_list)) ? [] : $category_list;
-                Cache::set('category_list', $category_list, 3600);
-            }
-            Session::set('category_list', $category_list);
+            $categoryModel = new Category();
+            $categoryList = $categoryModel->getCategorys();
+            Session::set('category_list', $categoryList);
         }
     }
 
