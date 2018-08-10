@@ -12,20 +12,22 @@ for (let argv of argvList) {
             params[argv[0]] = argv[1];
         }
         else if (argv.length == 1) {
-            command = argv;
+            command = argv[0];
         }
     }
 }
 if (!command) {
-    process.exit(1);
+    console.log('no command!');
+    process.exit(0);
 }
 
 (function (e) {
     var t;
     for (t in e) {
-        break;
+        return ;
     }
-    process.exit(1);
+    console.log('no argvs!');
+    process.exit(0);
 }(params));
 
 

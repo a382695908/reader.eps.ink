@@ -52,15 +52,34 @@ let run = async function (params) {
     if (typeof params.url == 'string') {
         htmlContent = await spider.crawl(params.url);
         if (!htmlContent) {
-
+            console.log('request a empty html content !!');
         }
         if (params.url == urlMap.homeUrl) {
             htmlData = analyser.analyzeHome(htmlContent);
         }
-        // 匹配 分类url
-        // 匹配 小说url
-        // 匹配 章节url
-        // 匹配 排行榜url
+        // TODO: Regexp匹配 分类url
+        // TODO: Regexp匹配 小说url
+        // TODO: Regexp匹配 章节url
+        // TODO: Regexp匹配 排行榜url
+
+        console.log(htmlData.hotestNovel);
+        for (let novel of htmlData.hotestNovel) {
+
+            let author = await model.authorModel.getAuthorByName(novel.author);
+            if (author.length == 0) {
+                let authorId = await model.authorModel.insertAuthor(novel.author);
+                // todo: novel数据
+                let novelData = {
+
+                }
+                let novelId = await model.novelModel.addNovel(novelData);
+            }
+            else {
+                let novel = await model.authorModel.getNovelsByAuthorId(author.id);
+            }
+        }
+
+
         model.closePool();
         return;
     }
