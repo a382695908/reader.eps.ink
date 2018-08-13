@@ -1,160 +1,120 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="Cache-Control" content="no-transform"/>
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <meta http-equiv="mobile-agent" content="format=html5; url=http://m.shuquge.com"/>
-    <meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.shuquge.com"/>
-    <title>读读读</title>
-    <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-    <div class="header">
-        <div class="wrap">
-            <div class="logo">
-                <a href="/" title="读读读_读读读">读读读_读读读<em>www.shuquge.com</em></a>
-            </div>
-            <div class="search">
-                <div class="form">
-                    <input type="search" class="text" name="q" placeholder="小说名称、作者" value="">
-                    <input type="submit" class="btn" value="搜 索" onclick="novel_search()">
+<div class="nav">
+    <ul>
+        <li class="this"><a href="/" title="读读读">首页</a></li>
+        {volist name="categoryList" id="category"}
+        <li><a href="{$category.categoryLink}">{$category.alias}</a></li>
+        {/volist}
+
+        <li><a href="{:url('/top')}">排行榜</a></li>
+        <li><a href="{:url('/full')}">全本</a></li>
+        <li><a href="{:url('/bookcase')}">书架</a></li>
+    </ul>
+</div>
+
+<div class="clear"></div>
+
+<div class="wrap">
+    <div class="hot">
+        <div class="l bd">
+            {volist name="hotestNovels" id="hotest"}
+            <div class="item">
+                <div class="p10">
+                    <div class="image">
+                        <a href="{$hotest.novelLink}" target="_blank"><img src="{$hotest.cover}" alt="{$hotest.name}"/></a>
+                    </div>
+                    <dl>
+                        <dt>
+                            <span>{$hotest.authorName}</span>
+                            <a href="{$hotest.novelLink}" target="_blank">{$hotest.name}</a>
+                        </dt>
+                        <dd>{$hotest.introduction}</dd>
+                    </dl>
                 </div>
             </div>
-                <div style="float: right;" class="search">欢迎您，[<a href="{:url('/login')}">登录</a>]或[<a href="{:url('/register')}">注册</a>]</div>
-            </div>
+            {/volist}
+        </div>
+        <div class="r bd">
+            <h2>强力推荐</h2>
+            <ul class="lis">
+                {volist name="hotNovels" id="hot"}
+                <li><span class="s1">[{$hot.categoryAlias}]</span><span class="s2"><a href="{$hot.novelLink}">{$hot.name}</a></span><span
+                        class="s5">{$hot.authorName}</span></li>
+                {/volist}
+            </ul>
         </div>
     </div>
+    <div class="type bd">
+        {volist name="categoryNovelList" id="category_novel"}
+        <div class="block">
+            <h2>{$category_novel.name}</h2>
 
-    <div class="nav">
-        <ul>
-            <li class="this"><a href="/" title="读读读">首页</a></li>
-            {volist name="categoryList" id="category"}
-            <li><a href="{$category.categoryLink}">{$category.alias}</a></li>
-            {/volist}
-
-            <li><a href="{:url('/top')}">排行榜</a></li>
-            <li><a href="{:url('/full')}">全本</a></li>
-            <li><a href="{:url('/bookcase')}">书架</a></li>
-        </ul>
-    </div>
-
-    <div class="clear"></div>
-
-    <div class="wrap">
-        <div class="hot">
-            <div class="l bd">
-                {volist name="hotestNovels" id="hotest"}
-                <div class="item">
-                    <div class="p10">
-                        <div class="image">
-                            <a href="{$hotest.novelLink}" target="_blank"><img src="{$hotest.cover}" alt="{$hotest.name}"/></a>
-                        </div>
-                        <dl>
-                            <dt>
-                                <span>{$hotest.authorName}</span>
-                                <a href="{$hotest.novelLink}" target="_blank">{$hotest.name}</a>
-                            </dt>
-                            <dd>{$hotest.introduction}</dd>
-                        </dl>
+            <div class="p10">
+                <div class="top">
+                    <div class="image">
+                        <a href="{$category_novel.topNovel.novelLink}" target="_blank"><img
+                                src="{$category_novel.topNovel.cover}" alt="{$category_novel.topNovel.name}"/></a>
                     </div>
+                    <dl>
+                        <dt>
+                            <a href="{$category_novel.topNovel.novelLink}" target="_blank">{$category_novel.topNovel.name}</a>
+                        </dt>
+                        <dd>{$category_novel.topNovel.introduction}</dd>
+                    </dl>
                 </div>
-                {/volist}
-            </div>
-            <div class="r bd">
-                <h2>强力推荐</h2>
-                <ul class="lis">
-                    {volist name="hotNovels" id="hot"}
-                            <li><span class="s1">[{$hot.categoryAlias}]</span><span class="s2"><a href="{$hot.novelLink}">{$hot.name}</a></span><span class="s5">{$hot.authorName}</span></li>
+                <ul>
+                    {volist name="category_novel.novels" id="novel"}
+                    <li><a href="{$novel.novelLink}" target="_blank" title="{$novel.name}">{$novel.name}</a>/{$novel.authorName}
+                    </li>
                     {/volist}
                 </ul>
             </div>
         </div>
-        <div class="type bd">
-            {volist name="categoryNovelList" id="category_novel"}
-            <div class="block">
-                <h2>{$category_novel.name}</h2>
+        {/volist}
+    </div>
 
-                <div class="p10">
-                    <div class="top">
-                        <div class="image">
-                                <a href="{$category_novel.topNovel.novelLink}" target="_blank"><img src="{$category_novel.topNovel.cover}" alt="{$category_novel.topNovel.name}"/></a>
-                        </div>
-                        <dl>
-                            <dt>
-                                <a href="{$category_novel.topNovel.novelLink}" target="_blank">{$category_novel.topNovel.name}</a>
-                            </dt>
-                            <dd>{$category_novel.topNovel.introduction}</dd>
-                        </dl>
-                    </div>
-                    <ul>
-                        {volist name="category_novel.novels" id="novel"}
-                                <li><a href="{$novel.novelLink}" target="_blank" title="{$novel.name}">{$novel.name}</a>/{$novel.authorName}</li>
-                        {/volist}
-                    </ul>
-                </div>
-            </div>
-            {/volist}
-        </div>
-
-        <div class="up">
-            <div class="l bd">
-                <h2> 最近更新小说列表</h2>
-                <ul>
-                    {volist name="latestUpdatedNovels" id="novel"}
-                    <li>
-                        <span class="s1">[{$novel.categoryName}]</span>
+    <div class="up">
+        <div class="l bd">
+            <h2> 最近更新小说列表</h2>
+            <ul>
+                {volist name="latestUpdatedNovels" id="novel"}
+                <li>
+                    <span class="s1">[{$novel.categoryName}]</span>
                             <span class="s2">
                                 <a href="{$novel.novelLink}">{$novel.name}</a>
                             </span>
                             <span class="s3">
                                 <a href="{$novel.chapterLink}">{$novel.chapterName}</a>
                             </span>
-                        <span class="s4">{$novel.authorName}</span>
-                        <span class="s5">{$novel.updateAt}</span>
-                    </li>
-                    {/volist}
-                </ul>
-            </div>
-            <div class="r bd">
-                <h2>最新入库小说</h2>
-                <ul>
-                    {volist name="latestCreatedNovels" id="novel"}
-                    <li>
-                        <span class="s1">[{$novel.categoryAlias}]</span>
+                    <span class="s4">{$novel.authorName}</span>
+                    <span class="s5">{$novel.updateAt}</span>
+                </li>
+                {/volist}
+            </ul>
+        </div>
+        <div class="r bd">
+            <h2>最新入库小说</h2>
+            <ul>
+                {volist name="latestCreatedNovels" id="novel"}
+                <li>
+                    <span class="s1">[{$novel.categoryAlias}]</span>
                             <span class="s2">
                                 <a href="{$novel.novelLink}">{$novel.name}</a>
                             </span>
-                        <span class="s5">{$novel.authorName}</span>
-                    </li>
-                    {/volist}
-                </ul>
-            </div>
+                    <span class="s5">{$novel.authorName}</span>
+                </li>
+                {/volist}
+            </ul>
         </div>
     </div>
+</div>
 
-    <div class="footer">
-        <div class="link">
-            {volist name="friendLinks" id="link"}
-            <a href="{$link.url}" target="_blank">{$link.name}</a>
-            {/volist}
-        </div>
-        <hr/>
-        <p>本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
-
-        <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
-    </div>
-    <div style="display: none" id="visitor_info"><script type="text/javascript" src="http://ip.chinaz.com/getip.aspx"></script></div>
-
-    <script src="/static/js/third_party/sea.js"></script>
-    <script>
-        seajs.use('/static/js/entry');
-        seajs.use('/static/js/home/index', function (reload) {
-            reload.init();
-        });
-        seajs.use('/static/js/common', function (reload) {
-            reload.init();
-        });
-    </script>
-</body>
-</html>
+<script src="/static/js/third_party/sea.js"></script>
+<script>
+    seajs.use('/static/js/entry');
+    seajs.use('/static/js/home/index', function (reload) {
+        reload.init();
+    });
+    seajs.use('/static/js/common', function (reload) {
+        reload.init();
+    });
+</script>

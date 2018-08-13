@@ -48,10 +48,10 @@ class Visit extends Common
         $ip = getIp();
         $address = trim($_POST['address']);
         if (empty($ip)) {
-            return $this->apiError(0, '错误1', [$ip]);
+            return $this->apiError(0, 'ip为空', [$ip]);
         }
         if (empty($address)) {
-            return $this->apiError(0, '错误2', $address);
+            return $this->apiError(0, '地址为空', $address);
         }
 
         $agent = new Agent();
