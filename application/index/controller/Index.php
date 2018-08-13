@@ -15,6 +15,9 @@ class Index extends Common
     public function index()
     {
         $categoryList = Session::get('categoryList');
+        if (empty($categoryList)) {
+            $categoryList = [];
+        }
         foreach ($categoryList as &$category) {
             $category['link'] = url('/category/' . $category['id']);
         }
@@ -44,11 +47,7 @@ class Index extends Common
             'novel.isend' => 0,
             'novel.is_deleted' => 0,
         ];
-        $field = 'novel.*, category.name as categoryName';
-        $categoryNovels = $novelModel->getAllCategoryNovels($condition, $field);
-        if (empty($categoryNovels)) {
-            $categoryNovels = [];
-        }
+        $categoryNovels = $novelModel->getAllCategoryNovels($condition, 'novel.*, category.name as categoryName');
         $categoryNovelList = [];
         foreach ($categoryNovels as $novel) {
             $categoryId = $novel['category'];
@@ -62,29 +61,24 @@ class Index extends Common
                 $categoryNovelList[$categoryId]['novels'][] = $novel;
             }
         }
-//        dump($categoryNovelList);exit;
         $this->assign('categoryNovelList', $categoryNovelList);
 
         // 最近更新
-        $condition = ['novel.isend' => 0];
+        $condition = 'novel.isend = 0';
         $field = 'novel.*, author.name AS authorName, category.name AS categoryName, chapter.name AS chapterName';
-        $latestUpdatedList = $novelModel->getLatestNovelsByCategoryId($condition, $field);
+        $latestUpdatedList = $novelModel->getLatestUpdatedNovelsByWhere($condition, $field);
         foreach ($latestUpdatedList as &$novel) {
             $novel['novelLink'] = url('/novel/' . $novel['id']);
-
-//            $laststChapter = $chapterModel->order('updatetime DESC')->limit(1)->find();
-//            $novel['chapterName'] = $laststChapter['name'];
-//            $novel['chapterLink'] = url('/chapter/' . $laststChapter['id']);
-
+            $novel['chapterLink'] = url('/chapter/' . $novel['chapterId']);
             $novel['updateAt'] = date('m-d', $novel['updatetime']);
         }
         unset($novel);
         $this->assign('latestUpdatedList', $latestUpdatedList);
 
         // 最新入库
-        $condition = ['novel.isend' => 0];
-        $field = 'novel.*, author.name AS authorName, category.alias AS categoryAlias, chapter.name AS chapterName';
-        $latestCreatedList = $novelModel->getLatestNovelsByCategoryId($condition, $field);
+        $condition = 'novel.isend = 0';
+        $field = 'novel.*, author.name AS authorName, category.alias AS categoryAlias';
+        $latestCreatedList = $novelModel->getLatestCreatedNovelsByWhere($condition, $field);
         foreach ($latestCreatedList as &$novel) {
             $novel['novelLink'] = url('/novel/' . $novel['id']);
         }

@@ -10,9 +10,36 @@ class ChapterGroup extends Model
 
     }
 
+    public function getChaptersByName()
+    {
+
+    }
+
+    public function getChaptersLikeName()
+    {
+
+    }
+
     public function getChapterGroupByNovelId()
     {
 
     }
+
+    // === BackStage Method ===
+    public function addChapterGroup($data)
+    {
+
+    }
+
+    public function updateChapterGroup($data = array())
+    {
+
+    }
+
+    public function deleteChapterGroupByChapterGroupId($chapterGroupId)
+    {
+
+    }
+
 
 }

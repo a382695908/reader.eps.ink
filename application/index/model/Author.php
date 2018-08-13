@@ -5,7 +5,6 @@ use think\Model;
 
 class Author extends Model
 {
-
     /**
      * getAuthorByName
      * @Author: eps
@@ -34,5 +33,48 @@ class Author extends Model
         ];
         $row = $this->where($condition)->find();
         return (empty($row)) ? [] : $row;
+    }
+
+    public function getAuthorsByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = '')
+    {
+
+    }
+
+    public function getAuthorsLikeName($name = '', $field = '*', $limit = 0, $offset = null, $orderBy = '')
+    {
+
+    }
+
+
+    // === BackStage Method ===
+
+    public function addAuthor($data = array())
+    {
+
+    }
+
+    public function addAuthors($data = array())
+    {
+
+    }
+
+    public function updateAuthorById($authorId, $data = array())
+    {
+
+    }
+
+    public function updateAuthorByName($authorName, $data = array())
+    {
+
+    }
+
+    public function deleteAuthorById($authorId)
+    {
+
+    }
+
+    public function deleteAuthorsByWhere($condition = array())
+    {
+
     }
 }

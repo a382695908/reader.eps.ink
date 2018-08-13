@@ -6,6 +6,8 @@ use think\Model;
 class User extends Model
 {
 
+    const ORIGIN_PASSWORD = '123456';
+
     public function getUserByUserId()
     {
 
@@ -26,4 +28,46 @@ class User extends Model
 
     }
 
+    public function updateUserByUserId($userId)
+    {
+
+    }
+
+
+    // === BackStage Method ===
+    public function updateUsersByWhere($condition = array(), $data = array())
+    {
+
+    }
+
+    public function deleteUsersByWhere($condition = array())
+    {
+
+    }
+
+    public function resetPasswordByUserid($userId)
+    {
+//        self::ORIGIN_PASSWORD;
+    }
+
+    public function resetPasswordByWhere($condition = array())
+    {
+//        self::ORIGIN_PASSWORD;
+    }
+
+    public function checkUserByUserId() {
+        // check status
+    }
+
+    public function checkUsersByWhere() {
+        // check status
+    }
+
+    public function denyUserByUserId() {
+        // is black
+    }
+
+    public function denyUsersByWhere() {
+        // is black
+    }
 }

@@ -67,4 +67,50 @@ class Category extends Model
         $row = $this->where($condition)->find();
         return (empty($row)) ? [] : $row;
     }
+
+    public function getCategorysByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = '')
+    {
+
+    }
+
+    public function getCategorysLikeName($name = '', $field = '*', $limit = 0, $offset = null, $orderBy = '')
+    {
+
+    }
+
+    public function getCategorysLikeAlias($name = '', $field = '*', $limit = 0, $offset = null, $orderBy = '')
+    {
+
+    }
+
+    // === BackStage Method ===
+    public function addCategory($data = array())
+    {
+
+    }
+
+    public function addCategorys($data = array())
+    {
+
+    }
+
+    public function updateCategoryById($authorId, $data = array())
+    {
+
+    }
+
+    public function updateCategoryByName($authorName, $data = array())
+    {
+
+    }
+
+    public function deleteCategoryById($authorId)
+    {
+
+    }
+
+    public function deleteCategorysByWhere($condition = array())
+    {
+
+    }
 }
