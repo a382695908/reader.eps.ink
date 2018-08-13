@@ -124,11 +124,11 @@ class Novel extends Model
             return false;
         }
 
-        $sql = 'SELECT '+ $field +' FROM r_novel novel ';
-        $sql = $sql . 'LEFT JOIN r_chapter chapter ON novel.id = chapter.novel';
-        $sql = $sql . 'LEFT JOIN r_author author ON novel.author = author.id';
-        $sql = $sql . 'LEFT JOIN r_category category ON novel.category = category.id';
-        $sql = $sql . 'INNER JOIN ( SELECT novel, max(createtime) createtime FROM r_chapter GROUP BY novel) max_chapter ON max_chapter.novel = novel.id AND max_chapter.createtime = chapter.createtime';
+        $sql = 'SELECT '. $field .' FROM r_novel novel ';
+        $sql = $sql . ' LEFT JOIN r_chapter chapter ON novel.id = chapter.novel';
+        $sql = $sql . ' LEFT JOIN r_author author ON novel.author = author.id';
+        $sql = $sql . ' LEFT JOIN r_category category ON novel.category = category.id';
+        $sql = $sql . ' INNER JOIN ( SELECT novel, max(createtime) createtime FROM r_chapter GROUP BY novel) max_chapter ON max_chapter.novel = novel.id AND max_chapter.createtime = chapter.createtime';
 
         if ($condition) {
             $sql .= ' WHERE ' . $condition;

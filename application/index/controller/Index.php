@@ -19,7 +19,7 @@ class Index extends Common
             $categoryList = [];
         }
         foreach ($categoryList as &$category) {
-            $category['link'] = url('/category/' . $category['id']);
+            $category['categoryLink'] = url('/category/' . $category['id']);
         }
         unset($category);
         $this->assign('categoryList', $categoryList);
@@ -29,7 +29,7 @@ class Index extends Common
         // 最热
         $hotestNovels = $novelModel->getHotestNovels('novel.*,author.name AS authorName');
         foreach ($hotestNovels as &$novel) {
-            $novel['link'] = url('/novel/' . $novel['id']);
+            $novel['novelLink'] = url('/novel/' . $novel['id']);
         }
         unset($novel);
         $this->assign('hotestNovels', $hotestNovels);
@@ -37,7 +37,7 @@ class Index extends Common
         // 热门
         $hotNovels = $novelModel->getHotNovels('novel.*, author.name AS authorName, category.alias AS categoryAlias');
         foreach ($hotNovels as &$novel) {
-            $novel['link'] = url('/novel/' . $novel['id']);
+            $novel['novelLink'] = url('/novel/' . $novel['id']);
         }
         unset($novel);
         $this->assign('hotNovels', $hotNovels);
@@ -51,10 +51,12 @@ class Index extends Common
         $categoryNovelList = [];
         foreach ($categoryNovels as $novel) {
             $categoryId = $novel['category'];
+            $novel['novelLink'] = url('/novel/' . $novel['id']);
             if (!isset($categoryNovelList[$categoryId])) {
                 $categoryNovelList[$categoryId] = [
                     'name' => $novel['categoryName'],
                     'topNovel' => $novel,
+                    'novels' => []
                 ];
             }
             else {
@@ -65,25 +67,25 @@ class Index extends Common
 
         // 最近更新
         $condition = 'novel.isend = 0';
-        $field = 'novel.*, author.name AS authorName, category.name AS categoryName, chapter.name AS chapterName';
-        $latestUpdatedList = $novelModel->getLatestUpdatedNovelsByWhere($condition, $field);
-        foreach ($latestUpdatedList as &$novel) {
+        $field = 'novel.*, author.name AS authorName, category.name AS categoryName, chapter.name AS chapterName, chapter.id AS chapterId';
+        $latestUpdatedNovels = $novelModel->getLatestUpdatedNovelsByWhere($condition, $field);
+        foreach ($latestUpdatedNovels as &$novel) {
             $novel['novelLink'] = url('/novel/' . $novel['id']);
             $novel['chapterLink'] = url('/chapter/' . $novel['chapterId']);
             $novel['updateAt'] = date('m-d', $novel['updatetime']);
         }
         unset($novel);
-        $this->assign('latestUpdatedList', $latestUpdatedList);
+        $this->assign('latestUpdatedNovels', $latestUpdatedNovels);
 
         // 最新入库
         $condition = 'novel.isend = 0';
         $field = 'novel.*, author.name AS authorName, category.alias AS categoryAlias';
-        $latestCreatedList = $novelModel->getLatestCreatedNovelsByWhere($condition, $field);
-        foreach ($latestCreatedList as &$novel) {
+        $latestCreatedNovels = $novelModel->getLatestCreatedNovelsByWhere($condition, $field);
+        foreach ($latestCreatedNovels as &$novel) {
             $novel['novelLink'] = url('/novel/' . $novel['id']);
         }
         unset($novel);
-        $this->assign('latestCreatedList', $latestCreatedList);
+        $this->assign('latestCreatedNovels', $latestCreatedNovels);
 
         $friendLinkModel = new FriendLink();
         $friendLinks = $friendLinkModel->select();
