@@ -6,7 +6,7 @@ use think\Model;
 
 class Novel extends Model
 {
-
+    const OPEN_CACHE = FALSE;
     /**
      * getNovelById
      * @Author: eps
@@ -87,7 +87,9 @@ class Novel extends Model
         if (empty($field)) {
             return false;
         }
-        $list = $this->field($field)->alias('novel')->join('category category', 'novel.category = category.id')
+        $list = $this->field($field)->alias('novel')
+            ->join('category category', 'novel.category = category.id')
+            ->join('author author', 'novel.author = author.id')
             ->where($condition)->limit($limit, $offset)
             ->order($orderBy)->select();
         return (empty($list)) ? [] : $list;
@@ -128,7 +130,7 @@ class Novel extends Model
         $sql = $sql . ' LEFT JOIN r_chapter chapter ON novel.id = chapter.novel';
         $sql = $sql . ' LEFT JOIN r_author author ON novel.author = author.id';
         $sql = $sql . ' LEFT JOIN r_category category ON novel.category = category.id';
-        $sql = $sql . ' INNER JOIN ( SELECT novel, max(createtime) createtime FROM r_chapter GROUP BY novel) max_chapter ON max_chapter.novel = novel.id AND max_chapter.createtime = chapter.createtime';
+        $sql = $sql . ' LEFT JOIN ( SELECT novel, max(createtime) createtime FROM r_chapter GROUP BY novel) max_chapter ON max_chapter.novel = novel.id AND max_chapter.createtime = chapter.createtime';
 
         if ($condition) {
             $sql .= ' WHERE ' . $condition;
@@ -189,7 +191,7 @@ class Novel extends Model
      */
     public function getHotestNovels($field = '*', $limit = 4, $orderBy = 'novel.clicks DESC')
     {
-        $hotestNovelsCache = Cache::get('hotestNovels');
+        $hotestNovelsCache = self::OPEN_CACHE ? Cache::get('hotestNovels') : self::OPEN_CACHE;
         if ($hotestNovelsCache) {
             return $hotestNovelsCache;
         } else {
@@ -216,7 +218,7 @@ class Novel extends Model
      */
     public function getHotNovels($field = '*', $limit = 9, $orderBy = 'novel.clicks DESC')
     {
-        $hotNovelsCache = Cache::get('hotNovels');
+        $hotNovelsCache = self::OPEN_CACHE ? Cache::get('hotNovels') : self::OPEN_CACHE;
         if ($hotNovelsCache) {
             return $hotNovelsCache;
         } else {

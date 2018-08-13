@@ -47,7 +47,7 @@ class Index extends Common
             'novel.isend' => 0,
             'novel.is_deleted' => 0,
         ];
-        $categoryNovels = $novelModel->getAllCategoryNovels($condition, 'novel.*, category.name as categoryName');
+        $categoryNovels = $novelModel->getAllCategoryNovels($condition, 'novel.*, author.name AS authorName, category.name as categoryName');
         $categoryNovelList = [];
         foreach ($categoryNovels as $novel) {
             $categoryId = $novel['category'];
