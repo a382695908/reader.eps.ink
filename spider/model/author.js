@@ -36,6 +36,7 @@ function insertAuthor(authorName) {
                 reject(error);
             }
             else {
+                console.log('add new Author, {authorId: ' + results.insertId + ', name:' + authorName + '}');
                 resolve(results.insertId)
             }
         });

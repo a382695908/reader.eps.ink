@@ -42,6 +42,10 @@ let analyzeHome = function (content) {
         let novelName = $item.find('span.s2 a').text();
         let novelLink = $item.find('span.s2 a').attr('href');
         let author = $item.find('span.s5').text();
+
+        categoryAlias = categoryAlias.replace(/\[/, '');
+        categoryAlias = categoryAlias.replace(/\]/, '');
+
         veryRecommendNovel.push({
             categoryAlias,
             novelName,

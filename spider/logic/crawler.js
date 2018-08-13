@@ -62,20 +62,76 @@ let run = async function (params) {
         // TODO: Regexp匹配 章节url
         // TODO: Regexp匹配 排行榜url
 
-        console.log(htmlData.hotestNovel);
+        //console.log(htmlData.hotestNovel);
         for (let novel of htmlData.hotestNovel) {
-
+            // 判断该作者是否存在
             let author = await model.authorModel.getAuthorByName(novel.author);
+            // 如果不存在作者
             if (author.length == 0) {
+                // 插入一条新数据
                 let authorId = await model.authorModel.insertAuthor(novel.author);
-                // todo: novel数据
-                let novelData = {
 
-                }
+                let novelData = {
+                    name: novel.novelName,
+                    author: authorId,
+                    spider_urls: novel.novelLink,
+                    cover: novel.novelImg,
+                    introduction: novel.desc,
+                    ishotest: 1
+                };
                 let novelId = await model.novelModel.addNovel(novelData);
             }
             else {
-                let novel = await model.authorModel.getNovelsByAuthorId(author.id);
+                // 如果存在作者, 再判断该小说是否已存在
+                let theNovel = await model.novelModel.getNovelByAuthorIdAndNovelName(author[0].id, novel.novelName);
+                if (theNovel.length == 0) {
+                    // 如果该小说不存在, 插入新数据
+                    let novelData = {
+                        name: novel.novelName,
+                        author: author[0].id,
+                        spider_urls: novel.novelLink,
+                        cover: novel.novelImg,
+                        introduction: novel.desc,
+                        ishotest: 1
+                    };
+                    let novelId = await model.novelModel.addNovel(novelData);
+                }
+            }
+        }
+
+        //console.log(htmlData.veryRecommendNovel);
+        for (let novel of htmlData.veryRecommendNovel) {
+            // 判断该作者是否存在
+            let author = await model.authorModel.getAuthorByName(novel.author);
+            let category = await model.categoryModel.getCategoryByAlias(novel.categoryAlias);
+
+            // 如果不存在同名的作者
+            if (author.length == 0) {
+                // 插入一条新数据
+                let authorId = await model.authorModel.insertAuthor(novel.author);
+                let novelData = {
+                    name: novel.novelName,
+                    category: category[0].id,
+                    author: authorId,
+                    spider_urls: novel.novelLink,
+                    is_recommend: 1
+                };
+                let novelId = await model.novelModel.addNovel(novelData);
+            }
+            else {
+                // 如果存在同名的作者, 再判断该小说是否已存在
+                let theNovel = await model.novelModel.getNovelByAuthorIdAndNovelName(author[0].id, novel.novelName);
+                if (theNovel.length == 0) {
+                    // 如果该小说不存在, 插入新数据
+                    let novelData = {
+                        name: novel.novelName,
+                        category: category[0].id,
+                        author: author[0].id,
+                        spider_urls: novel.novelLink,
+                        is_recommend: 1
+                    };
+                    let novelId = await model.novelModel.addNovel(novelData);
+                }
             }
         }
 

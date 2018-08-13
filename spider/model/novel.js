@@ -131,9 +131,43 @@ function getNovelsByWhere(where, field, limit, offset, orderby) {
     });
 }
 
+/**
+ * 新增小说
+ * @param data
+ * @returns {Promise}
+ */
 function addNovel(data) {
     return new Promise(function (resolve, reject) {
+        let sql = 'INSERT INTO `r_novel` SET ?';
+        pool.query(sql, data, function (error, results, fields) {
+            if (error) {
+                reject(error);
+            }
+            else {
+                console.log('add new Novel, novelId: ' + results.insertId + ' data: ' + JSON.stringify(data));
+                resolve(results.insertId);
+            }
+        });
+    });
+}
 
+/**
+ * getNovelByAuthorIdAndNovelName
+ * @param authorId
+ * @param novelName
+ * @returns {Promise}
+ */
+function getNovelByAuthorIdAndNovelName(authorId, novelName) {
+    return new Promise(function (resolve, reject) {
+        let sql = 'SELECT * FROM `r_novel` WHERE author = ? AND name = ?';
+        pool.query(sql, [authorId, novelName], function (error, results, fields) {
+            if (error) {
+                reject(error);
+            }
+            else {
+                resolve(results)
+            }
+        });
     });
 }
 
@@ -145,5 +179,6 @@ module.exports = {
     getNovelsByCategoryId,
     countNovelsByCategoryId,
     getNovelsByWhere,
-    addNovel
+    addNovel,
+    getNovelByAuthorIdAndNovelName
 };

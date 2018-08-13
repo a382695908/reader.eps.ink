@@ -26,9 +26,10 @@ function getCategoryById() {
     });
 }
 
-function getCategoryByAlias() {
+function getCategoryByAlias(categoryAlias) {
     return new Promise(function (resolve, reject) {
-        pool.query('SELECT * FROM `r_category`', function (error, results, fields) {
+        let sql = 'SELECT * FROM `r_category` WHERE alias = ?';
+        pool.query(sql, [categoryAlias], function (error, results, fields) {
             if (error) {
                 reject(error);
             }
