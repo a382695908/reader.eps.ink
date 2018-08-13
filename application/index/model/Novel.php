@@ -72,12 +72,28 @@ class Novel extends Model
         return (empty($novels)) ? [] : $novels;
     }
 
-    public function getNovelsByJoin($table = array())
+    /**
+     * getNovelsJoinWithCategory
+     * @Author: eps
+     * @param array $condition
+     * @param string $field
+     * @param int $limit
+     * @param int $offset
+     * @param string $orderBy
+     * @return array|bool|\PDOStatement|string|\think\Collection
+     */
+    public function getAllCategoryNovels($condition = array(), $field = '', $limit = 0, $offset = null, $orderBy = 'novel.clicks DESC')
     {
-
+        if (empty($field)) {
+            return false;
+        }
+        $list = $this->field($field)->alias('novel')->join('category category', 'novel.category = category.id')
+            ->where($condition)->limit($limit, $offset)
+            ->order($orderBy)->select();
+        return (empty($list)) ? [] : $list;
     }
 
-    public function getNovelsByWhere()
+    public function getNovelsByWhere($where = array(), $field = '', $limit = 0, $offset = null, $orderBy = '')
     {
 
     }
@@ -92,48 +108,104 @@ class Novel extends Model
 
     }
 
-    public function getLatestNovelsByCategoryId()
+    /**
+     * getLatestNovelsByWhere
+     * @Author: eps
+     * @param array $condition
+     * @param string $field
+     * @param int $limit
+     * @param null $offset
+     * @param string $orderBy
+     * @return array|bool|\PDOStatement|string|\think\Collection
+     */
+    public function getLatestNovelsByWhere($condition = array(), $field = '', $limit = 30, $offset = null, $orderBy = 'novel.updatetime DESC')
     {
-
+        if (empty($field)) {
+            return false;
+        }
+        $list = $this->field($field)->alias('novel')
+            ->join('author author', 'novel.author = author.id')
+            ->join('category category', 'novel.category = category.id')
+            ->where($condition)->limit($limit, $offset)
+            ->order($orderBy)->select();
+        return (empty($list)) ? [] : $list;
     }
 
-    public function getLatestCreatedNovelsByCategoryId()
+    /**
+     * getLatestCreatedNovelsByWhere
+     * @Author: eps
+     * @param array $condition
+     * @param string $field
+     * @param int $limit
+     * @param null $offset
+     * @param string $orderBy
+     * @return array|bool|\PDOStatement|string|\think\Collection
+     */
+    public function getLatestCreatedNovelsByWhere($condition = array(), $field = '', $limit = 30, $offset = null, $orderBy = 'novel.createtime DESC')
     {
-
+        if (empty($field)) {
+            return false;
+        }
+        $list = $this->field($field)->alias('novel')
+            ->join('author author', 'novel.author = author.id')
+            ->join('category category', 'novel.category = category.id')
+            ->where($condition)->limit($limit, $offset)
+            ->order($orderBy)->select();
+        return (empty($list)) ? [] : $list;
     }
 
-    public function getHotestNovels($limit = 4)
+    /**
+     * getHotestNovels
+     * @Author: eps
+     * @param string $field
+     * @param int $limit
+     * @param string $orderBy
+     * @return array|mixed|\PDOStatement|string|\think\Collection
+     */
+    public function getHotestNovels($field = '*', $limit = 4, $orderBy = 'novel.clicks DESC')
     {
         $hotestNovelsCache = Cache::get('hotestNovels');
         if ($hotestNovelsCache) {
             return $hotestNovelsCache;
         } else {
             $condition = [
-                'n.isend' => 0,
-                'n.ishotest' => 1,
+                'novel.isend' => 0,
+                'novel.ishotest' => 1,
             ];
-            $list = $this->alias('n')->join('author a', 'n.author = a.id')->where($condition)->limit($limit)->select();
+            $list = $this->field($field)->alias('novel')
+                ->join('author author', 'novel.author = author.id')
+                ->where($condition)->limit($limit)
+                ->order($orderBy)->select();
             Cache::set('hotestNovels', $list);
         }
         return (empty($list)) ? [] : $list;
     }
 
-    public function getHotNovels($limit = 9)
+    /**
+     * getHotNovels
+     * @Author: eps
+     * @param string $field
+     * @param int $limit
+     * @param string $orderBy
+     * @return array|mixed|\PDOStatement|string|\think\Collection
+     */
+    public function getHotNovels($field = '*', $limit = 9, $orderBy = 'novel.clicks DESC')
     {
-        $hotNovelsCache = Cache::get('hotestNovels');
+        $hotNovelsCache = Cache::get('hotNovels');
         if ($hotNovelsCache) {
             return $hotNovelsCache;
         } else {
             $condition = [
-                'n.isend' => 0,
-                'n.ishot' => 1,
-                'n.ishotest' => 0,
+                'novel.isend' => 0,
+                'novel.ishot' => 1,
+                'novel.ishotest' => 0,
             ];
 
-            $list = $this->alias('n')
-                ->join('author a', 'n.author = a.id')
-                ->join('category c', 'n.category = c.id')
-                ->where($condition)->limit($limit)->select();
+            $list = $this->field($field)->alias('novel')
+                ->join('author author', 'novel.author = author.id')
+                ->join('category category', 'novel.category = category.id')
+                ->where($condition)->limit($limit)
+                ->order($orderBy)->select();
             Cache::set('hotNovels', $list);
         }
         return (empty($list)) ? [] : $list;

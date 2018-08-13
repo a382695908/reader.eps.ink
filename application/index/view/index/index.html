@@ -144,17 +144,11 @@
 
         <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
     </div>
-
     <div style="display: none" id="visitor_info"><script type="text/javascript" src="http://ip.chinaz.com/getip.aspx"></script></div>
 
     <script src="/static/js/third_party/sea.js"></script>
-    <script src="/static/js/entry.js"></script>
     <script>
-//        var data = {
-//            logVisitorUrl: "{:url('/visitor_log')}",
-//            loginUrl: "{:url('/login')}",
-//            registerUrl: "{:url('/register')}"
-//        };
+        seajs.use('/static/js/entry');
         seajs.use('/static/js/home/index', function (reload) {
             reload.init();
         });

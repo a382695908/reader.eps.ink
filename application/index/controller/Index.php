@@ -1,11 +1,8 @@
 <?php
 namespace app\index\controller;
 
-use app\index\model\Author;
-use app\index\model\Category;
 use app\index\model\FriendLink;
 use app\index\model\Novel;
-use app\index\model\Chapter;
 use think\facade\Session;
 
 class Index extends Common
@@ -17,98 +14,86 @@ class Index extends Common
      */
     public function index()
     {
-        $categoryModel = new Category();
-        $categoryList = Session::get('category_list');
+        $categoryList = Session::get('categoryList');
         foreach ($categoryList as &$category) {
             $category['link'] = url('/category/' . $category['id']);
         }
         unset($category);
-        $this->assign('category_list', $categoryList);
+        $this->assign('categoryList', $categoryList);
 
-        $authorModel = new Author();
         $novelModel = new Novel();
-        $hotestNovels = $novelModel->getHotestNovels();
+
+        // 最热
+        $hotestNovels = $novelModel->getHotestNovels('novel.*,author.name AS authorName');
         foreach ($hotestNovels as &$novel) {
-            $novel['author_name'] = $authorModel->get($novel['author'])['name'];
             $novel['link'] = url('/novel/' . $novel['id']);
         }
         unset($novel);
-        $this->assign('hotest_list', $hotestNovels);
+        $this->assign('hotestNovels', $hotestNovels);
 
-        $hot_list = $novelModel->getHotNovels();
-        foreach ($hot_list as &$novel) {
-            $novel['author_name'] = $authorModel->get($novel['author'])['name'];
+        // 热门
+        $hotNovels = $novelModel->getHotNovels('novel.*, author.name AS authorName, category.alias AS categoryAlias');
+        foreach ($hotNovels as &$novel) {
             $novel['link'] = url('/novel/' . $novel['id']);
-            $novel['category_alias'] = $categoryModel->get($novel['category'])['alias'];
         }
         unset($novel);
-        $this->assign('hot_list', $hot_list);
+        $this->assign('hotNovels', $hotNovels);
 
-        // block
-        $i = 1;
-        $category_novel_list = array();
-        foreach ($categoryList as $category) {
-            if ($i > 6) {
-                break;
-            }
-            $novelCondition = array(
-                'category' => $category['id'],
-                'isend' => 0
-            );
-            $top_novel = $novelModel->where($novelCondition)->order('clicks DESC')->limit(1)->find();
-            $top_novel['novel_link'] = url('/novel/' . $top_novel['id']);
-
-            $novels = $novelModel->where($novelCondition)->order('clicks DESC')->limit(1, 12)->select();
-            if (!empty($novels)) {
-                foreach ($novels as &$novel) {
-                    $novel['author_name'] = $authorModel->get($novel['author'])['name'];
-                    $novel['novel_link'] = url('/novel/' . $novel['id']);
-                }
-                unset($novel);
-            }
-
-            $category_novel_list[] = array(
-                'name' => $category['name'],
-                'top_novel' => $top_novel,
-                'novels' => $novels
-            );
-            $i++;
+        // 分类下的小说
+        $condition = [
+            'novel.isend' => 0,
+            'novel.is_deleted' => 0,
+        ];
+        $field = 'novel.*, category.name as categoryName';
+        $categoryNovels = $novelModel->getAllCategoryNovels($condition, $field);
+        if (empty($categoryNovels)) {
+            $categoryNovels = [];
         }
-//        dump($category_novel_list);exit;
-        $this->assign('category_novel_list', $category_novel_list);
+        $categoryNovelList = [];
+        foreach ($categoryNovels as $novel) {
+            $categoryId = $novel['category'];
+            if (!isset($categoryNovelList[$categoryId])) {
+                $categoryNovelList[$categoryId] = [
+                    'name' => $novel['categoryName'],
+                    'topNovel' => $novel,
+                ];
+            }
+            else {
+                $categoryNovelList[$categoryId]['novels'][] = $novel;
+            }
+        }
+//        dump($categoryNovelList);exit;
+        $this->assign('categoryNovelList', $categoryNovelList);
 
         // 最近更新
-        $chapterModel = new Chapter();
-        $novelCondition = array('isend' => 0);
-        $latest_updated_list = $novelModel->where($novelCondition)->order('updatetime DESC')->limit(30)->select();
+        $condition = ['novel.isend' => 0];
+        $field = 'novel.*, author.name AS authorName, category.name AS categoryName, chapter.name AS chapterName';
+        $latestUpdatedList = $novelModel->getLatestNovelsByCategoryId($condition, $field);
+        foreach ($latestUpdatedList as &$novel) {
+            $novel['novelLink'] = url('/novel/' . $novel['id']);
 
-        foreach ($latest_updated_list as &$novel) {
-            $novel['category_name'] = $categoryModel->get($novel['category'])['name'];
-            $novel['novel_link'] = url('/novel/' . $novel['id']);
+//            $laststChapter = $chapterModel->order('updatetime DESC')->limit(1)->find();
+//            $novel['chapterName'] = $laststChapter['name'];
+//            $novel['chapterLink'] = url('/chapter/' . $laststChapter['id']);
 
-            $laststChapter = $chapterModel->order('updatetime DESC')->limit(1)->find();
-            $novel['chapter_name'] = $laststChapter['name'];
-            $novel['chapter_link'] = url('/chapter/' . $laststChapter['id']);
-
-            $novel['author_name'] = $authorModel->get($novel['author'])['name'];
             $novel['updateAt'] = date('m-d', $novel['updatetime']);
         }
         unset($novel);
-        $this->assign('latest_updated_list', $latest_updated_list);
+        $this->assign('latestUpdatedList', $latestUpdatedList);
 
         // 最新入库
-        $latest_created_list = $novelModel->where($novelCondition)->order('createtime DESC')->limit(30)->select();
-        foreach ($latest_created_list as &$novel) {
-            $novel['category_alias'] = $categoryModel->get($novel['category'])['alias'];
-            $novel['author_name'] = $authorModel->get($novel['author'])['name'];
-            $novel['novel_link'] = url('/novel/' . $novel['id']);
+        $condition = ['novel.isend' => 0];
+        $field = 'novel.*, author.name AS authorName, category.alias AS categoryAlias, chapter.name AS chapterName';
+        $latestCreatedList = $novelModel->getLatestNovelsByCategoryId($condition, $field);
+        foreach ($latestCreatedList as &$novel) {
+            $novel['novelLink'] = url('/novel/' . $novel['id']);
         }
         unset($novel);
-        $this->assign('latest_created_list', $latest_created_list);
+        $this->assign('latestCreatedList', $latestCreatedList);
 
         $friendLinkModel = new FriendLink();
-        $friend_links = $friendLinkModel->select();
-        $this->assign('friend_links', $friend_links);
+        $friendLinks = $friendLinkModel->select();
+        $this->assign('friendLinks', $friendLinks);
 
         return $this->fetch();
     }
