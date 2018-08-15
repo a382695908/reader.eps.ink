@@ -57,10 +57,10 @@ class Common extends Controller
         }
 
         // Session 初始化
-        if (!Session::get('category_list')) {
+        if (!Session::get('categoryList')) {
             $categoryModel = new Category();
-            $categoryList = $categoryModel->getCategorys();
-            Session::set('category_list', $categoryList);
+            $categoryList = $categoryModel->getCategorys()->toArray();
+            Session::set('categoryList', $categoryList);
         }
 
         // 分析 Request
