@@ -42,26 +42,35 @@ class Index extends Common
         unset($novel);
         $this->assign('hotNovels', $hotNovels);
 
-        // 分类下的小说
-        $condition = [
-            'novel.isend' => 0,
-            'novel.is_deleted' => 0,
-        ];
-        $categoryNovels = $novelModel->getAllCategoryNovels($condition, 'novel.*, author.name AS authorName, category.name as categoryName');
+        // 分类下的小说(只拿6个分类下的)
         $categoryNovelList = [];
-        foreach ($categoryNovels as $novel) {
-            $categoryId = $novel['category'];
-            $novel['novelLink'] = url('/novel/' . $novel['id']);
-            if (!isset($categoryNovelList[$categoryId])) {
-                $categoryNovelList[$categoryId] = [
-                    'name' => $novel['categoryName'],
-                    'topNovel' => $novel,
-                    'novels' => []
-                ];
+        $categoryIndex = 1;
+        foreach ($categoryList as $category) {
+            $categoryId = $category['id'];
+            $condition = [
+                'novel.isend' => 0,
+                'novel.is_deleted' => 0,
+                'category' => $categoryId
+            ];
+            $categoryNovels = $novelModel->getAllCategoryNovels($condition, 'novel.*, author.name AS authorName, category.name as categoryName', 13);
+            foreach ($categoryNovels as $key => $novel) {
+                $novel['novelLink'] = url('/novel/' . $novel['id']);
+
+                if ($key == 0) {
+                    $categoryNovelList[$categoryId] = [
+                        'name' => $novel['categoryName'],
+                        'topNovel' => $novel,
+                        'novels' => []
+                    ];
+                }
+                else {
+                    $categoryNovelList[$categoryId]['novels'][] = $novel;
+                }
             }
-            else {
-                $categoryNovelList[$categoryId]['novels'][] = $novel;
+            if ($categoryIndex == 6) {
+                break;
             }
+            $categoryIndex++;
         }
         $this->assign('categoryNovelList', $categoryNovelList);
 

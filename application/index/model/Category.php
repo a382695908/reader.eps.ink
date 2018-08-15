@@ -17,7 +17,7 @@ class Category extends Model
         if ($categoryListCache) {
             return $categoryListCache;
         } else {
-            $list = $this->select();
+            $list = $this->where('status', 1)->select();
             Cache::set('categoryList', $categoryListCache, 3600);
         }
         return (empty($list)) ? [] : $list;
