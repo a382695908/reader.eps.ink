@@ -26,6 +26,11 @@ function getCategoryById() {
     });
 }
 
+/**
+ * 
+ * @param categoryAlias
+ * @returns {Promise}
+ */
 function getCategoryByAlias(categoryAlias) {
     return new Promise(function (resolve, reject) {
         let sql = 'SELECT * FROM `r_category` WHERE alias = ?';
@@ -40,9 +45,15 @@ function getCategoryByAlias(categoryAlias) {
     });
 }
 
-function getCategoryByName() {
+/**
+ *
+ * @param categoryName
+ * @returns {Promise}
+ */
+function getCategoryByName(categoryName) {
     return new Promise(function (resolve, reject) {
-        pool.query('SELECT * FROM `r_category`', function (error, results, fields) {
+        let sql = 'SELECT * FROM `r_category` WHERE name = ?';
+        pool.query(sql, [categoryName], function (error, results, fields) {
             if (error) {
                 reject(error);
             }

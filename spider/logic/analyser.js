@@ -61,7 +61,7 @@ let analyzeHome = function (content) {
         let novels = [];
 
         let firstNovelImg = $item.find('.p10 .image a img').attr('src');
-        let firstNovelAuthor = $item.find('.p10 dl dt span').text();
+        let firstNovelAuthor = ''; // 很不幸, 在此没有作者的名字
         let firstNovelName = $item.find('.p10 dl dt a').text();
         let firstNovelLink = $item.find('.p10 dl dt a').attr('href');
         let firstDesc = $item.find('.p10 dl dd').text();
@@ -76,6 +76,8 @@ let analyzeHome = function (content) {
         $item.find('div > ul > li').each(function (index, item) {
             let $item = $(item);
             let NovelAuthor = $item.text();
+            NovelAuthor = NovelAuthor.slice(NovelAuthor.indexOf('/') + 1);
+
             let NovelName = $item.find('a').text();
             let NovelLink = $item.find('a').attr('href');
 

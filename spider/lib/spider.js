@@ -13,7 +13,7 @@ header['User-Agent'] = userAgents[parseInt(Math.random() * userAgents.length)];
 spider.crawl = (url) => {
     return new Promise(function (resolve, reject) {
         console.log('request ' + url + ' ...');
-        superagent.set(header).get(url).end(function (error, content) {
+        superagent.get(url).set(header).end(function (error, content) {
             if (error) {
                 reject(error);
             }
