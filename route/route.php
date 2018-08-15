@@ -41,7 +41,7 @@ Route::post('/bookcase/add', 'bookcase/add');
 Route::post('/bookcase/delete', 'bookcase/delete');
 
 // 访问网站
-Route::post('/visitor_log', 'visit/visitor_log');
+Route::get('/ds', 'test/ds');
 
 // 反馈
 Route::post('/advise', 'feedBack/advise');

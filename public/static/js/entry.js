@@ -6,3 +6,8 @@ seajs.config({
         'jscookie': 'third_party/js.cookie.min.js',
     }
 });
+
+
+define('/static/js/entry', ['$', 'jscookie'], function (require, exports, module) {
+
+});
