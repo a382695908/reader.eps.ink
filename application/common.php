@@ -1,6 +1,5 @@
 <?php
 
-// 应用公共文件
 function array_keyby($arr, $key)
 {
     if (empty($arr)) {
@@ -18,22 +17,16 @@ function array_keyby($arr, $key)
 
 function getIp()
 {
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    $ips = [];
+    $ips['HTTP_CLIENT_IP'] = (!empty($_SERVER['HTTP_CLIENT_IP'])) ? $_SERVER['HTTP_CLIENT_IP'] : '';
+    $ips['HTTP_X_FORWARDED_FOR'] = (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : '';
+    $ips['REMOTE_ADDR'] = (!empty($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '';
+
+    if (!$ips['REMOTE_ADDR']) {
+        $ip = $ips['HTTP_CLIENT_IP'] ? $ips['HTTP_CLIENT_IP'] : $ips['HTTP_X_FORWARDED_FOR'];
+    } else {
+        $ip = $ips['REMOTE_ADDR'];
     }
-    else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    }
-    else if (!empty($_SERVER['REMOTE_ADDR'])) {
-        $ip = $_SERVER['REMOTE_ADDR'];
-    }
-    else {
-        $ip = '';
-    }
-    preg_match('/[\d\.]{7,15}/', $ip, $ips);
-//    $ip = isset($ips[0]) ? $ips[0] : 'unknown';
-    $ip = isset($ips[0]) ? $ips[0] : '';
-    unset($ips);
 
     return $ip;
 }

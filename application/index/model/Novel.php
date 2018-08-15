@@ -6,7 +6,9 @@ use think\Model;
 
 class Novel extends Model
 {
+    // 是否打开缓存
     const OPEN_CACHE = FALSE;
+
     /**
      * getNovelById
      * @Author: eps

@@ -87,8 +87,9 @@ class Index extends Common
         unset($novel);
         $this->assign('latestCreatedNovels', $latestCreatedNovels);
 
+        // 友情链接
         $friendLinkModel = new FriendLink();
-        $friendLinks = $friendLinkModel->select();
+        $friendLinks = $friendLinkModel->getFriendLinks();
         $this->assign('friendLinks', $friendLinks);
 
         return $this->fetch();

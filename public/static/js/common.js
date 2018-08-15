@@ -321,22 +321,7 @@ define('/static/js/common', ['$', 'jscookie'], function (require, exports, modul
 
 
     reload.init = function () {
-        if (!Cookies.get('ggbuf_visitor_token')) {
-            var info = $('#visitor_info').text();
-            info = (new Function('return ' + info))();
-            $.ajax({
-                url: '/visitor_log',
-                type: 'POST',
-                data: {
-                    address: info.address
-                },
-                success: function(data) {
-                    if (data.code == 1) {
-                        Cookies.set('ggbuf_visitor_token', data.data.visitor_token)
-                    }
-                }
-            });
-        }
+
     };
     return reload;
 });

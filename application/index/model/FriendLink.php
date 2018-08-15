@@ -14,5 +14,35 @@ use think\Model;
  */
 class FriendLink extends Model
 {
+    /**
+     * getFriendLinks
+     * @Author: eps
+     * @return array|\PDOStatement|string|\think\Collection
+     */
+    public function getFriendLinks()
+    {
+        $list = $this->select();
+        return (empty($list)) ? [] : $list;
+    }
 
+    // === BackStage Method ===
+    public function addFriendLink($data = array())
+    {
+
+    }
+
+    public function updateFriendLinkById($authorId, $data = array())
+    {
+
+    }
+
+    public function deleteFriendLinkById($authorId)
+    {
+
+    }
+
+    public function deleteFriendLinksByWhere($condition = array())
+    {
+
+    }
 }
