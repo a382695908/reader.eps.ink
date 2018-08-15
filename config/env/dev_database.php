@@ -1,25 +1,10 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
-
-require(Env::get('config_path') . '/env/env.php');
-if ($env == 'dev') {
-    require(Env::get('config_path') . '/env/dev_database.php');
-}
-else if ($env == 'prod') {
-    require(Env::get('config_path') . '/env/prod_database.php');
-}
-return $config;
-
-/*
-return [
+/**
+ * NAME: prod_database.php
+ * Author: eps
+ * DateTime: 8/15/2018 11:48 PM
+ */
+$config = [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
@@ -71,4 +56,3 @@ return [
     // 断线标识字符串
     'break_match_str' => [],
 ];
-*/
