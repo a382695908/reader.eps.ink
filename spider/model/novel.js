@@ -152,7 +152,7 @@ function addNovel(data) {
 }
 
 /**
- * getNovelByAuthorIdAndNovelName
+ * 根据作者id和小说名查询
  * @param authorId
  * @param novelName
  * @returns {Promise}
@@ -165,7 +165,47 @@ function getNovelByAuthorIdAndNovelName(authorId, novelName) {
                 reject(error);
             }
             else {
-                resolve(results)
+                resolve(results);
+            }
+        });
+    });
+}
+
+/**
+ * 根据小说ID更新小说
+ * @param novelId
+ * @param data
+ * @returns {Promise}
+ */
+function updateNovelById(novelId, data) {
+    return new Promise(function (resolve, reject) {
+        let sql = 'UPDATE `r_novel` SET ? WHERE id = ?';
+        pool.query(sql, [data, novelId], function (error, results, fields) {
+            if (error) {
+                reject(error);
+            }
+            else {
+                console.log('update novel , updateData: ' + JSON.stringify(data));
+                resolve(results);
+            }
+        });
+    });
+}
+
+/**
+ * 根据小说链接来源查询一条小说记录
+ * @param url
+ * @returns {Promise}
+ */
+function getNovelBySpiderUrls(url) {
+    return new Promise(function (resolve, reject) {
+        let sql = 'SELECT * FROM `r_novel` WHERE spider_urls = ?';
+        pool.query(sql, [url], function (error, results, fields) {
+            if (error) {
+                reject(error);
+            }
+            else {
+                resolve(results);
             }
         });
     });
@@ -180,5 +220,7 @@ module.exports = {
     countNovelsByCategoryId,
     getNovelsByWhere,
     addNovel,
-    getNovelByAuthorIdAndNovelName
+    getNovelByAuthorIdAndNovelName,
+    updateNovelById,
+    getNovelBySpiderUrls
 };

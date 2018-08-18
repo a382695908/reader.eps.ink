@@ -1,5 +1,7 @@
 const cheerio = require('cheerio');
 
+// TODO: novelName , novelLink 必须不为空
+
 /**
  * 分析主页面
  * @param content
@@ -22,16 +24,17 @@ let analyzeHome = function (content) {
     $('body > div.wrap > div.hot > div.l.bd > div').each(function (index, item) {
         let $item = $(item);
         let novelImg = $item.find('.p10 .image a img').attr('src');
-        let author = $item.find('.p10 dl dt span').text();
+        let authorName = $item.find('.p10 dl dt span').text();
         let novelName = $item.find('.p10 dl dt a').text();
         let novelLink = $item.find('.p10 dl dt a').attr('href');
         let desc = $item.find('.p10 dl dd').text();
         hotestNovel.push({
             novelImg,
-            author,
+            authorName,
             novelName,
             novelLink,
-            desc
+            desc,
+            isHotest: 1,
         });
     });
 
@@ -175,7 +178,6 @@ let analyzeNovel = function (content) {
 let analyzeChapter = function (content) {
 
 };
-
 
 module.exports = {
     analyzeHome,

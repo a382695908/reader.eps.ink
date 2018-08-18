@@ -13,8 +13,12 @@ function getAuthorById(authorId) {
     });
 }
 
+/**
+ * 根据作者名查询作者
+ * @param authorName
+ * @returns {Promise}
+ */
 function getAuthorByName(authorName) {
-    // 嗯, 我不允许有重复作者名
     return new Promise(function (resolve, reject) {
         let sql = 'SELECT * FROM r_author WHERE name = ?';
         pool.query(sql, [authorName],function (error, results, fields) {
@@ -28,6 +32,11 @@ function getAuthorByName(authorName) {
     });
 }
 
+/**
+ * 新增作者
+ * @param authorName
+ * @returns {Promise}
+ */
 function insertAuthor(authorName) {
     return new Promise(function (resolve, reject) {
         let sql = 'INSERT INTO r_author SET name = ?';
