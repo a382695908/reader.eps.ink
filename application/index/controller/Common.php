@@ -203,6 +203,14 @@ class Common extends Controller
 
     }
 
+    /**
+     * apiSuccess
+     * @Author: eps
+     * @param $code
+     * @param $message
+     * @param array $data
+     * @return \think\response\Json
+     */
     public function apiSuccess($code, $message, $data = [])
     {
         $responseData = [
@@ -213,6 +221,14 @@ class Common extends Controller
         return json($responseData);
     }
 
+    /**
+     * apiError
+     * @Author: eps
+     * @param $code
+     * @param $message
+     * @param array $data
+     * @return \think\response\Json
+     */
     public function apiError($code, $message, $data = [])
     {
         $responseData = [
@@ -223,6 +239,12 @@ class Common extends Controller
         return json($responseData);
     }
 
+    /**
+     * setAccessDeny
+     * @Author: eps
+     * @param null $ipBlackList
+     * @param string $denyMessage
+     */
     public function setAccessDeny($ipBlackList = null, $denyMessage = 'ACCESS DENY')
     {
         Session::set('assessDenied', 1);

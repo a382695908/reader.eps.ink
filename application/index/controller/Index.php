@@ -50,9 +50,10 @@ class Index extends Common
             $condition = [
                 'novel.isend' => 0,
                 'novel.is_deleted' => 0,
-                'category' => $categoryId
+                'novel.category' => $categoryId
             ];
-            $categoryNovels = $novelModel->getAllCategoryNovels($condition, 'novel.*, author.name AS authorName, category.name as categoryName', 13);
+            $field = 'novel.*, author.name AS authorName, category.name AS categoryName';
+            $categoryNovels = $novelModel->getAllCategoryNovels($condition, $field, 13);
             foreach ($categoryNovels as $key => $novel) {
                 $novel['novelLink'] = url('/novel/' . $novel['id']);
 

@@ -75,7 +75,7 @@ class Novel extends Model
     }
 
     /**
-     * getNovelsJoinWithCategory
+     * 获得某分类下的所有小说
      * @Author: eps
      * @param array $condition
      * @param string $field
@@ -97,17 +97,13 @@ class Novel extends Model
         return (empty($list)) ? [] : $list;
     }
 
-    public function getNovelsByWhere($where = array(), $field = '', $limit = 0, $offset = null, $orderBy = '')
+    public function getNovelsByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = 'id ASC')
     {
-
+        $list = $this->field($field)->where($condition)->order($orderBy)->limit($limit, $offset);
+        return (empty($list)) ? [] : $list;
     }
 
     public function getClosedNovels()
-    {
-
-    }
-
-    public function getLatestNovels()
     {
 
     }
@@ -128,7 +124,7 @@ class Novel extends Model
             return false;
         }
 
-        $sql = 'SELECT '. $field .' FROM r_novel novel ';
+        $sql = 'SELECT ' . $field . ' FROM r_novel novel ';
         $sql = $sql . ' LEFT JOIN r_chapter chapter ON novel.id = chapter.novel';
         $sql = $sql . ' LEFT JOIN r_author author ON novel.author = author.id';
         $sql = $sql . ' LEFT JOIN r_category category ON novel.category = category.id';
@@ -227,7 +223,6 @@ class Novel extends Model
             $condition = [
                 'novel.isend' => 0,
                 'novel.ishot' => 1,
-                'novel.ishotest' => 0,
             ];
 
             $list = $this->field($field)->alias('novel')
@@ -237,6 +232,24 @@ class Novel extends Model
                 ->order($orderBy)->select();
             Cache::set('hotNovels', $list);
         }
+        return (empty($list)) ? [] : $list;
+    }
+
+    /**
+     * 获取某分类下最近更新的小说
+     * @Author: eps
+     * @param int $categoryId
+     * @param string $field
+     * @return array|\PDOStatement|string|\think\Collection
+     */
+    public function getCategoryLatestUpdatedNovels($condition = '', $field = '*')
+    {
+//        $condition = 'isend = 0 AND category = ' . $categoryId;
+        $orderBy = 'novel.updatetime DESC';
+        $limit = 30;
+        $offset = null;
+
+        $list = $this->getLatestUpdatedNovelsByWhere($condition, $field, $limit, $offset, $orderBy);
         return (empty($list)) ? [] : $list;
     }
 
