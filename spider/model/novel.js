@@ -139,12 +139,13 @@ function getNovelsByWhere(where, field, limit, offset, orderby) {
 function addNovel(data) {
     return new Promise(function (resolve, reject) {
         let sql = 'INSERT INTO `r_novel` SET ?';
+        console.log(sql + ' (' + JSON.stringify(data) + ')');
         pool.query(sql, data, function (error, results, fields) {
             if (error) {
                 reject(error);
             }
             else {
-                console.log('add new Novel, novelId: ' + results.insertId + ' data: ' + JSON.stringify(data));
+                console.log('add new Novel, novelId: ' + results.insertId);
                 resolve(results.insertId);
             }
         });
@@ -180,6 +181,7 @@ function getNovelByAuthorIdAndNovelName(authorId, novelName) {
 function updateNovelById(novelId, data) {
     return new Promise(function (resolve, reject) {
         let sql = 'UPDATE `r_novel` SET ? WHERE id = ?';
+        console.log(sql + ' (' + novelId + ', ' + JSON.stringify(data) + ')');
         pool.query(sql, [data, novelId], function (error, results, fields) {
             if (error) {
                 reject(error);
@@ -193,13 +195,14 @@ function updateNovelById(novelId, data) {
 }
 
 /**
- * 根据小说链接来源查询一条小说记录
+ * 根据小说链接查询一条小说记录
  * @param url
  * @returns {Promise}
  */
 function getNovelBySpiderUrls(url) {
     return new Promise(function (resolve, reject) {
         let sql = 'SELECT * FROM `r_novel` WHERE spider_urls = ?';
+        console.log(sql + ` (${url})`);
         pool.query(sql, [url], function (error, results, fields) {
             if (error) {
                 reject(error);

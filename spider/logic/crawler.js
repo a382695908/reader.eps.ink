@@ -3,20 +3,20 @@ const urlMap = require('../config/url.map.js');
 const model = require('../model/index.js');
 const analyser = require('./analyser.js');
 
-let doNovelList = function (novelList) {
+let doNovelList = async function (novelList) {
+    const CREATE_TIME = Date.parse(new Date()) / 1000;
+
     for (let novel of novelList) {
         let authorRaw = null;
         let authorId = 0;
         // 判断数据中是否有小说作者
-        if (novel.author) {
+        if (novel.authorName) {
             // 从数据库中读出该作者
             authorRaw = await model.authorModel.getAuthorByName(novel.authorName);
             // 如果没有这个作者
             if (authorRaw.length == 0) {
                 // 插入一条新作者
-                if (novel.author) {
-                    authorId = await model.authorModel.insertAuthor(novel.author);
-                }
+                authorId = await model.authorModel.insertAuthor(novel.authorName);
             }
             else {
                 authorRaw = authorRaw[0];
@@ -37,6 +37,8 @@ let doNovelList = function (novelList) {
                 categoryId = categoryRaw.id;
             }
         }
+
+        // 判断数据中是否有小说分类名
         if (novel.categoryName) {
             categoryRaw = await model.categoryModel.getCategoryByName(novel.categoryName);
             // 如果没有这个分类
@@ -54,12 +56,19 @@ let doNovelList = function (novelList) {
         let insertData = {};
         let updateData = {};
 
-        // 获取到该小说的记录
+        // 根据小说链接查询一条小说记录
         novelRaw = await model.novelModel.getNovelBySpiderUrls(novel.novelLink);
+        if (novelRaw.length == 0) {
+            novelRaw = false;
+        }
+        else {
+            novelRaw = novelRaw[0];
+            novelId = novelRaw.id;
+        }
 
         // 如果数据库中没有该小说的记录
         if (!novelRaw) {
-            insertData.novelName = novel.novelName;
+            insertData.name = novel.novelName;
         }
 
         // 如果数据中和数据库都有小说作者
@@ -71,6 +80,7 @@ let doNovelList = function (novelList) {
                 updateData.author = authorId;
             }
         }
+
         // 如果数据中和数据库都有小说分类
         if (categoryId) {
             if (!novelRaw) {
@@ -86,11 +96,12 @@ let doNovelList = function (novelList) {
             if (!novelRaw) {
                 insertData.cover = novel.novelImg;
             }
-            else if (novelRaw && novelRaw.novelImg.length == 0) {
-                updateData.novelImg = novel.novelImg
+            else if (novelRaw && novelRaw.cover.length == 0) {
+                updateData.cover = novel.novelImg
             }
         }
-        // 数据中必然有连接
+
+        // 数据中必然有小说链接
         if (!novelRaw) {
             insertData.spider_urls = novel.novelLink;
         }
@@ -104,25 +115,39 @@ let doNovelList = function (novelList) {
                 updateData.introduction = novel.desc
             }
         }
+
         // 如果数据是最热
         if (novel.isHotest) {
             if (!novelRaw) {
                 insertData.ishotest = novel.isHotest;
             }
-            else if (novelRaw && novelRaw.ishotest.length == 0) {
+            else if (novelRaw && novelRaw.ishotest == 0) {
                 updateData.ishotest = novel.isHotest
             }
         }
 
+        // 如果数据是热门
+        if (novel.isHot) {
+            if (!novelRaw) {
+                insertData.ishot = novel.isHot;
+            }
+            else if (novelRaw && novelRaw.ishot == 0) {
+                updateData.ishot = novel.isHot
+            }
+        }
+
         if (novelRaw) {
-            // 执行更新
-            let bool = await model.novelModel.updateNovelById(novelId, updateData);
+            if (JSON.stringify(updateData) != '{}') {
+                // 执行更新
+                let bool = await model.novelModel.updateNovelById(novelId, updateData);
+            }
         } else {
+            insertData.createtime = CREATE_TIME;
             // 执行插入
             novelId = await model.novelModel.addNovel(insertData);
         }
     }
-
+    return ;
 };
 
 /**
@@ -186,143 +211,16 @@ let run = async function (params) {
         // TODO: Regexp匹配 排行榜url
 
         //console.log(htmlData.hotestNovel);
-        for (let novel of htmlData.hotestNovel) {
-            // 判断该作者是否存在
-            let author = await model.authorModel.getAuthorByName(novel.author);
-            // 如果不存在作者
-            if (author.length == 0) {
-                // 插入一条新数据
-                let authorId = 0;
-                if (novel.author) {
-                    authorId = await model.authorModel.insertAuthor(novel.author);
-                }
-
-                let novelData = {
-                    name: novel.novelName,
-                    author: authorId,
-                    spider_urls: novel.novelLink,
-                    cover: novel.novelImg,
-                    introduction: novel.desc,
-                    ishotest: 1
-                };
-                let novelId = await model.novelModel.addNovel(novelData);
-            }
-            else {
-                // 如果存在作者, 再判断该小说是否已存在
-                let novelRaw = await model.novelModel.getNovelByAuthorIdAndNovelName(author[0].id, novel.novelName);
-                if (novelRaw.length == 0) {
-                    // 如果该小说不存在, 插入新数据
-                    let novelData = {
-                        name: novel.novelName,
-                        author: author[0].id,
-                        spider_urls: novel.novelLink,
-                        cover: novel.novelImg,
-                        introduction: novel.desc,
-                        ishotest: 1
-                    };
-                    let novelId = await model.novelModel.addNovel(novelData);
-                }
-                else {
-                    // TODO: 如果该小说存在, 判断是否需要更新
-                }
-            }
-        }
+        //await doNovelList(htmlData.hotestNovel);
 
         //console.log(htmlData.veryRecommendNovel);
-        for (let novel of htmlData.veryRecommendNovel) {
-            // 判断该作者是否存在
-            let author = await model.authorModel.getAuthorByName(novel.author);
-            let category = await model.categoryModel.getCategoryByAlias(novel.categoryAlias);
-
-            // 如果不存在同名的作者
-            if (author.length == 0) {
-                // 插入一条新数据
-                let authorId = 0;
-                if (novel.author) {
-                    authorId = await model.authorModel.insertAuthor(novel.author);
-                }
-                let novelData = {
-                    name: novel.novelName,
-                    category: category[0].id,
-                    author: authorId,
-                    spider_urls: novel.novelLink,
-                    is_recommend: 1
-                };
-                let novelId = await model.novelModel.addNovel(novelData);
-            }
-            else {
-                // 如果存在同名的作者, 再判断该小说是否已存在
-                let novelRaw = await model.novelModel.getNovelByAuthorIdAndNovelName(author[0].id, novel.novelName);
-                if (novelRaw.length == 0) {
-                    // 如果该小说不存在, 插入新数据
-                    let novelData = {
-                        name: novel.novelName,
-                        category: category[0].id,
-                        author: author[0].id,
-                        spider_urls: novel.novelLink,
-                        is_recommend: 1
-                    };
-                    let novelId = await model.novelModel.addNovel(novelData);
-                }
-                else {
-                    // TODO: 如果该小说存在, 判断是否需要更新
-                }
-            }
-        }
+        await doNovelList(htmlData.veryRecommendNovel);
 
         //console.log(htmlData.categoryNovel);
-        for (let category of htmlData.categoryNovel) {
-            let categoryName = category.categoryName;
-            let novels = category.novels;
-
-            let categoryRaw = await model.categoryModel.getCategoryByName(categoryName);
-
-            for (let novel of novels) {
-                // 判断该作者是否存在
-                let author = await model.authorModel.getAuthorByName(novel.author);
-                // 如果不存在作者
-                if (author.length == 0) {
-                    // 插入一条新数据
-                    let authorId = 0;
-                    if (novel.author) {
-                        authorId = await model.authorModel.insertAuthor(novel.author);
-                    }
-
-                    let novelData = {
-                        name: novel.novelName,
-                        category: categoryRaw[0].id,
-                        author: authorId,
-                        spider_urls: novel.novelLink,
-                        cover: novel.novelImg,
-                        introduction: novel.desc,
-                    };
-                    let novelId = await model.novelModel.addNovel(novelData);
-                }
-                else {
-                    // 如果存在作者, 再判断该小说是否已存在
-                    let novelRaw = await model.novelModel.getNovelByAuthorIdAndNovelName(author[0].id, novel.novelName);
-                    if (novelRaw.length == 0) {
-                        // 如果该小说不存在, 插入新数据
-                        let novelData = {
-                            name: novel.novelName,
-                            category: categoryRaw[0].id,
-                            author: author[0].id,
-                            spider_urls: novel.novelLink,
-                            cover: novel.novelImg,
-                            introduction: novel.desc,
-                        };
-                        let novelId = await model.novelModel.addNovel(novelData);
-                    }
-                    else {
-                        // TODO: 如果该小说存在, 判断是否需要更新
-                    }
-                }
-            }
-        }
-
+        await doNovelList(htmlData.categoryNovel);
 
         model.closePool();
-        return;
+        return 1;
     }
 
     console.log('无任何参数, 执行结束');

@@ -9,6 +9,9 @@ let spider = {};
 let header = {};
 header['User-Agent'] = userAgents[parseInt(Math.random() * userAgents.length)];
 
+console.log('init request header ...');
+console.log(header);
+
 // 请求
 spider.crawl = (url) => {
     return new Promise(function (resolve, reject) {

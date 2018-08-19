@@ -44,7 +44,7 @@ let analyzeHome = function (content) {
         let categoryAlias = $item.find('span.s1').text();
         let novelName = $item.find('span.s2 a').text();
         let novelLink = $item.find('span.s2 a').attr('href');
-        let author = $item.find('span.s5').text();
+        let authorName = $item.find('span.s5').text();
 
         categoryAlias = categoryAlias.replace(/\[/, '');
         categoryAlias = categoryAlias.replace(/\]/, '');
@@ -53,7 +53,8 @@ let analyzeHome = function (content) {
             categoryAlias,
             novelName,
             novelLink,
-            author
+            authorName,
+            isHot: 1,
         });
     });
 
@@ -61,16 +62,16 @@ let analyzeHome = function (content) {
     $('body > div.wrap > div.type.bd > div').each(function (index, item) {
         let $item = $(item);
         let categoryName = $(item).find('h2').text();
-        let novels = [];
 
         let firstNovelImg = $item.find('.p10 .image a img').attr('src');
-        let firstNovelAuthor = ''; // 很不幸, 在此没有作者的名字
+        let firstNovelAuthorName = ''; // 很不幸, 在此没有作者的名字
         let firstNovelName = $item.find('.p10 dl dt a').text();
         let firstNovelLink = $item.find('.p10 dl dt a').attr('href');
         let firstDesc = $item.find('.p10 dl dd').text();
-        novels.push({
+        categoryNovel.push({
+            categoryName,
             novelImg: firstNovelImg,
-            author: firstNovelAuthor,
+            authorName: firstNovelAuthorName,
             novelName: firstNovelName,
             novelLink: firstNovelLink,
             desc: firstDesc
@@ -78,24 +79,20 @@ let analyzeHome = function (content) {
 
         $item.find('div > ul > li').each(function (index, item) {
             let $item = $(item);
-            let NovelAuthor = $item.text();
-            NovelAuthor = NovelAuthor.slice(NovelAuthor.indexOf('/') + 1);
+            let authorName = $item.text();
+            authorName = authorName.slice(authorName.indexOf('/') + 1);
 
             let NovelName = $item.find('a').text();
             let NovelLink = $item.find('a').attr('href');
 
-            novels.push({
+            categoryNovel.push({
+                categoryName,
                 novelImg: '',
-                author: NovelAuthor,
+                authorName: authorName,
                 novelName: NovelName,
                 novelLink: NovelLink,
                 desc: ''
             });
-        });
-
-        categoryNovel.push({
-            categoryName,
-            novels
         });
     });
 
@@ -107,7 +104,7 @@ let analyzeHome = function (content) {
         let novelLink = $item.find('span.s2 a').attr('href');
         let latestChapterName = $item.find('span.s3 a').text();
         let latestChapterLink = $item.find('span.s3 a').attr('href');
-        let author = $item.find('span.s4').text();
+        let authorName = $item.find('span.s4').text();
         let updateTime = $item.find('span.s5').text();
 
         latestUpdateNovel.push({
@@ -116,7 +113,7 @@ let analyzeHome = function (content) {
             novelLink,
             latestChapterName,
             latestChapterLink,
-            author,
+            authorName,
             updateTime
         });
     });
@@ -127,13 +124,13 @@ let analyzeHome = function (content) {
         let categoryAlias = $item.find('span.s1').text();
         let novelName = $item.find('span.s2 a').text();
         let novelLink = $item.find('span.s2 a').attr('href');
-        let author = $item.find('span.s5').text();
+        let authorName = $item.find('span.s5').text();
 
         latestAddNovel.push({
             categoryAlias,
             novelName,
             novelLink,
-            author
+            authorName
         });
     });
 
