@@ -1,46 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>三寸人间_第一百零六章 强悍的九寸_书趣阁_笔趣阁</title>
-    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
-</head>
-<body id="wrapper">
-    <div class="header">
-        <div class="wrap">
-            <div class="logo">
-                <a href="/" title="读读读">读读读</a>
-            </div>
-            <div class="search">
-                <div class="form">
-                    <input type="search" class="text" name="q" placeholder="小说名称、作者" value="">
-                    <input type="submit" class="btn" value="搜 索" onclick="novel_search()">
-                </div>
-            </div>
-            <div style="float: right;" class="search">欢迎您，[<a href="{:url('/login')}">登录</a>]或[<a href="{:url('/register')}">注册</a>]
-            </div>
-        </div>
-    </div>
+<div class="clear"></div>
 
-    <div class="nav">
-        <ul>
-            <li class="this"><a href="/" title="读读读">首页</a></li>
-            {volist name="category_list" id="category"}
-            <li><a href="{$category.link}">{$category.alias}</a></li>
-            {/volist}
-            <li><a href="{:url('/top')}">排行榜</a></li>
-            <li><a href="{:url('/full')}">全本</a></li>
-            <li><a href="{:url('/bookcase')}">书架</a></li>
-        </ul>
-    </div>
-
-    <div class="clear"></div>
-
-    <div class="book reader">
-        <div class="path">
-            <div class="p">
-                <a href="/">读读读</a> &gt;
-                <a href="{$novel.link_url}">{$novel.name}</a> &gt;{$chapter.name}
+<div class="book reader">
+    <div class="path">
+        <div class="p">
+            <a href="/">读读读</a> &gt;
+            <a href="{$novel.link_url}">{$novel.name}</a> &gt;{$chapter.name}
                 <span class="oninfo">
                     <div id="page_set">
                         <select onchange="setFont(0);" id="font" name="font">
@@ -116,65 +80,36 @@
                             <option value="53%">50%</option>
                             <option value="41%">40%</option>
                         </select>
-                        翻页<input type="checkbox" name="autopage" id="autopage" onchange="setAutopage(0);" value="">&nbsp;夜间<input type="checkbox" name="night" id="night" onchange="setNight(0);" value="">
+                        翻页<input type="checkbox" name="autopage" id="autopage" onchange="setAutopage(0);" value="">&nbsp;夜间<input
+                            type="checkbox" name="night" id="night" onchange="setNight(0);" value="">
                     </div>
                 </span>
-                <div style="float: right;">
-                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()" data-novelid="{$novel.id}" onclick="addIntoBookCase()">加入书架</a>
-                    <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()" data-novelid="{$novel.id}" onclick="recommendNovel()">推荐本书</a>
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <h1>{$chapter.name}</h1>
-            <!--<div class="link">-->
-            <!--<span>-->
-            <!--推荐阅读：-->
-            <!--<a href="http://www.shuquge.com/txt/71331/index.html">系统之长姐难为</a>-->
-            <!--<a href="http://www.shuquge.com/txt/73269/index.html">修真之我是女主</a>-->
-            <!--<a href="http://www.shuquge.com/txt/30668/index.html">修真聊天群</a>-->
-            <!--</span>-->
-            <!--</div>-->
-            <div id="content" class="showtxt"><?php echo $chapter['content'];?></div>
-            <div class="page_chapter">
-                <ul>
-                    <li><a href="17468919.html">上一章</a></li>
-                    <li><a href="/txt/63542/index.html">返回目录</a></li>
-                    <li><a href="/txt/63542/index.html">下一章</a></li>
-                </ul>
+
+            <div style="float: right;">
+                <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()"
+                   data-novelid="{$novel.id}" onclick="addIntoBookCase()">加入书架</a>
+                <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()"
+                   data-novelid="{$novel.id}" onclick="recommendNovel()">推荐本书</a>
             </div>
         </div>
     </div>
-
-    <div class="footer">
-        <hr/>
-        <p>本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
-
-        <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
+    <div class="content">
+        <h1>{$chapter.name}</h1>
+        <!--<div class="link">-->
+        <!--<span>-->
+        <!--推荐阅读：-->
+        <!--<a href="http://www.shuquge.com/txt/71331/index.html">系统之长姐难为</a>-->
+        <!--<a href="http://www.shuquge.com/txt/73269/index.html">修真之我是女主</a>-->
+        <!--<a href="http://www.shuquge.com/txt/30668/index.html">修真聊天群</a>-->
+        <!--</span>-->
+        <!--</div>-->
+        <div id="content" class="showtxt"><?php echo $chapter['content'];?></div>
+        <div class="page_chapter">
+            <ul>
+                <li><a href="17468919.html">上一章</a></li>
+                <li><a href="/txt/63542/index.html">返回目录</a></li>
+                <li><a href="/txt/63542/index.html">下一章</a></li>
+            </ul>
+        </div>
     </div>
-
-    <div style="display: none" id="visitor_info"><script type="text/javascript" src="http://ip.chinaz.com/getip.aspx"></script></div>
-
-    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/static/js/common.js"></script>
-    <script src="https://cdn.staticfile.org/js-cookie/latest/js.cookie.min.js"></script>
-    <script type="text/javascript">
-        var data = {
-            logVisitorUrl: "{:url('/visitor_log')}",
-            loginUrl: "{:url('/login')}",
-            registerUrl: "{:url('/register')}",
-            next_page: "",
-            reading: true
-        }
-//        var preview_page = "17468919.html";
-//        var next_page = "/txt/63542/index.html";
-//        var index_page = "/txt/63542/index.html";
-//        function jumpPage() {
-//            if (event.keyCode==37) location=preview_page;
-//            if (event.keyCode==39) location=next_page;
-//            if (event.keyCode==13) location=index_page;
-//        }
-//        document.onkeydown=jumpPage;
-    </script>
-</body>
-</html>
+</div>

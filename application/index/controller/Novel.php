@@ -1,8 +1,6 @@
 <?php
 namespace app\index\controller;
 
-use think\Facade\Session;
-
 class Novel extends Common
 {
     /**
@@ -13,14 +11,10 @@ class Novel extends Common
      */
     public function index($id)
     {
-        // 获取小说分类信息
-        $category_list = Session::get('category_list');
-        foreach ($category_list as &$category) {
-            $category['link'] = url('/category/' . $category['id']);
-        }
-        unset($category);
-        $this->assign('category_list', $category_list);
+        $initViewData = $this->init_view();
+        $categoryList = $initViewData['categoryList'];
 
+        $novelModel = new Novel();
         // 获取小说信息
         $id = intval($id);
         $authorModel = new \app\index\model\Author();
@@ -32,7 +26,7 @@ class Novel extends Common
         $novel = $novelModel->where($condition)->find();
         $novel['author_name'] = $authorModel->get($novel['author'])['name'];
         $novel['link_url'] = url('/novel/' . $novel['id']);
-        foreach ($category_list as $category) {
+        foreach ($categoryList as $category) {
             if ($novel['category'] == $category['id']) {
                 $novel['category_name'] = $category['name'];
                 break;

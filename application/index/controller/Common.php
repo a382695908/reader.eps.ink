@@ -8,6 +8,7 @@
 namespace app\index\controller;
 
 use app\index\model\Category;
+use app\index\model\FriendLink;
 use app\index\model\Visit;
 use app\index\model\Visitor;
 use Jenssegers\Agent\Agent;
@@ -25,6 +26,8 @@ class Common extends Controller
     // 没被我抓住, 那就给你点面子
     const REQUEST_TIMES = 100;
     const REQUEST_INTERVAL = 60;
+
+    const OPEN_CACHE = false;
 
     public function __construct()
     {
@@ -264,5 +267,26 @@ class Common extends Controller
 
         echo $denyMessage;
         exit;
+    }
+
+    protected function init_view()
+    {
+        // 获取小说分类信息
+        $categoryList = Session::get('categoryList');
+        if (empty($categoryList)) {
+            $categoryList = [];
+        }
+        foreach ($categoryList as &$category) {
+            $category['categoryLink'] = url('/category/' . $category['id']);
+        }
+        unset($category);
+        $this->assign('categoryList', $categoryList);
+
+        // 友情链接
+        $friendLinkModel = new FriendLink();
+        $friendLinks = $friendLinkModel->getFriendLinks();
+        $this->assign('friendLinks', $friendLinks);
+
+        return ['categoryList' => $categoryList, 'friendLinks' => $friendLinks];
     }
 }

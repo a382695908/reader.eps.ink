@@ -1,10 +1,7 @@
 <?php
 namespace app\index\controller;
 
-use app\index\model\Author;
-use app\index\model\FriendLink;
 use app\index\model\Novel;
-use think\facade\Session;
 
 class Category extends Common
 {
@@ -20,17 +17,7 @@ class Category extends Common
      */
     public function index($cid, $page = 1)
     {
-        $categoryList = Session::get('categoryList');
-        if (empty($categoryList)) {
-            $categoryList = [];
-        }
-        foreach ($categoryList as &$category) {
-            $category['categoryLink'] = url('/category/' . $category['id']);
-        }
-        unset($category);
-        $this->assign('categoryList', $categoryList);
-
-
+        $this->init_view();
         $categoryId = intval($cid);
 
         // 热门小说
@@ -81,11 +68,6 @@ class Category extends Common
 //        dump($recommendNovels);
 //        dump($novelModel->getLastSql());die;
 
-        // 友情链接
-        $friendLinkModel = new FriendLink();
-        $friendLinks = $friendLinkModel->getFriendLinks();
-        $this->assign('friendLinks', $friendLinks);
-
         // TODO: 分页
         return $this->fetch();
     }
@@ -96,16 +78,7 @@ class Category extends Common
      */
     public function isend($page = 1)
     {
-        $categoryList = Session::get('categoryList');
-        if (empty($categoryList)) {
-            $categoryList = [];
-        }
-        foreach ($categoryList as &$category) {
-            $category['categoryLink'] = url('/category/' . $category['id']);
-        }
-        unset($category);
-        $this->assign('categoryList', $categoryList);
-
+        $this->init_view();
         // 热门小说
         $novelModel = new Novel();
         $condition = [
@@ -152,11 +125,6 @@ class Category extends Common
         $this->assign('recommendNovels', $recommendNovels);
 //        dump($recommendNovels);
 //        dump($novelModel->getLastSql());die;
-
-        // 友情链接
-        $friendLinkModel = new FriendLink();
-        $friendLinks = $friendLinkModel->getFriendLinks();
-        $this->assign('friendLinks', $friendLinks);
 
         return $this->fetch('index');
     }
