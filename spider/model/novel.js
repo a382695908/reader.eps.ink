@@ -1,4 +1,5 @@
 const pool = require('./db.js');
+const logger = require('../lib/logger.js');
 
 /**
  *
@@ -139,13 +140,13 @@ function getNovelsByWhere(where, field, limit, offset, orderby) {
 function addNovel(data) {
     return new Promise(function (resolve, reject) {
         let sql = 'INSERT INTO `r_novel` SET ?';
-        console.log(sql + ' (' + JSON.stringify(data) + ')');
+        logger.info(sql + ' (' + JSON.stringify(data) + ')');
         pool.query(sql, data, function (error, results, fields) {
             if (error) {
                 reject(error);
             }
             else {
-                console.log('add new Novel, novelId: ' + results.insertId);
+                logger.info('add new Novel, novelId: ' + results.insertId);
                 resolve(results.insertId);
             }
         });
@@ -181,13 +182,13 @@ function getNovelByAuthorIdAndNovelName(authorId, novelName) {
 function updateNovelById(novelId, data) {
     return new Promise(function (resolve, reject) {
         let sql = 'UPDATE `r_novel` SET ? WHERE id = ?';
-        console.log(sql + ' (' + novelId + ', ' + JSON.stringify(data) + ')');
+        logger.info(sql + ' (' + novelId + ', ' + JSON.stringify(data) + ')');
         pool.query(sql, [data, novelId], function (error, results, fields) {
             if (error) {
                 reject(error);
             }
             else {
-                console.log('update novel , updateData: ' + JSON.stringify(data));
+                logger.info('update novel , updateData: ' + JSON.stringify(data));
                 resolve(results);
             }
         });
@@ -202,7 +203,7 @@ function updateNovelById(novelId, data) {
 function getNovelBySpiderUrls(url) {
     return new Promise(function (resolve, reject) {
         let sql = 'SELECT * FROM `r_novel` WHERE spider_urls = ?';
-        console.log(sql + ` (${url})`);
+        logger.info(sql + ` (${url})`);
         pool.query(sql, [url], function (error, results, fields) {
             if (error) {
                 reject(error);

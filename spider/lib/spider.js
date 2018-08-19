@@ -4,24 +4,25 @@
  */
 const superagent = require('superagent');
 const userAgents = require('../config/userAgents.js');
-let spider = {};
+const logger = require('./logger.js');
 
+let spider = {};
 let header = {};
 header['User-Agent'] = userAgents[parseInt(Math.random() * userAgents.length)];
 
-console.log('init request header ...');
-console.log(header);
+logger.info('init request header ...');
+logger.info(header);
 
 // 请求
 spider.crawl = (url) => {
     return new Promise(function (resolve, reject) {
-        console.log('request ' + url + ' ...');
+        logger.info('request ' + url + ' ...');
         superagent.get(url).set(header).end(function (error, content) {
             if (error) {
                 reject(error);
             }
             else {
-                console.log('request ok');
+                logger.info('request ok');
                 resolve(content);
             }
         });

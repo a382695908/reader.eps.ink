@@ -1,4 +1,5 @@
 const pool = require('./db.js');
+const logger = require('../lib/logger.js');
 
 function getCategoryList() {
     return new Promise(function (resolve, reject) {
@@ -34,7 +35,7 @@ function getCategoryById() {
 function getCategoryByAlias(categoryAlias) {
     return new Promise(function (resolve, reject) {
         let sql = 'SELECT * FROM `r_category` WHERE alias = ?';
-        console.log(sql + ` (${categoryAlias})`);
+        logger.info(sql + ` (${categoryAlias})`);
         pool.query(sql, [categoryAlias], function (error, results, fields) {
             if (error) {
                 reject(error);
@@ -54,7 +55,7 @@ function getCategoryByAlias(categoryAlias) {
 function getCategoryByName(categoryName) {
     return new Promise(function (resolve, reject) {
         let sql = 'SELECT * FROM `r_category` WHERE name = ?';
-        console.log(sql + ` (${categoryName})`);
+        logger.info(sql + ` (${categoryName})`);
         pool.query(sql, [categoryName], function (error, results, fields) {
             if (error) {
                 reject(error);

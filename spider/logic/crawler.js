@@ -1,4 +1,5 @@
 const spider = require('../lib/spider.js');
+const logger = require('../lib/logger.js');
 const urlMap = require('../config/url.map.js');
 const model = require('../model/index.js');
 const analyser = require('./analyser.js');
@@ -199,7 +200,7 @@ let run = async function (params) {
     if (typeof params.url == 'string') {
         htmlContent = await spider.crawl(params.url);
         if (!htmlContent) {
-            console.log('request a empty html content !!');
+            logger.info('request a empty html content !!');
         }
         if (params.url == urlMap.homeUrl) {
             htmlData = analyser.analyzeHome(htmlContent);
@@ -210,20 +211,20 @@ let run = async function (params) {
         // TODO: Regexp匹配 章节url
         // TODO: Regexp匹配 排行榜url
 
-        //console.log(htmlData.hotestNovel);
-        //await doNovelList(htmlData.hotestNovel);
+        //logger.info(htmlData.hotestNovel);
+        await doNovelList(htmlData.hotestNovel);
 
-        //console.log(htmlData.veryRecommendNovel);
+        //logger.info(htmlData.veryRecommendNovel);
         await doNovelList(htmlData.veryRecommendNovel);
 
-        //console.log(htmlData.categoryNovel);
+        //logger.info(htmlData.categoryNovel);
         await doNovelList(htmlData.categoryNovel);
 
         model.closePool();
         return 1;
     }
 
-    console.log('无任何参数, 执行结束');
+    logger.info('无任何参数, 执行结束');
 };
 
 module.exports = {
