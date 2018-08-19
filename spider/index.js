@@ -1,5 +1,4 @@
-const crawler = require('./logic/crawler.js');
-const updater = require('./logic/updater.js');
+const controller = require('./logic/controller.js');
 
 let argvList = process.argv.splice(2);
 let params = {};
@@ -32,11 +31,8 @@ if (!command) {
 
 
 switch (command) {
-    case 'crawler':
-        crawler.run(params);
-        break;
-    case 'updater':
-        updater.run(params);
+    case 'controller':
+        controller.run(params);
         break;
     default:
         console.log('invalid command !');

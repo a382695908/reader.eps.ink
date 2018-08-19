@@ -4,7 +4,7 @@
   "description": "spider for project reader",
   "main": "index.js",
   "scripts": {
-    "test-home": "node index.js crawler url=http://www.shuquge.com/"
+    "test-home": "node index.js controller url=http://www.shuquge.com/"
   },
   "keywords": [
     "spider"
