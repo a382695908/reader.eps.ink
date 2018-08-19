@@ -1,8 +1,6 @@
 <?php
 namespace app\index\controller;
 
-use think\Facade\Session;
-
 class Top extends Common
 {
     /**
@@ -12,15 +10,8 @@ class Top extends Common
      */
     public function index()
     {
-        $categoryModel = new \app\index\model\Category();
-        $category_list = Session::get('category_list');
-        foreach ($category_list as &$category) {
-            $category['link'] = url('/category/' . $category['id']);
-        }
-        unset($category);
-//        dump($category_list);
-        $this->assign('category_list', $category_list);
-
+        $initViewData = $this->init_view();
+        $categoryList = $initViewData['categoryList'];
 
         $novelModel = new \app\index\model\Novel();
         // 小说总榜
@@ -29,7 +20,7 @@ class Top extends Common
             'isend' => 0,
         ];
         $novelList = $novelModel->where($condition)->order('clicks DESC')->limit(0, 15)->select()->toArray();
-        $category_keyby_cid = array_keyby($category_list, 'id');
+        $category_keyby_cid = array_keyby($categoryList, 'id');
         $index = 1;
         foreach ($novelList as &$novel) {
             $novel['is_top'] = ($index <= 3);
@@ -43,7 +34,7 @@ class Top extends Common
         $this->assign('all_rank_list', $novelList);
 
         // 各个分类的排行榜
-        foreach ($category_list as &$category) {
+        foreach ($categoryList as &$category) {
             $condition = [
                 'category' => $category['id'],
                 'is_deleted' => 0,
@@ -61,7 +52,7 @@ class Top extends Common
             $category['rank_list'] = $novelList;
         }
         unset($category);
-        $this->assign('all_cat_rank_list', $category_list);
+        $this->assign('all_cat_rank_list', $categoryList);
 
         return $this->fetch();
     }

@@ -1,16 +1,3 @@
-<div class="nav">
-    <ul>
-        <li class="this"><a href="/" title="读读读">首页</a></li>
-        {volist name="categoryList" id="item"}
-        <li><a href="{$item.categoryLink}">{$item.alias}</a></li>
-        {/volist}
-
-        <li><a href="{:url('/top')}">排行榜</a></li>
-        <li><a href="{:url('/full')}">全本</a></li>
-        <li><a href="{:url('/bookcase')}">书架</a></li>
-    </ul>
-</div>
-
 <div class="clear"></div>
 
 <div class="wrap">

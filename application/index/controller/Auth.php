@@ -1,34 +1,19 @@
 <?php
 namespace app\index\controller;
 
-use think\facade\Cookie;
 use think\Facade\Session;
 
 class Auth extends Common
 {
     public function login_view()
     {
-        // 获取小说分类信息
-        $category_list = Session::get('category_list');
-        foreach ($category_list as &$category) {
-            $category['link'] = url('/category/' . $category['id']);
-        }
-        unset($category);
-        $this->assign('category_list', $category_list);
-
+        $this->init_view();
         return $this->fetch('login');
     }
 
     public function register_view()
     {
-        // 获取小说分类信息
-        $category_list = Session::get('category_list');
-        foreach ($category_list as &$category) {
-            $category['link'] = url('/category/' . $category['id']);
-        }
-        unset($category);
-        $this->assign('category_list', $category_list);
-
+        $this->init_view();
         return $this->fetch('register');
     }
 

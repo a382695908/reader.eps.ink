@@ -1,9 +1,7 @@
 <?php
 namespace app\index\controller;
 
-use app\index\model\FriendLink;
 use app\index\model\Novel;
-use think\facade\Session;
 
 class Index extends Common
 {
@@ -14,16 +12,8 @@ class Index extends Common
      */
     public function index()
     {
-        $categoryList = Session::get('categoryList');
-        if (empty($categoryList)) {
-            $categoryList = [];
-        }
-        foreach ($categoryList as &$category) {
-            $category['categoryLink'] = url('/category/' . $category['id']);
-        }
-        unset($category);
-        $this->assign('categoryList', $categoryList);
-
+        $initViewData = $this->init_view();
+        $categoryList = $initViewData['categoryList'];
         $novelModel = new Novel();
 
         // 最热
@@ -96,12 +86,6 @@ class Index extends Common
         }
         unset($novel);
         $this->assign('latestCreatedNovels', $latestCreatedNovels);
-
-        // 友情链接
-        $friendLinkModel = new FriendLink();
-        $friendLinks = $friendLinkModel->getFriendLinks();
-        $this->assign('friendLinks', $friendLinks);
-
         return $this->fetch();
     }
 
