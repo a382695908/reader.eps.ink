@@ -15,7 +15,7 @@
 
 return [
     // 应用名称
-    'app_name'               => '',
+    'app_name'               => 'reader',
     // 应用地址
     'app_host'               => '',
     // 应用调试模式
@@ -54,7 +54,7 @@ return [
     // +----------------------------------------------------------------------
 
     // 默认模块名
-    'default_module'         => 'index',
+    'default_module'         => 'home',
     // 禁止访问模块
     'deny_module_list'       => ['common'],
     // 默认控制器名
