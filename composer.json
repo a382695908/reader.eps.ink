@@ -1,18 +1,14 @@
 {
-    "name": "topthink/think",
-    "description": "the new thinkphp framework",
+    "name": "reader",
+    "description": "Eps novel website",
     "type": "project",
-    "keywords": [
-        "framework",
-        "thinkphp",
-        "ORM"
-    ],
-    "homepage": "http://thinkphp.cn/",
-    "license": "Apache-2.0",
+    "keywords": ["book"],
+    "homepage": "http://reader.eps.ink",
+    "license": "MIT",
     "authors": [
         {
-            "name": "liu21st",
-            "email": "liu21st@gmail.com"
+            "name": "EPsheep",
+            "email": "epsmail@126.com"
         }
     ],
     "require": {
