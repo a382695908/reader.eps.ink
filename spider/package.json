@@ -4,7 +4,9 @@
   "description": "spider for project reader",
   "main": "index.js",
   "scripts": {
-    "test-home": "node index.js controller url=http://www.shuquge.com/"
+    "test-home": "node index.js controller url=http://www.shuquge.com/",
+    "test-novel": "node index.js controller novelId=1",
+    "test-chapter": "node index.js controller chapterId=1"
   },
   "keywords": [
     "spider"

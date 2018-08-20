@@ -8,7 +8,8 @@ const logger = require('../lib/logger.js');
  */
 function getNovelById(novelId) {
     return new Promise(function (resolve, reject) {
-        pool.query('SELECT * FROM `r_novel`', function (error, results, fields) {
+        let sql = 'SELECT * FROM `r_novel` WHERE id = ?';
+        pool.query(sql, [novelId], function (error, results, fields) {
             if (error) {
                 reject(error);
             }

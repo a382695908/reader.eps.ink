@@ -4,7 +4,7 @@ const urlMap = require('../config/url.map.js');
 const model = require('../model/index.js');
 const analyser = require('./analyser.js');
 
-let doNovelList = async function (novelList) {
+let doHomeNovelList = async function (novelList) {
     const CREATE_TIME = Date.parse(new Date()) / 1000;
 
     for (let novel of novelList) {
@@ -151,11 +151,11 @@ let doNovelList = async function (novelList) {
     return ;
 };
 
-/**
- * 爬取器
- * 对传入的参数执行爬取任务, 爬取指定页面
- * @param params
- */
+let doNovel = async function (novelData, novelId) {
+    console.log(novelData);
+};
+
+
 let run = async function (params) {
 
     let htmlContent = null;
@@ -174,13 +174,16 @@ let run = async function (params) {
     }
 
     if (typeof params.novelId == 'string') {
-        // 填充 小说url
-        let url = urlMap.novelUrl.replace(/XXX/, params.novelId);
-        htmlContent = await spider.crawl(url);
-        if (!htmlContent) {
-
+        let novelRaw = await model.novelModel.getNovelById(params.novelId);
+        if (novelRaw.length > 0) {
+            novelRaw = novelRaw[0];
+            htmlContent = await spider.crawl(novelRaw.spider_urls);
+            if (htmlContent) {
+                htmlData = analyser.analyzeNovel(htmlContent);
+                await doNovel(htmlData, params.novelId);
+            }
         }
-        htmlData = analyser.analyzeNovel(htmlContent);
+
         model.closePool();
         return;
     }
@@ -204,21 +207,20 @@ let run = async function (params) {
         }
         if (params.url == urlMap.homeUrl) {
             htmlData = analyser.analyzeHome(htmlContent);
+            //logger.info(htmlData.hotestNovel);
+            await doHomeNovelList(htmlData.hotestNovel);
 
+            //logger.info(htmlData.veryRecommendNovel);
+            await doHomeNovelList(htmlData.veryRecommendNovel);
+
+            //logger.info(htmlData.categoryNovel);
+            await doHomeNovelList(htmlData.categoryNovel);
         }
+
         // TODO: Regexp匹配 分类url
         // TODO: Regexp匹配 小说url
         // TODO: Regexp匹配 章节url
         // TODO: Regexp匹配 排行榜url
-
-        //logger.info(htmlData.hotestNovel);
-        await doNovelList(htmlData.hotestNovel);
-
-        //logger.info(htmlData.veryRecommendNovel);
-        await doNovelList(htmlData.veryRecommendNovel);
-
-        //logger.info(htmlData.categoryNovel);
-        await doNovelList(htmlData.categoryNovel);
 
         model.closePool();
         return 1;

@@ -28,6 +28,12 @@ let analyzeHome = function (content) {
         let novelName = $item.find('.p10 dl dt a').text();
         let novelLink = $item.find('.p10 dl dt a').attr('href');
         let desc = $item.find('.p10 dl dd').text();
+        if (desc && desc.length > 0) {
+            desc = desc.trim();
+        }
+        else {
+            desc = '';
+        }
         hotestNovel.push({
             novelImg,
             authorName,
@@ -68,6 +74,12 @@ let analyzeHome = function (content) {
         let firstNovelName = $item.find('.p10 dl dt a').text();
         let firstNovelLink = $item.find('.p10 dl dt a').attr('href');
         let firstDesc = $item.find('.p10 dl dd').text();
+        if (firstDesc && firstDesc.length > 0) {
+            firstDesc = firstDesc.trim();
+        }
+        else {
+            firstDesc = '';
+        }
         categoryNovel.push({
             categoryName,
             novelImg: firstNovelImg,
@@ -165,7 +177,93 @@ let analyzeTop = function (content) {
  * @param content
  */
 let analyzeNovel = function (content) {
+    let $ = cheerio.load(content.text);
 
+    let novelInfo = {
+        cover: '',
+        authorName: '',
+        categoryName: '',
+        state: '',
+        textLength: '',
+        updateAt: '',
+        desc: '',
+    };
+
+    let chapterGroups = [];
+    //let chapterGroups = [
+    //    {
+    //        chapterGroupName: '',
+    //        chapterSort: 1,
+    //        chapterName: '',
+    //        chapterLink: '',
+    //    }
+    //];
+
+    novelInfo.cover = $('body > div.book > div.info > div.cover > img').attr('src');
+
+    novelInfo.authorName = $('body > div.book > div.info > div.small > span:nth-child(1)').text();
+    novelInfo.authorName = novelInfo.authorName.slice(novelInfo.authorName.indexOf('：') + 1);
+
+    novelInfo.categoryName = $('body > div.book > div.info > div.small > span:nth-child(2)').text();
+    novelInfo.categoryName = novelInfo.categoryName.slice(novelInfo.categoryName.indexOf('：') + 1);
+
+    novelInfo.state = $('body > div.book > div.info > div.small > span:nth-child(3)').text();
+    novelInfo.state = novelInfo.state.slice(novelInfo.state.indexOf('：') + 1);
+
+    novelInfo.textLength = $('body > div.book > div.info > div.small > span:nth-child(4)').text();
+    novelInfo.textLength = novelInfo.textLength.slice(novelInfo.textLength.indexOf('：') + 1);
+
+    novelInfo.updateAt = $('body > div.book > div.info > div.small > span:nth-child(4)').text();
+    novelInfo.updateAt = novelInfo.updateAt.slice(novelInfo.updateAt.indexOf('：') + 1);
+
+    novelInfo.desc = $('body > div.book > div.info > div.intro').text();
+    if (novelInfo.desc.indexOf('展开>>') != -1) {
+        novelInfo.desc = novelInfo.desc.slice(novelInfo.desc.indexOf('：') + 1, novelInfo.desc.indexOf('展开>>'));
+    }
+    else {
+        novelInfo.desc = novelInfo.desc.slice(novelInfo.desc.indexOf('：') + 1, novelInfo.desc.indexOf('作者：'));
+    }
+
+    if (novelInfo.desc && novelInfo.desc.length > 0) {
+        novelInfo.desc = novelInfo.desc.trim();
+    }
+    else {
+        novelInfo.desc = '';
+    }
+
+    let $dt = $('body > div.listmain > dl > dt').eq(1);
+    let $dd = $dt.next();
+    let sortIndex = 1;
+
+    while(true) {
+        let chapterGroupName = $dt.text().trim();
+        let chapterName = $dd.text().trim();
+        let chapterLink = $dd.children('a').attr('href');
+        chapterGroups.push({
+            chapterGroupName,
+            chapterSort: sortIndex,
+            chapterName,
+            chapterLink
+        });
+
+        let $next = $dd.next();
+        if ($next.length == 0) {
+            break;
+        }
+        else if ($next.is('dt')) {
+            $dt = $next;
+            $dd = $dt.next();
+            sortIndex++;
+        }
+        else if ($next.is('dd')) {
+            $dd = $next;
+        }
+    }
+
+    return {
+        novelInfo,
+        chapterGroups
+    };
 };
 
 /**
