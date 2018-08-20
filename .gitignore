@@ -3,7 +3,6 @@
 /vendor
 *.log
 .env
-*.html
 *.htaccess
 *.user.ini
 backstage

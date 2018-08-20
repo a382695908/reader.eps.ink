@@ -1,0 +1,32 @@
+<div class="clear"></div>
+<div class="wrap rank">
+    <div class="block bd">
+        <h2>小说总榜</h2>
+        <ul class="tli">
+            {volist name="all_rank_list" id="novel"}
+            <li
+            <?php if ($novel['is_top']) echo 'class="top"'; ?>>
+            <em>{$novel.index}</em>
+            <a href="{$novel.link_url}">{$novel.name}</a>
+            <span class="rate">{$novel.category_name}</span>
+            </li>
+            {/volist}
+        </ul>
+    </div>
+    {volist name="all_cat_rank_list" id="category"}
+    <div class="block bd">
+        <h2>{$category.name}</h2>
+        <ul class="tli">
+            {volist name="category['rank_list']" id="novel"}
+            <li
+            <?php if ($novel['is_top']) echo 'class="top"'; ?>>
+            <em>{$novel.index}</em>
+            <a href="{$novel.link_url}" title="{$novel.name}">{$novel.name}</a>
+            <span class="rate">{$category.name}</span>
+            </li>
+            {/volist}
+        </ul>
+    </div>
+    {/volist}
+
+</div>
