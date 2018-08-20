@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.64",
+            "version": "v1.2.66",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "f62200a42fdc5ea53c873f38c123a8e6b54ca0de"
+                "reference": "55ad4b140d821c19dbaf1a6ea9d9e5ca6444ecc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/f62200a42fdc5ea53c873f38c123a8e6b54ca0de",
-                "reference": "f62200a42fdc5ea53c873f38c123a8e6b54ca0de",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/55ad4b140d821c19dbaf1a6ea9d9e5ca6444ecc1",
+                "reference": "55ad4b140d821c19dbaf1a6ea9d9e5ca6444ecc1",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2018-06-22T20:32:56+00:00"
+            "time": "2018-07-30T20:23:10+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -225,16 +225,16 @@
         },
         {
             "name": "topthink/framework",
-            "version": "v5.1.18",
+            "version": "v5.1.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/framework.git",
-                "reference": "833fcaf0f29f23bdceaae655f64d10c18b9bf562"
+                "reference": "35e9878a6ba06257502c5ba664d8e3407012ad00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/framework/zipball/833fcaf0f29f23bdceaae655f64d10c18b9bf562",
-                "reference": "833fcaf0f29f23bdceaae655f64d10c18b9bf562",
+                "url": "https://api.github.com/repos/top-think/framework/zipball/35e9878a6ba06257502c5ba664d8e3407012ad00",
+                "reference": "35e9878a6ba06257502c5ba664d8e3407012ad00",
                 "shasum": ""
             },
             "require": {
@@ -272,7 +272,7 @@
                 "orm",
                 "thinkphp"
             ],
-            "time": "2018-07-02T05:29:17+00:00"
+            "time": "2018-08-09T06:04:18+00:00"
         },
         {
             "name": "topthink/think-installer",

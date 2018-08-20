@@ -18,6 +18,7 @@ use think\db\Query;
  * Class Model
  * @package think
  * @mixin Query
+ * @method \think\Model withAttr(array $name,\Closure $closure) 动态定义获取器
  */
 abstract class Model implements \JsonSerializable, \ArrayAccess
 {
@@ -236,6 +237,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
         // 设置当前模型 确保查询返回模型对象
         $query = Db::connect($this->connection, false, $this->query);
         $query->model($this)
+            ->name($this->name)
             ->json($this->json, $this->jsonAssoc)
             ->setJsonFieldType($this->jsonType);
 
@@ -246,8 +248,6 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
         // 设置当前数据表和模型名
         if (!empty($this->table)) {
             $query->table($this->table);
-        } else {
-            $query->name($this->name);
         }
 
         if (!empty($this->pk)) {
@@ -766,7 +766,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
                 if ($this->exists || (!empty($auto) && isset($data[$pk]))) {
                     $result[$key] = self::update($data, [], $this->field);
                 } else {
-                    $result[$key] = self::create($data, $this->field);
+                    $result[$key] = self::create($data, $this->field, $this->replace);
                 }
             }
 
@@ -821,7 +821,7 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
 
         try {
             // 删除当前模型数据
-            $result = $db->where($where)->delete();
+            $db->where($where)->delete();
 
             // 关联删除
             if (!empty($this->relationWrite)) {
@@ -894,93 +894,6 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
         $model->isUpdate(true)->save($data, $where);
 
         return $model;
-    }
-
-    /**
-     * 查找单条记录
-     * @access public
-     * @param  mixed     $data  主键值或者查询条件（闭包）
-     * @param  mixed     $with  关联预查询
-     * @param  bool      $cache 是否缓存
-     * @param  bool      $failException 是否抛出异常
-     * @return static|null
-     * @throws exception\DbException
-     */
-    public static function get($data, $with = [], $cache = false, $failException = false)
-    {
-        if (is_null($data)) {
-            return;
-        }
-
-        if (true === $with || is_int($with)) {
-            $cache = $with;
-            $with  = [];
-        }
-
-        $query = static::parseQuery($data, $with, $cache);
-
-        return $query->failException($failException)->find($data);
-    }
-
-    /**
-     * 查找单条记录 如果不存在直接抛出异常
-     * @access public
-     * @param  mixed     $data  主键值或者查询条件（闭包）
-     * @param  mixed     $with  关联预查询
-     * @param  bool      $cache 是否缓存
-     * @return static|null
-     * @throws exception\DbException
-     */
-    public static function getOrFail($data, $with = [], $cache = false)
-    {
-        return self::get($data, $with, $cache, true);
-    }
-
-    /**
-     * 查找所有记录
-     * @access public
-     * @param  mixed        $data  主键列表或者查询条件（闭包）
-     * @param  array|string $with  关联预查询
-     * @param  bool         $cache 是否缓存
-     * @return static[]|false
-     * @throws exception\DbException
-     */
-    public static function all($data = null, $with = [], $cache = false)
-    {
-        if (true === $with || is_int($with)) {
-            $cache = $with;
-            $with  = [];
-        }
-
-        $query = static::parseQuery($data, $with, $cache);
-
-        return $query->select($data);
-    }
-
-    /**
-     * 分析查询表达式
-     * @access public
-     * @param  mixed  $data  主键列表或者查询条件（闭包）
-     * @param  string $with  关联预查询
-     * @param  bool   $cache 是否缓存
-     * @return Query
-     */
-    protected static function parseQuery(&$data, $with, $cache)
-    {
-        $result = self::with($with)->cache($cache);
-
-        if (is_array($data) && key($data) !== 0) {
-            $result = $result->where($data);
-            $data   = null;
-        } elseif ($data instanceof \Closure) {
-            $data($result);
-            $data = null;
-        } elseif ($data instanceof Query) {
-            $result = $data->with($with)->cache($cache);
-            $data   = null;
-        }
-
-        return $result;
     }
 
     /**
@@ -1129,6 +1042,10 @@ abstract class Model implements \JsonSerializable, \ArrayAccess
 
     public function __call($method, $args)
     {
+        if ('withattr' == strtolower($method)) {
+            return call_user_func_array([$this, 'withAttribute'], $args);
+        }
+
         return call_user_func_array([$this->db(), $method], $args);
     }
 
