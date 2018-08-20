@@ -1,5 +1,5 @@
 <?php
-namespace app\index\controller;
+namespace app\home\controller;
 
 use think\Facade\Session;
 
@@ -34,7 +34,7 @@ class Auth extends Common
         $condition = [
             'account' => $email,
         ];
-        $userModel = new \app\index\model\User();
+        $userModel = new \app\home\model\User();
         $user = $userModel->where($condition)->find();
 
         if ($user['password'] == md5($password . $user['salt'])) {
@@ -77,7 +77,7 @@ class Auth extends Common
             return $this->apiError(0, '不符合电子邮件格式');
         }
 
-        $userModel = new \app\index\model\User();
+        $userModel = new \app\home\model\User();
         $condition = [
             'account' => $email
         ];

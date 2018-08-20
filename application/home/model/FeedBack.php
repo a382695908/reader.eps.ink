@@ -1,11 +1,11 @@
 <?php
-namespace app\index\model;
+namespace app\home\model;
 
 use think\Model;
 
 /**
  * 反馈
- * @package app\index\model
+ * @package app\home\model
  */
 class FeedBack extends Model {
 

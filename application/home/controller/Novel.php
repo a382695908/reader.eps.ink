@@ -1,5 +1,5 @@
 <?php
-namespace app\index\controller;
+namespace app\home\controller;
 
 class Novel extends Common
 {
@@ -17,8 +17,8 @@ class Novel extends Common
         $novelModel = new Novel();
         // 获取小说信息
         $id = intval($id);
-        $authorModel = new \app\index\model\Author();
-        $novelModel = new \app\index\model\Novel();
+        $authorModel = new \app\home\model\Author();
+        $novelModel = new \app\home\model\Novel();
         $condition = [
             'id' => $id,
             'is_deleted' => 0,
@@ -40,10 +40,10 @@ class Novel extends Common
         $this->assign('novel', $novel);
 
         // 小说章节组信息
-        $chapterGroupModel = new \app\index\model\ChapterGroup();
+        $chapterGroupModel = new \app\home\model\ChapterGroup();
         $chapterGroupList = $chapterGroupModel->where('novel', $id)->order('createtime ASC')->select()->toArray();
         // 小说章节
-        $chapterModel = new \app\index\model\Chapter();
+        $chapterModel = new \app\home\model\Chapter();
         $chapterList = $chapterModel->where('novel', $id)->order('createtime ASC')->select()->toArray();
         foreach ($chapterList as &$chapter) {
             $chapter['link_url'] = url('/chapter/' . $chapter['id']);

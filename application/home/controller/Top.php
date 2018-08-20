@@ -1,5 +1,5 @@
 <?php
-namespace app\index\controller;
+namespace app\home\controller;
 
 class Top extends Common
 {
@@ -13,7 +13,7 @@ class Top extends Common
         $initViewData = $this->init_view();
         $categoryList = $initViewData['categoryList'];
 
-        $novelModel = new \app\index\model\Novel();
+        $novelModel = new \app\home\model\Novel();
         // 小说总榜
         $condition = [
             'is_deleted' => 0,

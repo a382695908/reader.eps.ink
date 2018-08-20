@@ -1,7 +1,7 @@
 <?php
-namespace app\index\controller;
+namespace app\home\controller;
 
-use app\index\model\Novel;
+use app\home\model\Novel;
 
 class Category extends Common
 {

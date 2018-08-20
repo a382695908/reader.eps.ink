@@ -5,7 +5,7 @@
  * DateTime: 8/7/2018 5:37 PM
  */
 
-namespace app\index\controller;
+namespace app\home\controller;
 
 use think\Facade\Session;
 

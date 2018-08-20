@@ -4,13 +4,13 @@
  * Author: eps
  * DateTime: 8/6/2018 10:26 PM
  */
-namespace app\index\model;
+namespace app\home\model;
 
 use think\Model;
 
 /**
  * 友情链接
- * @package app\index\model
+ * @package app\home\model
  */
 class FriendLink extends Model
 {

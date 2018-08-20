@@ -1,11 +1,11 @@
 <?php
-namespace app\index\model;
+namespace app\home\model;
 
 use think\Model;
 
 /**
  * 网站访问
- * @package app\index\model
+ * @package app\home\model
  */
 class Visit extends Model
 {

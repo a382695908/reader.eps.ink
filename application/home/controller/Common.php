@@ -5,12 +5,12 @@
  * DateTime: 7/18/2018 10:01 PM
  */
 
-namespace app\index\controller;
+namespace app\home\controller;
 
-use app\index\model\Category;
-use app\index\model\FriendLink;
-use app\index\model\Visit;
-use app\index\model\Visitor;
+use app\home\model\Category;
+use app\home\model\FriendLink;
+use app\home\model\Visit;
+use app\home\model\Visitor;
 use Jenssegers\Agent\Agent;
 use think\Controller;
 use think\facade\Cache;
