@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-08-07 00:14:42
+Date: 2018-08-20 11:49:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -58,7 +58,7 @@ CREATE TABLE `r_author` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COMMENT='作者表';
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COMMENT='作者表';
 
 -- ----------------------------
 -- Records of r_author
@@ -68,15 +68,76 @@ INSERT INTO `r_author` VALUES ('2', '天蚕土豆');
 INSERT INTO `r_author` VALUES ('3', '我吃西红柿');
 INSERT INTO `r_author` VALUES ('4', '忘语');
 INSERT INTO `r_author` VALUES ('5', '圣骑士的传说(书坊)');
-INSERT INTO `r_author` VALUES ('6', '严七官');
-INSERT INTO `r_author` VALUES ('7', '若雨随风');
-INSERT INTO `r_author` VALUES ('8', '半世散人');
-INSERT INTO `r_author` VALUES ('9', '牵牛喂大将军');
-INSERT INTO `r_author` VALUES ('10', '净无痕');
-INSERT INTO `r_author` VALUES ('11', '花都大少');
-INSERT INTO `r_author` VALUES ('12', '农夫一拳');
-INSERT INTO `r_author` VALUES ('13', '浮梦流年');
-INSERT INTO `r_author` VALUES ('14', '王大忽悠');
+INSERT INTO `r_author` VALUES ('6', '裴屠狗');
+INSERT INTO `r_author` VALUES ('7', '耳东水寿');
+INSERT INTO `r_author` VALUES ('8', '高楼大厦');
+INSERT INTO `r_author` VALUES ('9', '净无痕');
+INSERT INTO `r_author` VALUES ('10', '农夫一拳');
+INSERT INTO `r_author` VALUES ('11', '莫默');
+INSERT INTO `r_author` VALUES ('12', '极地风刃');
+INSERT INTO `r_author` VALUES ('13', '妖夜');
+INSERT INTO `r_author` VALUES ('14', '无敌小贝');
+INSERT INTO `r_author` VALUES ('15', '张家三叔');
+INSERT INTO `r_author` VALUES ('16', '黑色枷锁');
+INSERT INTO `r_author` VALUES ('17', '孤单地飞');
+INSERT INTO `r_author` VALUES ('18', '一剑清新');
+INSERT INTO `r_author` VALUES ('19', '烽火戏诸侯');
+INSERT INTO `r_author` VALUES ('20', '淡淡竹君');
+INSERT INTO `r_author` VALUES ('21', '良心');
+INSERT INTO `r_author` VALUES ('22', '任我笑');
+INSERT INTO `r_author` VALUES ('23', '寒刀客');
+INSERT INTO `r_author` VALUES ('24', '中华娇子大熊猫');
+INSERT INTO `r_author` VALUES ('25', '王小蛮');
+INSERT INTO `r_author` VALUES ('26', '突刺');
+INSERT INTO `r_author` VALUES ('27', '许轩陌');
+INSERT INTO `r_author` VALUES ('28', '叱咤风云');
+INSERT INTO `r_author` VALUES ('29', '潇铭');
+INSERT INTO `r_author` VALUES ('30', '6号鼠标');
+INSERT INTO `r_author` VALUES ('31', '争斤论两花花帽');
+INSERT INTO `r_author` VALUES ('32', '无冬夜');
+INSERT INTO `r_author` VALUES ('33', '皇家雇佣猫');
+INSERT INTO `r_author` VALUES ('34', '黄枫雨天');
+INSERT INTO `r_author` VALUES ('35', '莫辰子');
+INSERT INTO `r_author` VALUES ('36', '潇潇清枫');
+INSERT INTO `r_author` VALUES ('37', '花都大少');
+INSERT INTO `r_author` VALUES ('38', '夜十三');
+INSERT INTO `r_author` VALUES ('39', '糖醋于');
+INSERT INTO `r_author` VALUES ('40', '更俗');
+INSERT INTO `r_author` VALUES ('41', '叫天');
+INSERT INTO `r_author` VALUES ('42', '严七官');
+INSERT INTO `r_author` VALUES ('43', '雨天下雨');
+INSERT INTO `r_author` VALUES ('44', '流浪的猴');
+INSERT INTO `r_author` VALUES ('45', '王大忽悠');
+INSERT INTO `r_author` VALUES ('46', '牧尘客');
+INSERT INTO `r_author` VALUES ('47', '地黄丸');
+INSERT INTO `r_author` VALUES ('48', 'cuslaa');
+INSERT INTO `r_author` VALUES ('49', '嗷世巅锋');
+INSERT INTO `r_author` VALUES ('50', '长不大的肥猫');
+INSERT INTO `r_author` VALUES ('51', '孑与2');
+INSERT INTO `r_author` VALUES ('52', '浮梦流年');
+INSERT INTO `r_author` VALUES ('53', '高月');
+INSERT INTO `r_author` VALUES ('54', '木士');
+INSERT INTO `r_author` VALUES ('55', '秦弄月');
+INSERT INTO `r_author` VALUES ('56', '北国之鸟');
+INSERT INTO `r_author` VALUES ('57', '风雨白鸽');
+INSERT INTO `r_author` VALUES ('58', '落尘');
+INSERT INTO `r_author` VALUES ('59', '龙人');
+INSERT INTO `r_author` VALUES ('60', '骑马钓鱼');
+INSERT INTO `r_author` VALUES ('61', '清风天使');
+INSERT INTO `r_author` VALUES ('62', '黑乎乎的老妖');
+INSERT INTO `r_author` VALUES ('63', '浙三爷');
+INSERT INTO `r_author` VALUES ('64', '轻语江湖');
+INSERT INTO `r_author` VALUES ('65', '礼祐');
+INSERT INTO `r_author` VALUES ('66', '我是贝币');
+INSERT INTO `r_author` VALUES ('67', '半世散人');
+INSERT INTO `r_author` VALUES ('68', '小小鲤鱼王');
+INSERT INTO `r_author` VALUES ('69', '九尾玄龟');
+INSERT INTO `r_author` VALUES ('70', '明月地上霜');
+INSERT INTO `r_author` VALUES ('71', '青烟一夜');
+INSERT INTO `r_author` VALUES ('72', '天妒遗计');
+INSERT INTO `r_author` VALUES ('73', '十年狂欢');
+INSERT INTO `r_author` VALUES ('74', '阡之陌一');
+INSERT INTO `r_author` VALUES ('75', '咖啡香味');
 
 -- ----------------------------
 -- Table structure for r_bookcase
@@ -101,9 +162,9 @@ CREATE TABLE `r_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `alias` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '是否显示',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='小说分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='小说分类表';
 
 -- ----------------------------
 -- Records of r_category
@@ -115,6 +176,7 @@ INSERT INTO `r_category` VALUES ('4', '历史', '历史军事', '1');
 INSERT INTO `r_category` VALUES ('5', '侦探', '侦探推理', '1');
 INSERT INTO `r_category` VALUES ('6', '网游', '网游动漫', '1');
 INSERT INTO `r_category` VALUES ('7', '科幻', '科幻灵异', '1');
+INSERT INTO `r_category` VALUES ('8', '其他', '其他类型', '0');
 
 -- ----------------------------
 -- Table structure for r_chapter
@@ -133,22 +195,11 @@ CREATE TABLE `r_chapter` (
   `createtime` int(11) NOT NULL DEFAULT '0',
   `updatetime` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='小说章节表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='小说章节表';
 
 -- ----------------------------
 -- Records of r_chapter
 -- ----------------------------
-INSERT INTO `r_chapter` VALUES ('1', '1', '1', '1', '第一章 无敌', '&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在这冰寒气息出现的瞬间，这九寸灵根骤然一步走来，速度之快，王宝乐肉眼几乎都看不清晰，下一瞬&hellip;&hellip;这九寸灵根就到了王宝乐的面\r\n前，其右手抬起，直接一掌落下！\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;太快！\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;王宝乐心头震动，四周金色气血之海骤然爆发，形成防护阻挡九寸灵根，轰鸣中，王宝乐全身震颤，身体蹬蹬瞪倒退，可却没有停顿，而是\r\n展开全速，猛地向一旁闪去。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;几乎在王宝乐闪去的刹那，九寸灵根一步间，直接就到了他之前所在的地方，一脚落下，山石碎裂，崩溃四溅！\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;这种速度，他的力量哪怕一般，也都可以增幅太多！&rdquo;王宝乐气息有些急促，身体再次退后，眯起双眼，神色前所未有的凝重\r\n与认真。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;它不是真息！&rdquo;\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;它与我一样，都是补脉&hellip;&hellip;可补脉，竟能速度这么快？&rdquo;王宝乐深吸口气，他本以为自己已经是站在了补脉的最\r\n巅峰了，可如今看到这九寸灵根的出手，立刻意识到自己的补脉，还不是极致。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;这么快的速度，没法打啊，要想办法让他慢下来！&rdquo;王宝乐倒退时，立刻收敛金身，他之前面对众多灵根追击时，收了金身后\r\n，那些灵根就不再狂暴。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;此刻果然也不例外，在王宝乐金身收起的瞬间，那原本散出冰寒气息的九寸灵根，瞬间平静下来，不再去看王宝乐，而是身体又一次漂起，\r\n不疾不徐的向着远处离去。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;眼看金身的释放与收回，可以引动与平复这九寸灵根，王宝乐眨了眨眼，身体调整方位，急速冲出时，再次释放金身。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;就在其金身释放出的刹那，已经离去的九寸灵根，蓦然转头，冰寒气息又一次爆发，直奔王宝乐，甚至速度都比之前还要快了不少，刹那出\r\n现在王宝乐面前，右手已然抬起，向着他的脖子，一把抓来。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;甚至在他临近的同时，这四周的灵气仿佛都引动，居然形成了漩涡，欲将王宝乐凝固在原地！\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这种速度，让王宝乐心惊肉跳，可他之前已经有所准备，此刻体内噬种瞬息扩散，形成巨大的吸力扭转九寸灵根抓来的右手，使其改变方向\r\n，在这九寸灵根身体一顿，右手被其起牵引，从脖子侧一把抓空的刹那，王宝乐目中狠辣，带着拳套的手掌直接一把抓住九寸灵根的右手！\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;反关节骤然一掰的同时，王宝乐左脚抬起，直接一脚踢在了这九寸灵根的肚子上，轰的一声，那九寸灵根的身体被踢的倒退开来，王宝乐抓\r\n住机会，全身气血再次扩散，借助那一脚的反震之力，这才挣脱了灵气漩涡，后退十多丈外，顾不得左腿此刻被震的酸痛，惊疑的看向那九寸灵根。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;他刚才抓来时，竟牵引四周灵气成漩将我困住！这与赵雅梦的出手有些相似，可赵雅梦是依靠阵法，此人明显偏向战武系的打法，\r\n也可以这么去战斗吗？&rdquo;王宝乐心跳加速，目露奇芒。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;掌院曾说，所有的真息灵根，极有可能都是那个未知的文明内残存之人，从自身凝聚出来，类似种子一般的存在！&rdquo;\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;那么是不是可以说，在那个充满了修士的文明里，根据不同的资质，不同的人凝聚出的灵根，也有强弱优劣之分！如果这么去判断\r\n，到是可以解释为何有一寸，又为何有九寸！&rdquo;\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;一寸若是寻常的话，那么九寸&hellip;&hellip;是不是就代表，它是那个修士文明里中的天骄所化？不过这九寸灵根最难缠的是他\r\n的速度以及诡异的操控灵气之法&hellip;&hellip;若能化解，不是不能将其碎灭！&rdquo;王宝乐念头飞速转动，目内战意攀升。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;而此刻被他一脚踢退的九寸灵根，在数丈外止步，一样抬头，面向王宝乐。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在王宝乐凝重的目光下，这九寸灵根缓缓抬起右手，猛地一捏，居然再次引动了四周的灵气，使得整个山谷内，顿时灵气凝聚，形成了看不\r\n见的风暴漩涡，散出轰隆隆的巨响。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这一切，让王宝乐双目蓦然收缩，之前对方出手时，灵气被牵引成漩，将他困住，已经让他惊疑，此刻再次目睹，隐隐看出对方似乎是依靠\r\n某种未知的气血技巧，做到的这一点，可具体却看不出来，于是身体立刻后退，要拉开距离。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;可就在王宝乐退后的刹那，这九寸灵根抬起的右手猛地握拳，直接隔空向着王宝乐一拳落下，明明距离足有十丈，可这一拳打在空处，好似\r\n轰在了看不见的灵气风暴的核心，使得这四周被他牵引来的灵气风暴，陡然爆发，排山倒海一般，直奔王宝乐横扫而去。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;还可以这样？&rdquo;\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;王宝乐面色大变，直接就取出法器阻挡，轰轰之声回荡间，他只觉得好似被巨浪拍击，口中溢出鲜血，身体又一次倒退，那九寸灵根蓦然追\r\n出，杀机强烈，右手更是再次抬起，一捏之下，将四周灵气再次凝聚牵引而来，山洪暴发般，直奔王宝乐。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;王宝乐呼吸急促，身体踉跄倒退，可眼睛却一下不眨。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;同样的招式，对方已施展了三次，第一次王宝乐惊疑，第二次他隐隐看出端倪，此刻第三次展开，王宝乐眼睛睁的老大，虽依旧看不明白对\r\n方的技巧，可却凭着对灵气的惊人敏锐，感知出了过程！\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;牵引风暴，又打在风暴的核心上，使这无形的灵气风暴崩溃如坍塌，从而形成类似潮汐的手段，这是把灵气看成了海水一般！&rdqu\r\no;看清这一切的瞬间，王宝乐心头狂震，注意到对方的速度后，立刻明悟。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;他的速度也是与牵引灵气有关！！&rdquo;王宝乐脑海顿时清明，一切豁然开朗，心头更是无比火热，实在是对方这牵引灵气的战法\r\n，就像为王宝乐开启了一扇新的大门，直接提升了王宝乐本身的战斗意识。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;他虽到了此刻，依旧难以看穿对方使用的技巧，可对王宝乐而言，技巧不重要，这意识&hellip;&hellip;才是重点。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;哪怕他做不到完全复制，可却能通过一些其他的办法，进行模仿！\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;此刻就在这九寸灵根杀来的瞬间，王宝乐目露亮光，体内噬种在这一刹那，凝聚右手，如化作黑洞，蓦然爆发，立刻这四周的灵气仿佛看不\r\n见的海洋，被他牵引过来，直奔右手。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在这些灵气涌现来的同时，王宝乐大吼一声，右手猛地抬起，向上狠狠一掀！\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这一掀之下，四周被他牵引来的灵气，也都无形的掀起，好似化作了一面灵气之墙，阻挡在了冲来的九寸灵根的身前。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;轰鸣中，九寸灵根的一拳，直接被阻，轰在了灵气之墙上，反震之下，身体倒退数步，王宝乐正要追击，可这九寸灵根速度太快，倒退中直\r\n接拉开数十丈的距离。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;眼看如此，王宝乐停下脚步，目中带着激动，这一战，对他来说意义极大。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;原来，古武可以这么战！&rdquo;\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;我的噬种只能吸，至于放&hellip;&hellip;就需要法器了，若能收放自如，某种程度上&hellip;&hellip;我就符合了这九寸灵根方\r\n才的技巧！&rdquo;王宝乐兴奋中，那九寸灵根身体一晃，就要再次杀来，可王宝乐右手猛地抬起，向前一按，阻挡的同时，体内金身瞬间收回。\r\n&lt;br&gt;\r\n&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&ldquo;停，等我消化消化，我们再打啊。&rdquo;     &lt;br&gt;　　http://www.shuquge.com/txt/63/63542/17474043.html\r\n     &lt;br&gt;\r\n     &lt;br&gt;　　请记住本书首发域名：www.shuquge.com。书趣阁_笔趣阁手机版阅读网址：m.shuquge.com', '0', '0', '0', '0', '0');
-INSERT INTO `r_chapter` VALUES ('2', '2', '2', '2', '第一章 无敌', '好无敌啊', '0', '0', '0', '0', '0');
-INSERT INTO `r_chapter` VALUES ('3', '3', '3', '3', '第一章 无敌', '好无敌啊', '0', '0', '0', '0', '0');
-INSERT INTO `r_chapter` VALUES ('4', '4', '4', '4', '第一章 无敌', '好无敌啊', '0', '0', '0', '0', '0');
-INSERT INTO `r_chapter` VALUES ('5', '5', '5', '5', '第一章 无敌', '好无敌啊', '0', '0', '0', '0', '0');
-INSERT INTO `r_chapter` VALUES ('6', '6', '6', '6', '第一章 无敌', '好无敌啊', '0', '0', '0', '0', '0');
-INSERT INTO `r_chapter` VALUES ('7', '7', '7', '7', '第一章 无敌', '好无敌啊', '0', '0', '0', '0', '0');
-INSERT INTO `r_chapter` VALUES ('8', '8', '8', '8', '第一章 无敌', '好无敌啊', '0', '0', '0', '0', '0');
-INSERT INTO `r_chapter` VALUES ('9', '9', '9', '9', '第一章 无敌', '好无敌啊', '0', '0', '0', '0', '0');
-INSERT INTO `r_chapter` VALUES ('10', '10', '10', '10', '第一章 无敌', '好无敌啊', '0', '0', '0', '0', '0');
-INSERT INTO `r_chapter` VALUES ('11', '11', '11', '11', '第一章 无敌', '好无敌啊', '0', '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for r_chapter_group
@@ -163,22 +214,11 @@ CREATE TABLE `r_chapter_group` (
   `text_length` int(11) NOT NULL,
   `createtime` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='小说章节组表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='小说章节组表';
 
 -- ----------------------------
 -- Records of r_chapter_group
 -- ----------------------------
-INSERT INTO `r_chapter_group` VALUES ('1', '少年英雄', '1', '0', '0', '0', '0');
-INSERT INTO `r_chapter_group` VALUES ('2', '少年英雄', '2', '0', '0', '0', '0');
-INSERT INTO `r_chapter_group` VALUES ('3', '少年英雄', '3', '0', '0', '0', '0');
-INSERT INTO `r_chapter_group` VALUES ('4', '少年英雄', '4', '0', '0', '0', '0');
-INSERT INTO `r_chapter_group` VALUES ('5', '少年英雄', '5', '0', '0', '0', '0');
-INSERT INTO `r_chapter_group` VALUES ('6', '少年英雄', '6', '0', '0', '0', '0');
-INSERT INTO `r_chapter_group` VALUES ('7', '少年英雄', '7', '0', '0', '0', '0');
-INSERT INTO `r_chapter_group` VALUES ('8', '少年英雄', '8', '0', '0', '0', '0');
-INSERT INTO `r_chapter_group` VALUES ('9', '少年英雄', '9', '0', '0', '0', '0');
-INSERT INTO `r_chapter_group` VALUES ('10', '少年英雄', '10', '0', '0', '0', '0');
-INSERT INTO `r_chapter_group` VALUES ('11', '少年英雄', '11', '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for r_feedback
@@ -190,10 +230,10 @@ CREATE TABLE `r_feedback` (
   `type` tinyint(4) NOT NULL COMMENT '消息类型 0: 建议 1:举报',
   `title` varchar(30) NOT NULL,
   `content` text NOT NULL,
-  `is_read` tinyint(4) NOT NULL COMMENT '状态 0: 未读 1:已读 2:回收站 3:彻底删除',
+  `is_read` tinyint(4) NOT NULL COMMENT '状态 0: 未读 1:已读',
   `create_time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='前台反馈表 | 后台消息通知表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='前台反馈表';
 
 -- ----------------------------
 -- Records of r_feedback
@@ -223,43 +263,109 @@ DROP TABLE IF EXISTS `r_novel`;
 CREATE TABLE `r_novel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `author` int(11) NOT NULL,
-  `category` int(11) NOT NULL,
+  `author` int(11) NOT NULL DEFAULT '0',
+  `category` int(11) NOT NULL DEFAULT '0',
   `createtime` int(11) NOT NULL DEFAULT '0',
   `updatetime` int(11) NOT NULL DEFAULT '0',
   `clicks` int(11) NOT NULL DEFAULT '0',
   `reports` int(11) NOT NULL DEFAULT '0',
   `collects` int(11) NOT NULL DEFAULT '0',
-  `recommends` int(11) unsigned NOT NULL,
+  `recommends` int(11) unsigned NOT NULL DEFAULT '0',
   `text_length` int(11) NOT NULL DEFAULT '0',
   `isend` tinyint(4) NOT NULL DEFAULT '0',
   `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
-  `cover` varchar(255) NOT NULL,
-  `introduction` varchar(255) NOT NULL,
+  `cover` varchar(255) NOT NULL DEFAULT '',
+  `introduction` varchar(255) NOT NULL DEFAULT '',
   `ishotest` tinyint(4) NOT NULL DEFAULT '0',
   `ishot` tinyint(4) NOT NULL DEFAULT '0',
-  `is_recommend` tinyint(4) NOT NULL,
+  `is_recommend` tinyint(4) NOT NULL DEFAULT '0',
   `words` int(11) NOT NULL DEFAULT '0' COMMENT '小说字数',
+  `spider_urls` text NOT NULL COMMENT '爬取来源的url',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COMMENT='小说表';
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COMMENT='小说表';
 
 -- ----------------------------
 -- Records of r_novel
 -- ----------------------------
-INSERT INTO `r_novel` VALUES ('1', '三寸人间', '1', '2', '0', '0', '724', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/63/63542/63542s.jpg', '举头三尺无神明，掌心三寸是人间。这是耳根继《仙逆》《求魔》《我欲封天》《一念永恒》后，创作的第五部长篇小说《三寸人间》。', '1', '0', '0', '0');
-INSERT INTO `r_novel` VALUES ('2', '元尊', '2', '1', '0', '0', '100', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/5/5809/5809s.jpg', '吾有一口玄黄气，可吞天地日月星。天蚕土豆最新鼎力大作，2017年度必看玄幻小说。 ', '1', '0', '0', '0');
-INSERT INTO `r_novel` VALUES ('3', '飞剑问道', '3', '2', '0', '0', '521', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/8/8072/8072s.jpg', '在这个世界，有狐仙、河神、水怪、大妖，也有求长生的修行者。 修行者们， 开法眼，可看妖魔鬼怪。 炼一口飞剑，可千里杀敌。 千里眼、顺风耳，更可探查四方。 …… 秦府二公子‘秦云’，便是一位修行者…… ', '1', '0', '1', '0');
-INSERT INTO `r_novel` VALUES ('4', '凡人修仙传仙界篇', '4', '2', '0', '0', '639', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/8/8400/8400s.jpg', '凡人修仙，风云再起时空穿梭，轮回逆转金仙太乙，大罗道祖三千大道，法则至尊《凡人修仙传》仙界篇，一个韩立叱咤仙界的故事，一个凡人小子修仙的不灭传说。 ', '1', '0', '1', '0');
-INSERT INTO `r_novel` VALUES ('5', '修真聊天群', '5', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/30/30668/30668s.jpg', '某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。 突然有一天，潜水良久的他突然发现……群里每一个群员，竟然全部是修真者，能移山倒海、长生千年的那种！ 啊啊啊啊，世界观在一夜间彻底崩碎啦！ ', '0', '1', '0', '0');
-INSERT INTO `r_novel` VALUES ('6', '绝对荣誉', '6', '4', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/76/76964/76964s.jpg', '这是一支没有番号的绝密部队，却是华夏最强大又最神秘的特种作战力量，每一名顶尖的特种兵都以能加入这支精英中的精英部队为荣。 上等兵秦飞第一天走进这支部队的基地时，在那堵镶嵌着红色五星的白色大理石墙前站了许久，白色的墙上镌刻着一句话：你们的名字无人知晓，你们的功绩与世长存！ 很久之后他才发现墙的背面还刻着另一句话——我唯一的遗憾，就是只有一次生命可以献给祖国！', '0', '1', '0', '0');
-INSERT INTO `r_novel` VALUES ('7', '极灵混沌决', '7', '5', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/41/41188/41188s.jpg', '', '0', '1', '0', '0');
-INSERT INTO `r_novel` VALUES ('8', '绿茵人生', '8', '6', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/76/76767/76767s.jpg', '足球作为爱好兴趣是很纯粹的快乐，很多男孩子年少时都有一个足球梦，无关其他，只是追求驰骋的喜悦与满足....... ', '0', '1', '0', '0');
-INSERT INTO `r_novel` VALUES ('9', '穿梭时空的侠客', '9', '7', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/76/76696/76696s.jpg', '十步杀一人，千里不留行。事了拂衣去，深藏功与名......侠之大者，为国为民，侠之小者，锄奸扶弱。 穿梭诸天万界，身份角色不停变换，沈炼的堂弟、衡山最没用的弟子、靠山王的孙子、悟空的同门、通天的徒弟....... ', '0', '1', '0', '0');
-INSERT INTO `r_novel` VALUES ('10', '伏天氏', '10', '1', '0', '0', '20', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/8/8279/8279s.jpg', '\r\n              东方神州，有人皇立道统，有圣贤宗门传道，有诸侯雄踞一方王国，诸强林立，神州动乱千万载，执此之时，一代天骄叶青帝及东凰大帝横空出世，斩人皇，驭圣贤，诸侯臣服，东方神州一统！    然，叶青帝忽然暴毙，世间雕像尽皆被毁，于世间除名，沦为禁忌；从此神州唯东凰大帝独尊！    十五年后，东海青州城，一名为叶伏天的少年，开启了他的传奇之路…        ', '0', '1', '0', '0');
-INSERT INTO `r_novel` VALUES ('11', '极品全能学生', '11', '3', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/35/35077/35077s.jpg', '一场车祸改变了我的屌丝人生。 各种奇遇接连而来。 考试满分，刮刮乐必中，篮球天才，游泳健将选一个？ 不，老子就是全能。 美女校花主动跟我表白，霸道女总裁做我知心大姐姐，可爱小萝莉要我做她的贴心大哥哥。 qq群：203799451 [四组://.longtengx.品，老虎座下，://.longtengx.级好书，绝对包爽] ', '0', '1', '0', '0');
-INSERT INTO `r_novel` VALUES ('12', '海贼：厌世之歌', '12', '6', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/75/75773/75773s.jpg', '一颗恶魔果实，一身用血与汗换来的体术，一身用牵挂与疯狂换来的霸气。 病态，冷血，无情，偏执是他的代名词。至始至终，他只有一个目的，任何踩了他底线的人，哪怕是世界，他也会毁灭殆尽，一个不留。 其实，这只是一个平凡少年的故事。特此声明：此书与原著有些不同，至少时间有些错别，不喜欢的请路过，看不惯的请闭嘴。 ', '0', '1', '0', '0');
-INSERT INTO `r_novel` VALUES ('13', '劫天运', '13', '5', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/38/38478/38478s.jpg', '我从出生前就给人算计了，五阴俱全，天生招厉鬼，懂行的先生说我活不过七岁，死后是要给人养成血衣小鬼害人的。 外婆为了救我，给我娶了童养媳，让我过起了安生日子，虽然后来我发现媳妇姐姐不是人…… 从小苟延馋喘的我能活到现在，本已习惯逆来顺受，可唯独外婆被人害死了这件事。 为此，我不顾因果报应，继承了外婆养鬼的职业，发誓要把害死她的人全都送下地狱', '0', '1', '0', '0');
-INSERT INTO `r_novel` VALUES ('14', '新特工学生', '14', '4', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/74/74243/74243s.jpg', '【免费新书】华夏顶级特工重生回到18岁，清纯班长和美女老师竟然争相让他做这个…… ', '0', '0', '0', '0');
+INSERT INTO `r_novel` VALUES ('1', '三寸人间', '1', '2', '1534685906', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/63/63542/63542s.jpg', '\n              举头三尺无神明，掌心三寸是人间。这是耳根继《仙逆》《求魔》《我欲封天》《一念永恒》后，创作的第五部长篇小说《三寸人间》。        ', '1', '0', '0', '0', 'http://www.shuquge.com/txt/63542/index.html');
+INSERT INTO `r_novel` VALUES ('2', '元尊', '2', '1', '1534685906', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/5/5809/5809s.jpg', '\n              吾有一口玄黄气，可吞天地日月星。天蚕土豆最新鼎力大作，2017年度必看玄幻小说。        ', '1', '1', '0', '0', 'http://www.shuquge.com/txt/5809/index.html');
+INSERT INTO `r_novel` VALUES ('3', '飞剑问道', '3', '2', '1534685906', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/8/8072/8072s.jpg', '\n              在这个世界，有狐仙、河神、水怪、大妖，也有求长生的修行者。    修行者们，    开法眼，可看妖魔鬼怪。    炼一口飞剑，可千里杀敌。    千里眼、顺风耳，更可探查四方。    ……    秦府二公子‘秦云’，便是一位修行者……        ', '1', '0', '0', '0', 'http://www.shuquge.com/txt/8072/index.html');
+INSERT INTO `r_novel` VALUES ('4', '凡人修仙传仙界篇', '4', '2', '1534685906', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/8/8400/8400s.jpg', '\n              凡人修仙，风云再起时空穿梭，轮回逆转金仙太乙，大罗道祖三千大道，法则至尊《凡人修仙传》仙界篇，一个韩立叱咤仙界的故事，一个凡人小子修仙的不灭传说。        ', '1', '1', '0', '0', 'http://www.shuquge.com/txt/8400/index.html');
+INSERT INTO `r_novel` VALUES ('5', '修真聊天群', '5', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/30/30668/30668s.jpg', '\n              某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。\n    突然有一天，潜水良久的他突然发现……群里每一个群员，竟然全部是修真者，能移山倒海、长生千年的那种！\n    啊啊啊啊，世界观在一夜间彻底崩碎啦！\n        ', '0', '1', '0', '0', 'http://www.shuquge.com/txt/30668/index.html');
+INSERT INTO `r_novel` VALUES ('6', '诸天投影', '6', '7', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '1', '0', '0', 'http://www.shuquge.com/txt/81791/index.html');
+INSERT INTO `r_novel` VALUES ('7', '民调局异闻录之勉传', '7', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/53/53240/53240s.jpg', '\n              这是关于一个长生不老的男人跨越两千年的故事，在每一段历史的角落里都曾经留下过他的名字。他曾经是一些人心中的噩梦，也曾经把一些被噩梦困扰着的人们唤醒。故事的开始他的名字叫做吴勉，故事的结局他的名字叫做无敌\n    各位书友要是觉得《民调局异闻录之勉传》还不错的话请不要忘记向您QQ群和微博里的朋友推荐哦！\n        ', '0', '1', '0', '0', 'http://www.shuquge.com/txt/53240/index.html');
+INSERT INTO `r_novel` VALUES ('8', '太初', '8', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '1', '0', '0', 'http://www.shuquge.com/txt/9255/index.html');
+INSERT INTO `r_novel` VALUES ('9', '伏天氏', '9', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '1', '0', '0', 'http://www.shuquge.com/txt/8279/index.html');
+INSERT INTO `r_novel` VALUES ('10', '海贼：厌世之歌', '10', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/75/75773/75773s.jpg', '\n              一颗恶魔果实，一身用血与汗换来的体术，一身用牵挂与疯狂换来的霸气。    病态，冷血，无情，偏执是他的代名词。至始至终，他只有一个目的，任何踩了他底线的人，哪怕是世界，他也会毁灭殆尽，一个不留。    其实，这只是一个平凡少年的故事。特此声明：此书与原著有些不同，至少时间有些错别，不喜欢的请路过，看不惯的请闭嘴。        ', '0', '1', '0', '0', 'http://www.shuquge.com/txt/75773/index.html');
+INSERT INTO `r_novel` VALUES ('11', '武炼巅峰', '11', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '1', '0', '0', 'http://www.shuquge.com/txt/248/index.html');
+INSERT INTO `r_novel` VALUES ('12', '都市至强者降临', '12', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/75724/index.html');
+INSERT INTO `r_novel` VALUES ('13', '不灭龙帝', '13', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/49177/index.html');
+INSERT INTO `r_novel` VALUES ('14', '武破九荒', '14', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/38178/index.html');
+INSERT INTO `r_novel` VALUES ('15', '异能小神农', '15', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/76020/index.html');
+INSERT INTO `r_novel` VALUES ('16', '我的老千生涯', '16', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/67084/index.html');
+INSERT INTO `r_novel` VALUES ('17', '神道丹尊', '17', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/41102/index.html');
+INSERT INTO `r_novel` VALUES ('18', '逆剑狂神', '18', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/38287/index.html');
+INSERT INTO `r_novel` VALUES ('19', '剑来', '19', '1', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/8659/index.html');
+INSERT INTO `r_novel` VALUES ('20', '木仙传', '20', '2', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/78930/index.html');
+INSERT INTO `r_novel` VALUES ('21', '反套路快穿', '21', '2', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/78748/index.html');
+INSERT INTO `r_novel` VALUES ('22', '最强神话帝皇', '22', '2', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/74440/index.html');
+INSERT INTO `r_novel` VALUES ('23', '莽荒纪', '3', '2', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/343/index.html');
+INSERT INTO `r_novel` VALUES ('24', '江湖奇功录', '23', '2', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/79041/index.html');
+INSERT INTO `r_novel` VALUES ('25', '细胞修神', '24', '2', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/74966/index.html');
+INSERT INTO `r_novel` VALUES ('26', '盖世仙尊', '25', '2', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/21777/index.html');
+INSERT INTO `r_novel` VALUES ('27', '仙逆', '1', '2', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/74671/index.html');
+INSERT INTO `r_novel` VALUES ('28', '校园寻美录', '26', '2', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/9210/index.html');
+INSERT INTO `r_novel` VALUES ('29', '大仙木', '27', '2', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/76853/index.html');
+INSERT INTO `r_novel` VALUES ('30', '乡村艳妇', '28', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/43157/index.html');
+INSERT INTO `r_novel` VALUES ('31', '近身狂兵', '29', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/29752/index.html');
+INSERT INTO `r_novel` VALUES ('32', '重生之超级银行系统', '30', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/76138/index.html');
+INSERT INTO `r_novel` VALUES ('33', '我的1979', '31', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/58724/index.html');
+INSERT INTO `r_novel` VALUES ('34', '都市特种兵', '32', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/1859/index.html');
+INSERT INTO `r_novel` VALUES ('35', '重塑人生三十年', '33', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/75712/index.html');
+INSERT INTO `r_novel` VALUES ('36', '我的冰山总裁老婆', '34', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/67262/index.html');
+INSERT INTO `r_novel` VALUES ('37', '绝品透视眼', '35', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/67730/index.html');
+INSERT INTO `r_novel` VALUES ('38', '重生之大娱乐家系统', '36', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/75102/index.html');
+INSERT INTO `r_novel` VALUES ('39', '极品全能学生', '37', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/35077/index.html');
+INSERT INTO `r_novel` VALUES ('40', '特种兵在都市之诡刃', '38', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/80976/index.html');
+INSERT INTO `r_novel` VALUES ('41', '仙药供应商', '39', '3', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/73894/index.html');
+INSERT INTO `r_novel` VALUES ('42', '大宋超级学霸', '0', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/42/42553/42553s.jpg', '\n              那一年，大宋甲级足球联赛正热，国民老公苏东坡金榜高中。那一年，京城房价一飞冲天，老干部欧阳修买房不及时被夫人赶出家门。    就在那一年，赵官家上元夜偷窥香艳女相扑，被朝阳群众司马光当场抓获。    也是那一年，王老虎携女参加非诚勿扰，扬言非进士不嫁，金明池畔四大才子仓惶奔逃。    还是那一年，河东狮喜拜婚堂，胭脂虎相亲正忙，全国神童大赛各路少年英才开始隆重登场。        ', '0', '0', '0', '0', 'http://www.shuquge.com/txt/42553/index.html');
+INSERT INTO `r_novel` VALUES ('43', '楚臣', '40', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/74433/index.html');
+INSERT INTO `r_novel` VALUES ('44', '崇祯聊天群', '41', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/74686/index.html');
+INSERT INTO `r_novel` VALUES ('45', '绝对荣誉', '42', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/76964/index.html');
+INSERT INTO `r_novel` VALUES ('46', '山沟皇帝', '43', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/73627/index.html');
+INSERT INTO `r_novel` VALUES ('47', '重生之战神吕布', '44', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/79296/index.html');
+INSERT INTO `r_novel` VALUES ('48', '新特工学生', '45', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/74243/index.html');
+INSERT INTO `r_novel` VALUES ('49', '帝国吃相', '46', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/81377/index.html');
+INSERT INTO `r_novel` VALUES ('50', '寒门贵子', '47', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/38135/index.html');
+INSERT INTO `r_novel` VALUES ('51', '宰执天下', '48', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/1647/index.html');
+INSERT INTO `r_novel` VALUES ('52', '红楼名侦探', '49', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/75180/index.html');
+INSERT INTO `r_novel` VALUES ('53', '三国之我是袁术', '50', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/80303/index.html');
+INSERT INTO `r_novel` VALUES ('54', '唐砖', '51', '4', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/9553/index.html');
+INSERT INTO `r_novel` VALUES ('55', '极灵混沌决', '0', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', 'http://www.shuquge.com/files/article/image/41/41188/41188s.jpg', '\n                  ', '0', '0', '0', '0', 'http://www.shuquge.com/txt/41188/index.html');
+INSERT INTO `r_novel` VALUES ('56', '劫天运', '52', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/38478/index.html');
+INSERT INTO `r_novel` VALUES ('57', '三国之兵临天下', '53', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/42828/index.html');
+INSERT INTO `r_novel` VALUES ('58', '情天可补', '54', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/42939/index.html');
+INSERT INTO `r_novel` VALUES ('59', '国师重生之都市风水师', '55', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/73228/index.html');
+INSERT INTO `r_novel` VALUES ('60', '阴阳师秘录', '56', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/37745/index.html');
+INSERT INTO `r_novel` VALUES ('61', '侠盗神医', '57', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/58490/index.html');
+INSERT INTO `r_novel` VALUES ('62', '无上传承', '58', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/41956/index.html');
+INSERT INTO `r_novel` VALUES ('63', '魔兽战神', '59', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/58449/index.html');
+INSERT INTO `r_novel` VALUES ('64', '麻衣神算子', '60', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/39016/index.html');
+INSERT INTO `r_novel` VALUES ('65', '随身幸福空间', '61', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/43042/index.html');
+INSERT INTO `r_novel` VALUES ('66', '网游之剑走偏锋', '62', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/64126/index.html');
+INSERT INTO `r_novel` VALUES ('67', '奉邪之命', '63', '5', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/39051/index.html');
+INSERT INTO `r_novel` VALUES ('68', '奶爸的异界餐厅', '64', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/79077/index.html');
+INSERT INTO `r_novel` VALUES ('69', '时崎狂三的位面之旅', '65', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/75881/index.html');
+INSERT INTO `r_novel` VALUES ('70', '一拳超人之帝王引擎', '66', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/78112/index.html');
+INSERT INTO `r_novel` VALUES ('71', '绿茵人生', '67', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/76767/index.html');
+INSERT INTO `r_novel` VALUES ('72', '宠物小精灵之全球在线', '68', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/75036/index.html');
+INSERT INTO `r_novel` VALUES ('73', '最强齐天大圣', '69', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/75907/index.html');
+INSERT INTO `r_novel` VALUES ('74', '我修的可能是假仙', '70', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/73528/index.html');
+INSERT INTO `r_novel` VALUES ('75', '网游之神级炼妖师', '71', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/75850/index.html');
+INSERT INTO `r_novel` VALUES ('76', '火影神树之果在异界', '72', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/75346/index.html');
+INSERT INTO `r_novel` VALUES ('77', '网游之逍遥派大弟子', '73', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/70209/index.html');
+INSERT INTO `r_novel` VALUES ('78', '游戏之狩魔猎人', '74', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/78423/index.html');
+INSERT INTO `r_novel` VALUES ('79', '火影之英雄历练系统', '75', '6', '1534685907', '0', '0', '0', '0', '0', '0', '0', '0', '', '', '0', '0', '0', '0', 'http://www.shuquge.com/txt/80261/index.html');
 
 -- ----------------------------
 -- Table structure for r_todo
@@ -323,6 +429,23 @@ CREATE TABLE `r_user_chapter_theme` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for r_user_visited_chapter
+-- ----------------------------
+DROP TABLE IF EXISTS `r_user_visited_chapter`;
+CREATE TABLE `r_user_visited_chapter` (
+  `user_visited_chapter_id` int(11) NOT NULL AUTO_INCREMENT,
+  `novel_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `chapter_id` int(11) NOT NULL,
+  `create_time` int(11) NOT NULL,
+  PRIMARY KEY (`user_visited_chapter_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户浏览章节记录';
+
+-- ----------------------------
+-- Records of r_user_visited_chapter
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for r_visit
 -- ----------------------------
 DROP TABLE IF EXISTS `r_visit`;
@@ -333,13 +456,15 @@ CREATE TABLE `r_visit` (
   `day` tinyint(3) unsigned NOT NULL,
   `date` tinyint(3) unsigned NOT NULL COMMENT '星期几',
   `visit` int(10) unsigned NOT NULL COMMENT '访问量',
-  `from` tinyint(3) unsigned NOT NULL COMMENT '0: pc 1: 移动端 2: 微信',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='网站访问记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='网站访问记录表';
 
 -- ----------------------------
 -- Records of r_visit
 -- ----------------------------
+INSERT INTO `r_visit` VALUES ('8', '2018', '8', '15', '3', '40');
+INSERT INTO `r_visit` VALUES ('9', '2018', '8', '19', '7', '189');
+INSERT INTO `r_visit` VALUES ('10', '2018', '8', '20', '1', '2');
 
 -- ----------------------------
 -- Table structure for r_visitor
@@ -347,16 +472,43 @@ CREATE TABLE `r_visit` (
 DROP TABLE IF EXISTS `r_visitor`;
 CREATE TABLE `r_visitor` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `visitor_ip` varchar(30) NOT NULL,
-  `visit_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '绑定的userid',
+  `ip` varchar(60) NOT NULL,
+  `is_phone` tinyint(4) unsigned NOT NULL DEFAULT '0',
+  `is_desktop` tinyint(4) unsigned NOT NULL DEFAULT '0',
+  `is_weixin` tinyint(4) unsigned NOT NULL DEFAULT '0',
+  `browser` varchar(60) NOT NULL DEFAULT '',
+  `device` varchar(60) NOT NULL DEFAULT '',
+  `platform` varchar(60) NOT NULL DEFAULT '',
+  `platform_version` varchar(60) NOT NULL DEFAULT '',
+  `user_agent` text NOT NULL,
   `create_time` int(11) NOT NULL,
-  `from` tinyint(4) NOT NULL COMMENT '0: pc 1: 移动端 2: 微信',
-  `place` varchar(30) NOT NULL COMMENT '地理位置',
   `is_black` tinyint(4) NOT NULL DEFAULT '0' COMMENT '黑名单',
+  `last_visit_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `visitor_token` varchar(60) NOT NULL DEFAULT '',
+  `visit` int(11) NOT NULL DEFAULT '0' COMMENT '访问次数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='访客表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='访客表';
 
 -- ----------------------------
 -- Records of r_visitor
+-- ----------------------------
+INSERT INTO `r_visitor` VALUES ('5', '0', '::1', '0', '1', '0', 'Chrome', 'WebKit', 'Windows', '10.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36', '1534341179', '0', '1534694834', 'dab45cfa3ba24d4f55495fca8bb9b5a3', '214');
+INSERT INTO `r_visitor` VALUES ('6', '0', '127.0.0.1', '0', '1', '0', 'Chrome', 'WebKit', 'Windows', '10.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36', '1534345488', '0', '1534346510', '7fc521cafeca64fd714b3317565c6e41', '17');
+
+-- ----------------------------
+-- Table structure for r_wx_pay_log
+-- ----------------------------
+DROP TABLE IF EXISTS `r_wx_pay_log`;
+CREATE TABLE `r_wx_pay_log` (
+  `id` int(11) NOT NULL,
+  `open_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `xml_data` varchar(1000) NOT NULL,
+  `source` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1: 微信',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='微信支付日志表';
+
+-- ----------------------------
+-- Records of r_wx_pay_log
 -- ----------------------------
