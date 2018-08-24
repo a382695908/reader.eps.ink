@@ -151,8 +151,77 @@ let doHomeNovelList = async function (novelList) {
     return ;
 };
 
-let doNovel = async function (novelData, novelId) {
-    console.log(novelData);
+let doNovel = async function (htmlData, novelRaw) {
+    const CREATE_TIME = Date.parse(new Date()) / 1000;
+
+    let { novelInfo, chapterData  } = htmlData;
+    let novelId = novelRaw.id;
+    let authorRaw = null;
+    let authorId = 0;
+
+    let updateData = {};
+    if (novelRaw.cover.length == 0) {
+        updateData.cover = novelInfo.cover;
+    }
+    if (novelRaw.author == 0) {
+        authorRaw = await model.authorModel.getAuthorByName(novelInfo.authorName);
+        if (authorRaw.length == 0) {
+            authorId = await model.authorModel.insertAuthor(novelInfo.authorName);
+        }
+        updateData.author = authorId;
+    }
+    else {
+        authorId = novelRaw.author;
+    }
+    if (novelRaw.category == 0) {
+        let categoryRaw = await model.categoryModel.getCategoryByName(novelInfo.categoryName);
+        categoryRaw = categoryRaw[0];
+        updateData.category = categoryRaw.id;
+    }
+    if (novelInfo.state != '连载中') {
+        updateData.isend = 1;
+    }
+    updateData.text_length = novelInfo.textLength;
+    if (novelRaw.introduction.length == 0) {
+        updateData.introduction = novelInfo.desc;
+    }
+    if (JSON.stringify(updateData) != '{}') {
+        // 执行更新
+        let bool = await model.novelModel.updateNovelById(novelId, updateData);
+    }
+
+    let chapterGroupName = '';
+    let chapterGroupRaw = {};
+    let chapterGroupId = 0;
+    let insertDataSql = '';
+
+    for (let chapter of chapterData) {
+        if (chapter.chapterGroupName != chapterGroupName) {
+            chapterGroupRaw = await model.chapterGroupModel.getChapterGroupByNameAndNovelId(chapter.chapterGroupName, novelId);
+            if (chapterGroupRaw.length == 0) {
+                let chapterGroupData = {
+                    name: chapter.chapterGroupName,
+                    novel: novelId,
+                    createtime: CREATE_TIME,
+                    sort: chapter.chapterGroupSort
+                };
+                chapterGroupId = await model.chapterGroupModel.addChapterGroup(chapterGroupData);
+            }
+            else {
+                chapterGroupRaw = chapterGroupRaw[0];
+                chapterGroupId = chapterGroupRaw.id;
+                chapterGroupName = chapterGroupRaw.name;
+            }
+        }
+
+        insertDataSql = insertDataSql + '(';
+        insertDataSql = insertDataSql + `(${novelRaw.id}, ${chapterGroupId}, ${authorId}, '${chapter.chapterName}', ${CREATE_TIME})`;
+        insertDataSql = insertDataSql + '), ';
+    }
+
+    let returnData = await model.chapterModel.insertBatchChapter('(novel, chapter_group, author, name, createtime)', insertDataSql);
+
+    console.log(returnData);
 };
 
 
@@ -179,8 +248,10 @@ let run = async function (params) {
             novelRaw = novelRaw[0];
             htmlContent = await spider.crawl(novelRaw.spider_urls);
             if (htmlContent) {
-                htmlData = analyser.analyzeNovel(htmlContent);
-                await doNovel(htmlData, params.novelId);
+                console.log(htmlContent);
+                //htmlData = analyser.analyzeNovel(htmlContent);
+                console.log(htmlData);
+            //    await doNovel(htmlData, novelRaw);
             }
         }
 

@@ -3,7 +3,7 @@ const logger = require('../lib/logger.js');
 
 function getAuthorById(authorId) {
     return new Promise(function (resolve, reject) {
-        let sql = 'SELECT * FROM `r_novel`';
+        let sql = 'SELECT * FROM `r_author` WHERE id = ?';
         logger.info(sql + ` (${authorId})`);
         pool.query(sql, [authorId], function (error, results, fields) {
             if (error) {

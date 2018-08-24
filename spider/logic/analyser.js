@@ -185,7 +185,7 @@ let analyzeNovel = function (content) {
         categoryName: '',
         state: '',
         textLength: '',
-        updateAt: '',
+        //updateAt: '',
         desc: '',
     };
 
@@ -213,8 +213,8 @@ let analyzeNovel = function (content) {
     novelInfo.textLength = $('body > div.book > div.info > div.small > span:nth-child(4)').text();
     novelInfo.textLength = novelInfo.textLength.slice(novelInfo.textLength.indexOf('：') + 1);
 
-    novelInfo.updateAt = $('body > div.book > div.info > div.small > span:nth-child(4)').text();
-    novelInfo.updateAt = novelInfo.updateAt.slice(novelInfo.updateAt.indexOf('：') + 1);
+    //novelInfo.updateAt = $('body > div.book > div.info > div.small > span:nth-child(4)').text();
+    //novelInfo.updateAt = novelInfo.updateAt.slice(novelInfo.updateAt.indexOf('：') + 1);
 
     novelInfo.desc = $('body > div.book > div.info > div.intro').text();
     if (novelInfo.desc.indexOf('展开>>') != -1) {
@@ -241,7 +241,7 @@ let analyzeNovel = function (content) {
         let chapterLink = $dd.children('a').attr('href');
         chapterGroups.push({
             chapterGroupName,
-            chapterSort: sortIndex,
+            chapterGroupSort: sortIndex,
             chapterName,
             chapterLink
         });
