@@ -1,6 +1,7 @@
 <?php
 namespace app\home\controller;
 
+use app\home\model\User;
 use think\Facade\Session;
 
 class Auth extends Common
@@ -34,7 +35,7 @@ class Auth extends Common
         $condition = [
             'account' => $email,
         ];
-        $userModel = new \app\home\model\User();
+        $userModel = new User();
         $user = $userModel->where($condition)->find();
 
         if ($user['password'] == md5($password . $user['salt'])) {
@@ -77,7 +78,7 @@ class Auth extends Common
             return $this->apiError(0, '不符合电子邮件格式');
         }
 
-        $userModel = new \app\home\model\User();
+        $userModel = new User();
         $condition = [
             'account' => $email
         ];
@@ -97,11 +98,11 @@ class Auth extends Common
         $userModel->logintime = time();
         $userModel->save();
 
-        if (empty(Session::get('userinfo'))) {
-            Session::set('userinfo', $userModel);
-            // TODO: 用户浏览章节的配置初始化
 
-        }
+        Session::set('userinfo', $userModel);
+        // TODO: 用户浏览章节的配置初始化
+
+
         return $this->apiSuccess(1, '注册成功', $userModel);
     }
 }

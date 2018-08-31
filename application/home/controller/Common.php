@@ -33,177 +33,26 @@ class Common extends Controller
     {
         parent::__construct();
         $time = time();
-
-        if (Session::get('assessDenied') == 1) {
-            echo 'DENY YOU o_O!';
-        }
-
-        $ipBlackList = Session::get('ipBlackList');
         $requestIp = getIp();
 
-        if (!$requestIp) {
-            $this->setAccessDeny();
-        }
+        // 黑名单ip
+        $this->checkIsBlack($requestIp);
 
-        if (!$ipBlackList) {
-            $ipBlackList = Cache::get('ipBlackList');
-            Session::set('ipBlackList', $ipBlackList);
-        }
-        if (!$ipBlackList) {
-            $ipBlackList = [];
-            Cache::set('ipBlackList', []);
-            Session::set('ipBlackList', []);
-        }
-
-        if (in_array($requestIp, $ipBlackList)) {
-            $this->setAccessDeny();
-        }
-
-        // Session 初始化
-        if (!Session::get('categoryList')) {
-            $categoryModel = new Category();
-            $categoryList = $categoryModel->getCategorys()->toArray();
-            Session::set('categoryList', $categoryList);
-        }
-
-        // 分析 Request
+        // 请求限制
         $agent = new Agent();
-        if ($agent->isRobot()) {
-            $robotRequestTime = Session::get('robotRequestTime');
-            $robotRequestTimes = Session::get('robotRequestTimes');
-
-            if (!$robotRequestTime && !$robotRequestTimes) {
-                Session::set('robotRequestTime', $time);
-                Session::set('robotRequestTimes', 1);
-            } else {
-                Session::set('robotRequestTimes', $robotRequestTimes + 1);
-            }
-
-            // 如果Robot在限定时间内 超出了限制的请求次数
-            if ($time - $robotRequestTime <= self::ROBOT_REQUEST_INTERVAL && $robotRequestTimes + 1 >= self::ROBOT_REQUEST_TIMES) {
-                $ipBlackList[] = $requestIp;
-                $this->setAccessDeny($ipBlackList, 'Thief! I got you! ^_^');
-            }
-
-            // 如果超出了限定时间, 重置
-            if ($time - $robotRequestTime > self::ROBOT_REQUEST_INTERVAL) {
-                Session::set('robotRequestTime', $time);
-                Session::set('robotRequestTimes', 1);
-            }
-
-        } else {
-            // 如果不是机器人
-            $requestTime = Session::get('requestTime');
-            $requestTimes = Session::get('requestTimes');
-
-            if (!$requestTime && !$requestTimes) {
-                Session::set('requestTime', $time);
-                Session::set('requestTimes', 1);
-            } else {
-                Session::set('requestTimes', $requestTimes + 1);
-            }
-
-            // 如果在限定时间内 超出了限制的请求次数
-            if ($time - $requestTime <= self::REQUEST_INTERVAL && $requestTimes + 1 >= self::REQUEST_TIMES) {
-                $ipBlackList[] = $requestIp;
-                $this->setAccessDeny($ipBlackList);
-            }
-
-            // 如果超出了限定时间, 重置
-            if ($time - $requestTime > self::REQUEST_INTERVAL) {
-                Session::set('requestTime', $time);
-                Session::set('requestTimes', 1);
-            }
-
-        }
-
-        $year = date('Y', $time);
-        $month = date('n', $time);
-        $day = date('j', $time);
-        $visitModel = new Visit();
-        $visitInfo = $visitModel->getVisitByYmd($year, $month, $day);
-        $visitId = 0;
-        if ($visitInfo) {
-            $visitId = $visitInfo->id;
-            $bool = $visitModel->setVisitIncByVisitId($visitId, 1);
-            if (!$bool) {
-                Log::debug('setVisitInc fail!');
-            }
-        } else {
-            $date = date('w', $time);
-            if ($date == 0) {
-                $date = 7;
-            }
-
-            $visitInfo = [
-                'year' => $year,
-                'month' => $month,
-                'day' => $day,
-                'date' => $date,
-                'visit' => 1,
-            ];
-            $visitId = $visitModel->addVisit($visitInfo);
-        }
-
-        // 收集请求信息
-        $isPhone = $agent->isPhone();
-        $isDesktop = $agent->isDesktop();
-        $userAgent = $agent->getUserAgent();
-        $platform = $agent->platform();
-
-        $visitorToken = Session::get('visitorToken');
-        $visitorModel = new Visitor();
-        $visitorInfo = $visitorModel->getVisitorByIp($requestIp);
-
-        // 如果没有token, 但是 有访客身份
-        if (!$visitorToken && $visitorInfo) {
-            // 从访客身份中取出 token
-            $visitorToken = $visitorInfo->visitor_token;
-            Session::set('visitorToken', $visitorToken);
-        }
-
-        // 如果没有token
-        if (!$visitorToken) {
-            // 创建访客
-            $visitorData = [
-                'ip' => $requestIp,
-                'is_phone' => $isPhone ? 1 : 0,
-                'is_desktop' => $isDesktop ? 1 : 0,
-                'is_weixin' => strpos($userAgent, 'MicroMessenger') ? 1 : 0,
-                'browser' => $agent->browser(),
-                'device' => $agent->device(),
-                'platform' => $platform,
-                'platform_version' => $agent->version($platform),
-                'user_agent' => $userAgent,
-                'create_time' => $time,
-                'visit' => 1,
-            ];
-            $visitorToken = md5(json_encode($visitorData));
-            $visitorData['visitor_token'] = $visitorToken;
-
-            $visitorId = $visitorModel->addVisitor($visitorData);
-            if (!$visitorId) {
-                Log::debug('addVisitor fail!');
-            } else {
-                Session::set('visitorToken', $visitorToken);
-            }
-        } else {
-            // 如果有token, 更新数据
-            $bool = $visitorModel->updateVisitorByVisitorToken($visitorToken, ['last_visit_time' => $time]);
-            if (!$bool) {
-                Log::debug('updateVisitor fail!');
-            }
-            $bool = $visitorModel->setVisitIncByVisitorToken($visitorToken, 1);
-            if (!$bool) {
-                Log::debug('setVisitInc fail!');
-            }
-        }
+        $this->checkReqestLimit($agent, $time, $requestIp);
 
         // 如果是手机 转到手机域名
-        if ($isPhone) {
+        if ($agent->isPhone()) {
+            echo '你是手机请求, 应当跳转';
             // TODO: header(localtion:
         }
 
+        $this->doSiteVisit($time);
+
+        $this->doSiteVisitor($requestIp, $agent, $time);
+
+        $this->initSession();
     }
 
     /**
@@ -214,7 +63,7 @@ class Common extends Controller
      * @param array $data
      * @return \think\response\Json
      */
-    public function apiSuccess($code, $message, $data = [])
+    protected function apiSuccess($code, $message, $data = [])
     {
         $responseData = [
             'code' => $code,
@@ -232,7 +81,7 @@ class Common extends Controller
      * @param array $data
      * @return \think\response\Json
      */
-    public function apiError($code, $message, $data = [])
+    protected function apiError($code, $message, $data = [])
     {
         $responseData = [
             'code' => $code,
@@ -248,7 +97,7 @@ class Common extends Controller
      * @param null $ipBlackList
      * @param string $denyMessage
      */
-    public function setAccessDeny($ipBlackList = null, $denyMessage = 'ACCESS DENY')
+    protected function setAccessDeny($ipBlackList = null, $denyMessage = 'ACCESS DENY')
     {
         Session::set('assessDenied', 1);
 
@@ -288,5 +137,184 @@ class Common extends Controller
         $this->assign('friendLinks', $friendLinks);
 
         return ['categoryList' => $categoryList, 'friendLinks' => $friendLinks];
+    }
+
+    private function initSession()
+    {
+        // Session 初始化
+        if (!Session::get('categoryList')) {
+            $categoryModel = new Category();
+            $categoryList = $categoryModel->getCategorys()->toArray();
+            Session::set('categoryList', $categoryList);
+        }
+    }
+
+    private function checkIsBlack($requestIp)
+    {
+        if (Session::get('assessDenied') == 1) {
+            echo 'DENY YOU o_O!';
+        }
+
+        $ipBlackList = Session::get('ipBlackList');
+
+        if (!$requestIp) {
+            $this->setAccessDeny();
+        }
+
+        if (!$ipBlackList) {
+            $ipBlackList = Cache::get('ipBlackList');
+            Session::set('ipBlackList', $ipBlackList);
+        }
+        if (!$ipBlackList) {
+            $ipBlackList = [];
+            Cache::set('ipBlackList', []);
+            Session::set('ipBlackList', []);
+        }
+
+        if (in_array($requestIp, $ipBlackList)) {
+            $this->setAccessDeny();
+        }
+    }
+
+    private function checkReqestLimit($agent, $time, $requestIp)
+    {
+        // 请求限制
+        if ($agent->isRobot()) {
+            $robotRequestTime = Session::get('robotRequestTime');
+            $robotRequestTimes = Session::get('robotRequestTimes');
+
+            if (!$robotRequestTime && !$robotRequestTimes) {
+                Session::set('robotRequestTime', $time);
+                Session::set('robotRequestTimes', 1);
+            } else {
+                Session::set('robotRequestTimes', $robotRequestTimes + 1);
+            }
+
+            // 如果Robot在限定时间内 超出了限制的请求次数
+            if ($time - $robotRequestTime <= self::ROBOT_REQUEST_INTERVAL && $robotRequestTimes + 1 >= self::ROBOT_REQUEST_TIMES) {
+                $ipBlackList[] = $requestIp;
+                $this->setAccessDeny($ipBlackList, 'Thief! I got you! ^_^');
+            }
+
+            // 如果超出了限定时间, 重置
+            if ($time - $robotRequestTime > self::ROBOT_REQUEST_INTERVAL) {
+                Session::set('robotRequestTime', $time);
+                Session::set('robotRequestTimes', 1);
+            }
+        } else {
+            // 如果不是机器人
+            $requestTime = Session::get('requestTime');
+            $requestTimes = Session::get('requestTimes');
+
+            if (!$requestTime && !$requestTimes) {
+                Session::set('requestTime', $time);
+                Session::set('requestTimes', 1);
+            } else {
+                Session::set('requestTimes', $requestTimes + 1);
+            }
+
+            // 如果在限定时间内 超出了限制的请求次数
+            if ($time - $requestTime <= self::REQUEST_INTERVAL && $requestTimes + 1 >= self::REQUEST_TIMES) {
+                $ipBlackList[] = $requestIp;
+                $this->setAccessDeny($ipBlackList);
+            }
+
+            // 如果超出了限定时间, 重置
+            if ($time - $requestTime > self::REQUEST_INTERVAL) {
+                Session::set('requestTime', $time);
+                Session::set('requestTimes', 1);
+            }
+        }
+    }
+
+    // 处理网站访问
+    private function doSiteVisit($time)
+    {
+        // 构造访问数据
+        $year = date('Y', $time);
+        $month = date('n', $time);
+        $day = date('j', $time);
+        // 查询今天是否有访问网站记录
+        $visitModel = new Visit();
+        $visitInfo = $visitModel->getVisitByYmd($year, $month, $day);
+        $visitId = 0;
+        // 如果有, 做一次更新
+        if ($visitInfo) {
+            $visitId = $visitInfo->id;
+            $bool = $visitModel->setVisitIncByVisitId($visitId, 1);
+            if (!$bool) {
+                Log::debug('setVisitInc fail!');
+            }
+        } else {
+            // 如果没有, 插入一条新纪录
+            $date = date('w', $time);
+            if ($date == 0) {
+                $date = 7;
+            }
+
+            $visitInfo = [
+                'year' => $year,
+                'month' => $month,
+                'day' => $day,
+                'date' => $date,
+                'visit' => 1,
+            ];
+            $visitId = $visitModel->addVisit($visitInfo);
+        }
+    }
+
+    private function doSiteVisitor($requestIp, $agent, $time)
+    {
+        // 收集请求信息
+        $userAgent = $agent->getUserAgent();
+        $platform = $agent->platform();
+
+        $visitorToken = Session::get('visitorToken');
+        $visitorModel = new Visitor();
+        $visitorInfo = $visitorModel->getVisitorByIp($requestIp);
+
+        // 如果没有token, 但是 有访客身份
+        if (!$visitorToken && $visitorInfo) {
+            // 从访客身份中取出 token
+            $visitorToken = $visitorInfo->visitor_token;
+            Session::set('visitorToken', $visitorToken);
+        }
+
+        // 如果没有token
+        if (!$visitorToken) {
+            // 创建访客
+            $visitorData = [
+                'ip' => $requestIp,
+                'is_phone' => $agent->isPhone() ? 1 : 0,
+                'is_desktop' => $agent->isDesktop() ? 1 : 0,
+                'is_weixin' => strpos($userAgent, 'MicroMessenger') ? 1 : 0,
+                'browser' => $agent->browser(),
+                'device' => $agent->device(),
+                'platform' => $platform,
+                'platform_version' => $agent->version($platform),
+                'user_agent' => $userAgent,
+                'create_time' => $time,
+                'visit' => 1,
+            ];
+            $visitorToken = md5(json_encode($visitorData));
+            $visitorData['visitor_token'] = $visitorToken;
+
+            $visitorId = $visitorModel->addVisitor($visitorData);
+            if (!$visitorId) {
+                Log::debug('addVisitor fail!');
+            } else {
+                Session::set('visitorToken', $visitorToken);
+            }
+        } else {
+            // 如果有token, 更新数据
+            $bool = $visitorModel->updateVisitorByVisitorToken($visitorToken, ['last_visit_time' => $time]);
+            if (!$bool) {
+                Log::debug('updateVisitor fail!');
+            }
+            $bool = $visitorModel->setVisitIncByVisitorToken($visitorToken, 1);
+            if (!$bool) {
+                Log::debug('setVisitInc fail!');
+            }
+        }
     }
 }
