@@ -6,8 +6,7 @@ function getCategoryList() {
         pool.query('SELECT * FROM `r_category`', function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -19,8 +18,7 @@ function getCategoryById() {
         pool.query('SELECT * FROM `r_category`', function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -39,8 +37,7 @@ function getCategoryByAlias(categoryAlias) {
         pool.query(sql, [categoryAlias], function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -59,8 +56,7 @@ function getCategoryByName(categoryName) {
         pool.query(sql, [categoryName], function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });

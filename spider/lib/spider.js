@@ -20,8 +20,7 @@ spider.crawl = (url) => {
         superagent.get(url).set(header).end(function (error, content) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 logger.info('request ok');
                 resolve(content);
             }

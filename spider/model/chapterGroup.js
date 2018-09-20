@@ -8,8 +8,7 @@ function getChapterGroupById(chapterId) {
         pool.query(sql, [chapterId], function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -28,8 +27,7 @@ function getChapterGroupByNameAndNovelId(chapterGroupName, novelId) {
         pool.query(sql, [chapterGroupName, novelId], function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -43,8 +41,7 @@ function addChapterGroup(data) {
         pool.query(sql, data, function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 logger.info('add new Novel, novelId: ' + results.insertId);
                 resolve(results.insertId);
             }

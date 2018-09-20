@@ -18,5 +18,12 @@
     "log4js": "^3.0.5",
     "mysql": "^2.16.0",
     "superagent": "^3.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.5.0",
+    "eslint-config-google": "^0.10.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-html": "^4.0.5"
   }
 }

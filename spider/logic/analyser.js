@@ -30,8 +30,7 @@ let analyzeHome = function (content) {
         let desc = $item.find('.p10 dl dd').text();
         if (desc && desc.length > 0) {
             desc = desc.trim();
-        }
-        else {
+        } else {
             desc = '';
         }
         hotestNovel.push({
@@ -76,8 +75,7 @@ let analyzeHome = function (content) {
         let firstDesc = $item.find('.p10 dl dd').text();
         if (firstDesc && firstDesc.length > 0) {
             firstDesc = firstDesc.trim();
-        }
-        else {
+        } else {
             firstDesc = '';
         }
         categoryNovel.push({
@@ -219,15 +217,13 @@ let analyzeNovel = function (content) {
     novelInfo.desc = $('body > div.book > div.info > div.intro').text();
     if (novelInfo.desc.indexOf('展开>>') != -1) {
         novelInfo.desc = novelInfo.desc.slice(novelInfo.desc.indexOf('：') + 1, novelInfo.desc.indexOf('展开>>'));
-    }
-    else {
+    } else {
         novelInfo.desc = novelInfo.desc.slice(novelInfo.desc.indexOf('：') + 1, novelInfo.desc.indexOf('作者：'));
     }
 
     if (novelInfo.desc && novelInfo.desc.length > 0) {
         novelInfo.desc = novelInfo.desc.trim();
-    }
-    else {
+    } else {
         novelInfo.desc = '';
     }
 
@@ -235,7 +231,7 @@ let analyzeNovel = function (content) {
     let $dd = $dt.next();
     let sortIndex = 1;
 
-    while(true) {
+    while (true) {
         let chapterGroupName = $dt.text().trim();
         let chapterName = $dd.text().trim();
         let chapterLink = $dd.children('a').attr('href');
@@ -249,13 +245,11 @@ let analyzeNovel = function (content) {
         let $next = $dd.next();
         if ($next.length == 0) {
             break;
-        }
-        else if ($next.is('dt')) {
+        } else if ($next.is('dt')) {
             $dt = $next;
             $dd = $dt.next();
             sortIndex++;
-        }
-        else if ($next.is('dd')) {
+        } else if ($next.is('dd')) {
             $dd = $next;
         }
     }

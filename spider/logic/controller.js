@@ -18,8 +18,7 @@ let doHomeNovelList = async function (novelList) {
             if (authorRaw.length == 0) {
                 // 插入一条新作者
                 authorId = await model.authorModel.insertAuthor(novel.authorName);
-            }
-            else {
+            } else {
                 authorRaw = authorRaw[0];
                 authorId = authorRaw.id;
             }
@@ -61,8 +60,7 @@ let doHomeNovelList = async function (novelList) {
         novelRaw = await model.novelModel.getNovelBySpiderUrls(novel.novelLink);
         if (novelRaw.length == 0) {
             novelRaw = false;
-        }
-        else {
+        } else {
             novelRaw = novelRaw[0];
             novelId = novelRaw.id;
         }
@@ -76,8 +74,7 @@ let doHomeNovelList = async function (novelList) {
         if (authorId) {
             if (!novelRaw) {
                 insertData.author = authorId;
-            }
-            else if (novelRaw && novelRaw.author == 0) {
+            } else if (novelRaw && novelRaw.author == 0) {
                 updateData.author = authorId;
             }
         }
@@ -86,8 +83,7 @@ let doHomeNovelList = async function (novelList) {
         if (categoryId) {
             if (!novelRaw) {
                 insertData.category = categoryId;
-            }
-            else if (novelRaw && novelRaw.category == 0) {
+            } else if (novelRaw && novelRaw.category == 0) {
                 updateData.category = categoryId;
             }
         }
@@ -96,8 +92,7 @@ let doHomeNovelList = async function (novelList) {
         if (novel.novelImg) {
             if (!novelRaw) {
                 insertData.cover = novel.novelImg;
-            }
-            else if (novelRaw && novelRaw.cover.length == 0) {
+            } else if (novelRaw && novelRaw.cover.length == 0) {
                 updateData.cover = novel.novelImg
             }
         }
@@ -111,8 +106,7 @@ let doHomeNovelList = async function (novelList) {
         if (novel.desc) {
             if (!novelRaw) {
                 insertData.introduction = novel.desc;
-            }
-            else if (novelRaw && novelRaw.introduction.length == 0) {
+            } else if (novelRaw && novelRaw.introduction.length == 0) {
                 updateData.introduction = novel.desc
             }
         }
@@ -121,8 +115,7 @@ let doHomeNovelList = async function (novelList) {
         if (novel.isHotest) {
             if (!novelRaw) {
                 insertData.ishotest = novel.isHotest;
-            }
-            else if (novelRaw && novelRaw.ishotest == 0) {
+            } else if (novelRaw && novelRaw.ishotest == 0) {
                 updateData.ishotest = novel.isHotest
             }
         }
@@ -131,8 +124,7 @@ let doHomeNovelList = async function (novelList) {
         if (novel.isHot) {
             if (!novelRaw) {
                 insertData.ishot = novel.isHot;
-            }
-            else if (novelRaw && novelRaw.ishot == 0) {
+            } else if (novelRaw && novelRaw.ishot == 0) {
                 updateData.ishot = novel.isHot
             }
         }
@@ -148,13 +140,16 @@ let doHomeNovelList = async function (novelList) {
             novelId = await model.novelModel.addNovel(insertData);
         }
     }
-    return ;
+    return;
 };
 
 let doNovel = async function (htmlData, novelRaw) {
     const CREATE_TIME = Date.parse(new Date()) / 1000;
 
-    let { novelInfo, chapterData  } = htmlData;
+    let {
+        novelInfo,
+        chapterData
+    } = htmlData;
     let novelId = novelRaw.id;
     let authorRaw = null;
     let authorId = 0;
@@ -169,8 +164,7 @@ let doNovel = async function (htmlData, novelRaw) {
             authorId = await model.authorModel.insertAuthor(novelInfo.authorName);
         }
         updateData.author = authorId;
-    }
-    else {
+    } else {
         authorId = novelRaw.author;
     }
     if (novelRaw.category == 0) {
@@ -206,8 +200,7 @@ let doNovel = async function (htmlData, novelRaw) {
                     sort: chapter.chapterGroupSort
                 };
                 chapterGroupId = await model.chapterGroupModel.addChapterGroup(chapterGroupData);
-            }
-            else {
+            } else {
                 chapterGroupRaw = chapterGroupRaw[0];
                 chapterGroupId = chapterGroupRaw.id;
                 chapterGroupName = chapterGroupRaw.name;
@@ -251,7 +244,7 @@ let run = async function (params) {
                 console.log(htmlContent);
                 //htmlData = analyser.analyzeNovel(htmlContent);
                 console.log(htmlData);
-            //    await doNovel(htmlData, novelRaw);
+                //    await doNovel(htmlData, novelRaw);
             }
         }
 

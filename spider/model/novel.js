@@ -12,8 +12,7 @@ function getNovelById(novelId) {
         pool.query(sql, [novelId], function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -30,8 +29,7 @@ function getNovelsByName(name) {
         pool.query('SELECT * FROM `r_novel`', function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -48,8 +46,7 @@ function getNovelsByAuthorId(authorId) {
         pool.query('SELECT * FROM `r_novel`', function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -67,8 +64,7 @@ function getNovelByIdAndAuthorId(novelId, authorId) {
         pool.query('SELECT * FROM `r_novel`', function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -85,8 +81,7 @@ function getNovelsByCategoryId(categoryId) {
         pool.query('SELECT * FROM `r_novel`', function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -103,8 +98,7 @@ function countNovelsByCategoryId(categoryId) {
         pool.query('SELECT * FROM `r_novel`', function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -125,8 +119,7 @@ function getNovelsByWhere(where, field, limit, offset, orderby) {
         pool.query('SELECT * FROM `r_novel`', function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -145,8 +138,7 @@ function addNovel(data) {
         pool.query(sql, data, function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 logger.info('add new Novel, novelId: ' + results.insertId);
                 resolve(results.insertId);
             }
@@ -166,8 +158,7 @@ function getNovelByAuthorIdAndNovelName(authorId, novelName) {
         pool.query(sql, [authorId, novelName], function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results);
             }
         });
@@ -187,8 +178,7 @@ function updateNovelById(novelId, data) {
         pool.query(sql, [data, novelId], function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 logger.info('update novel , updateData: ' + JSON.stringify(data));
                 resolve(results);
             }
@@ -208,8 +198,7 @@ function getNovelBySpiderUrls(url) {
         pool.query(sql, [url], function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results);
             }
         });

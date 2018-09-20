@@ -11,8 +11,7 @@ function closePool() {
         pool.end(function (error) {
             if (error) {
                 reject(err);
-            }
-            else {
+            } else {
                 console.log('all connections in the pool have ended');
                 resolve(true)
             }

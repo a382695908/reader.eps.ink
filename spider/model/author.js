@@ -8,8 +8,7 @@ function getAuthorById(authorId) {
         pool.query(sql, [authorId], function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -28,8 +27,7 @@ function getAuthorByName(authorName) {
         pool.query(sql, [authorName], function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 resolve(results)
             }
         });
@@ -48,8 +46,7 @@ function insertAuthor(authorName) {
         pool.query(sql, [authorName], function (error, results, fields) {
             if (error) {
                 reject(error);
-            }
-            else {
+            } else {
                 logger.info('add new Author, {authorId: ' + results.insertId + ', name:' + authorName + '}');
                 resolve(results.insertId)
             }
