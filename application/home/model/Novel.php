@@ -17,11 +17,20 @@ class Novel extends Model
      */
     public function getNovelById($novelId)
     {
-        $condition = [
-            'id' => $novelId,
-            'is_end' => 0
-        ];
-        $row = $this->where($condition)->find();
+        $row = $this->where('id' , $novelId)->find();
+        return (empty($row)) ? [] : $row;
+    }
+
+    /**
+     * getNovelByWhere
+     * @Author: eps
+     * @param array $where
+     * @param string $fields
+     * @return array|null|\PDOStatement|string|Model
+     */
+    public function getNovelByWhere($where = array(), $fields = '*')
+    {
+        $row = $this->where($where)->find();
         return (empty($row)) ? [] : $row;
     }
 

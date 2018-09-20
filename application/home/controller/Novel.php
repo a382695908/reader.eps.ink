@@ -1,6 +1,11 @@
 <?php
 namespace app\home\controller;
 
+use app\home\model\Author;
+use app\home\model\Chapter;
+use app\home\model\ChapterGroup;
+use app\home\model\Novel as NovelModel;
+
 class Novel extends Common
 {
     /**
@@ -14,21 +19,16 @@ class Novel extends Common
         $initViewData = $this->init_view();
         $categoryList = $initViewData['categoryList'];
 
-        $novelModel = new Novel();
+        $novelModel = new NovelModel();
         // 获取小说信息
         $id = intval($id);
-        $authorModel = new \app\home\model\Author();
-        $novelModel = new \app\home\model\Novel();
-        $condition = [
-            'id' => $id,
-            'is_deleted' => 0,
-        ];
-        $novel = $novelModel->where($condition)->find();
-        $novel['author_name'] = $authorModel->get($novel['author'])['name'];
-        $novel['link_url'] = url('/novel/' . $novel['id']);
+        $authorModel = new Author();
+        $novel = $novelModel->getNovelByWhere(['id' => $id, 'is_deleted' => 0]);
+        $novel['authorName'] = $authorModel->getAuthorById($novel['author'])['name'];
+        $novel['novelLink'] = url('/novel/' . $novel['id']);
         foreach ($categoryList as $category) {
             if ($novel['category'] == $category['id']) {
-                $novel['category_name'] = $category['name'];
+                $novel['categoryName'] = $category['name'];
                 break;
             }
         }
@@ -40,10 +40,10 @@ class Novel extends Common
         $this->assign('novel', $novel);
 
         // 小说章节组信息
-        $chapterGroupModel = new \app\home\model\ChapterGroup();
+        $chapterGroupModel = new ChapterGroup();
         $chapterGroupList = $chapterGroupModel->where('novel', $id)->order('createtime ASC')->select()->toArray();
         // 小说章节
-        $chapterModel = new \app\home\model\Chapter();
+        $chapterModel = new Chapter();
         $chapterList = $chapterModel->where('novel', $id)->order('createtime ASC')->select()->toArray();
         foreach ($chapterList as &$chapter) {
             $chapter['link_url'] = url('/chapter/' . $chapter['id']);
