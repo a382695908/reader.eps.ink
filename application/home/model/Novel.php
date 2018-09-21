@@ -10,19 +10,19 @@ class Novel extends Model
     const OPEN_CACHE = FALSE;
 
     /**
-     * getNovelById
+     * 根据小说ID查询小说
      * @Author: eps
      * @param $novelId
      * @return array|null|\PDOStatement|string|Model
      */
-    public function getNovelById($novelId)
+    public function getNovelByNovelId($novelId)
     {
-        $row = $this->where('id' , $novelId)->find();
+        $row = $this->where('novel_id', $novelId)->find();
         return (empty($row)) ? [] : $row;
     }
 
     /**
-     * getNovelByWhere
+     * 根据条件查询小说
      * @Author: eps
      * @param array $where
      * @param string $fields
@@ -30,61 +30,47 @@ class Novel extends Model
      */
     public function getNovelByWhere($where = array(), $fields = '*')
     {
-        $row = $this->where($where)->find();
+        $row = $this->field($fields)->where($where)->find();
         return (empty($row)) ? [] : $row;
     }
 
     /**
-     * getNovelByAuthorId
+     * 根据作者ID查询小说
      * @Author: eps
      * @param $authorId
      * @return array|null|\PDOStatement|string|Model
      */
-    public function getNovelByAuthorId($authorId)
+    public function getNovelsByAuthorId($authorId)
     {
-        $condition = [
-            'author' => $authorId,
-            'is_end' => 0
-        ];
-        $row = $this->where($condition)->find();
-        return (empty($row)) ? [] : $row;
+        $list = $this->where('author_id', $authorId)->select();
+        return (empty($list)) ? [] : $list;
     }
 
     /**
-     * getNovelByAuthorName
+     * 根据作者名查询小说
      * @Author: eps
      * @param $authorName
      * @return array|null|\PDOStatement|string|Model
      */
-    public function getNovelByAuthorName($authorName)
+    public function getNovelsByAuthorName($authorName)
     {
-        $authorModel = new Author();
-        $author = $authorModel->getAuthorByName($authorName);
-        $novels = [];
-        if (!empty($author)) {
-            $novels = $this->getNovelByAuthorId($author->id);
-        }
-        return $novels;
+
     }
 
     /**
-     * getNovelsByCategoryId
+     * 根据分类ID查询小说
      * @Author: eps
      * @param $categoryId
      * @return array|\PDOStatement|string|\think\Collection
      */
     public function getNovelsByCategoryId($categoryId)
     {
-        $condition = [
-            'category' => $categoryId,
-            'is_end' => 0
-        ];
-        $novels = $this->where($condition)->select();
+        $novels = $this->where('category_id', $categoryId)->select();
         return (empty($novels)) ? [] : $novels;
     }
 
     /**
-     * 获得某分类下的所有小说
+     * 通过联结分类表和作者表查询小说
      * @Author: eps
      * @param array $condition
      * @param string $field
@@ -93,98 +79,67 @@ class Novel extends Model
      * @param string $orderBy
      * @return array|bool|\PDOStatement|string|\think\Collection
      */
-    public function getAllCategoryNovels($condition = array(), $field = '', $limit = 0, $offset = null, $orderBy = 'novel.clicks DESC')
+    public function getNovelsByJoin($condition = array(), $field = '', $limit = 0, $offset = null, $orderBy = 'r_novel.clicks DESC')
     {
         if (empty($field)) {
             return false;
         }
-        $list = $this->field($field)->alias('novel')
-            ->join('category category', 'novel.category = category.id')
-            ->join('author author', 'novel.author = author.id')
+        $list = $this->field($field)
+            ->join('category', 'r_novel.category_id = r_category.category_id')
+            ->join('author', 'r_novel.author_id = r_author.author_id')
+            ->join('chapter', 'r_novel.latest_chapter_id = r_chapter.chapter_id', 'LEFT')
             ->where($condition)->limit($limit, $offset)
             ->order($orderBy)->select();
         return (empty($list)) ? [] : $list;
     }
 
+    /**
+     * 根据条件查询小说
+     * @Author: eps
+     * @param array $condition
+     * @param string $field
+     * @param int $limit
+     * @param null $offset
+     * @param string $orderBy
+     * @return $this|array
+     */
     public function getNovelsByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = 'id ASC')
     {
         $list = $this->field($field)->where($condition)->order($orderBy)->limit($limit, $offset);
         return (empty($list)) ? [] : $list;
     }
 
+    /**
+     * TODO 查询所有已完结的小说
+     * @Author: eps
+     */
     public function getClosedNovels()
     {
 
     }
 
     /**
-     * 最近更新的小说
+     * 根据条件查询最近更新的小说
      * @Author: eps
-     * @param string $condition
-     * @param string $field
-     * @param int $limit
-     * @param null $offset
-     * @param string $orderBy
-     * @return array|bool|mixed
+     * @param array $where
+     * @return array|bool|\PDOStatement|string|\think\Collection
      */
-    public function getLatestUpdatedNovelsByWhere($condition = '', $field = '', $limit = 30, $offset = null, $orderBy = 'novel.updatetime DESC')
+    public function getLatestUpdatedNovelsByWhere($where = array())
     {
-        if (empty($field)) {
-            return false;
-        }
-
-        $sql = 'SELECT ' . $field . ' FROM r_novel novel ';
-        $sql = $sql . ' LEFT JOIN r_chapter chapter ON novel.id = chapter.novel';
-        $sql = $sql . ' LEFT JOIN r_author author ON novel.author = author.id';
-        $sql = $sql . ' LEFT JOIN r_category category ON novel.category = category.id';
-        $sql = $sql . ' LEFT JOIN ( SELECT novel, max(createtime) createtime FROM r_chapter GROUP BY novel) max_chapter ON max_chapter.novel = novel.id AND max_chapter.createtime = chapter.createtime';
-
-        if ($condition) {
-            $sql .= ' WHERE ' . $condition;
-        }
-
-        if ($orderBy) {
-            $sql .= ' ORDER BY ' . $orderBy;
-        }
-
-        if ($limit > 0) {
-            $sql .= ' LIMIT ' . $limit;
-            if ($offset) {
-                $sql .= ',' . $offset;
-            }
-        }
-
-//        $list = $this->field($field)->alias('novel')
-//            ->join('author author', 'novel.author = author.id')
-//            ->join('category category', 'novel.category = category.id')
-//            ->join('chapter chapter', 'novel.id = chapter.novel', 'LEFT')
-//            ->where($condition)->limit($limit, $offset)
-//            ->order($orderBy)->select();
-
-        $list = $this->query($sql);
+        $field = 'r_novel.*, author_name AS authorName, category_name AS categoryName, chapter_name AS chapterName, chapter_id AS chapterId';
+        $list = $this->getNovelsByJoin($where, $field, 30, null, 'r_novel.update_time DESC');
         return (empty($list)) ? [] : $list;
     }
 
     /**
      * 最新入库的小说
      * @Author: eps
-     * @param string $condition
-     * @param string $field
-     * @param int $limit
-     * @param null $offset
-     * @param string $orderBy
      * @return array|bool|\PDOStatement|string|\think\Collection
      */
-    public function getLatestCreatedNovelsByWhere($condition = '', $field = '', $limit = 30, $offset = null, $orderBy = 'novel.createtime DESC')
+    public function getLatestCreatedNovelsByWhere($condition = array())
     {
-        if (empty($field)) {
-            return false;
-        }
-        $list = $this->field($field)->alias('novel')
-            ->join('author author', 'novel.author = author.id')
-            ->join('category category', 'novel.category = category.id')
-            ->where($condition)->limit($limit, $offset)
-            ->order($orderBy)->select();
+        $field = 'r_novel.*, author_name AS authorName, category_alias AS categoryAlias';
+        $list = $this->getNovelsByJoin($condition, $field, 30, null, 'r_novel.create_time DESC');
         return (empty($list)) ? [] : $list;
     }
 
@@ -203,7 +158,7 @@ class Novel extends Model
             return $hotestNovelsCache;
         } else {
             $condition = [
-                'novel.isend' => 0,
+                'novel.is_end' => 0,
                 'novel.ishotest' => 1,
             ];
             $list = $this->field($field)->alias('novel')
@@ -230,7 +185,7 @@ class Novel extends Model
             return $hotNovelsCache;
         } else {
             $condition = [
-                'novel.isend' => 0,
+                'novel.is_end' => 0,
                 'novel.ishot' => 1,
             ];
 
@@ -241,24 +196,6 @@ class Novel extends Model
                 ->order($orderBy)->select();
             Cache::set('hotNovels', $list);
         }
-        return (empty($list)) ? [] : $list;
-    }
-
-    /**
-     * 获取某分类下最近更新的小说
-     * @Author: eps
-     * @param int $categoryId
-     * @param string $field
-     * @return array|\PDOStatement|string|\think\Collection
-     */
-    public function getCategoryLatestUpdatedNovels($condition = '', $field = '*')
-    {
-//        $condition = 'isend = 0 AND category = ' . $categoryId;
-        $orderBy = 'novel.updatetime DESC';
-        $limit = 30;
-        $offset = null;
-
-        $list = $this->getLatestUpdatedNovelsByWhere($condition, $field, $limit, $offset, $orderBy);
         return (empty($list)) ? [] : $list;
     }
 

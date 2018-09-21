@@ -21,10 +21,10 @@ class Novel extends Common
 
         $novelModel = new NovelModel();
         // 获取小说信息
-        $id = intval($id);
+        $novelId = intval($id);
         $authorModel = new Author();
-        $novel = $novelModel->getNovelByWhere(['id' => $id, 'is_deleted' => 0]);
-        $novel['authorName'] = $authorModel->getAuthorById($novel['author'])['name'];
+        $novel = $novelModel->getNovelByWhere(['novel_id' => $novelId]);
+        $novel['authorName'] = $authorModel->getAuthorByAuthorId($novel['author'])['name'];
         $novel['novelLink'] = url('/novel/' . $novel['id']);
         foreach ($categoryList as $category) {
             if ($novel['category'] == $category['id']) {
@@ -32,43 +32,43 @@ class Novel extends Common
                 break;
             }
         }
-        $novel['state_text'] = ($novel['isend']) ? '已完结' : '连载中';
+        $novel['stateText'] = $novel['is_end'] == 1 ? '已完结' : '连载中';
         $novel['updateAt'] = date('Y-m-d H:i:s', $novel['updatetime']);
-        // TODO: 最新章节链接 & 章节名
-        $novel['last_chapter_url'] = '';
-        $novel['last_chapter_name'] = '';
+
+        $chapterModel = new Chapter();
+        $novel['latestChapterUrl'] = url('/chapter/' . $novel['latest_chapter_id']);
+        $novel['latestChapterName'] = $chapterModel->getChapterNameByChapterId($novel['latest_chapter_id']);
         $this->assign('novel', $novel);
 
         // 小说章节组信息
         $chapterGroupModel = new ChapterGroup();
-        $chapterGroupList = $chapterGroupModel->where('novel', $id)->order('createtime ASC')->select()->toArray();
+        $chapterGroupList = $chapterGroupModel->getChapterGroupsByWhere(['novel_id' => $novelId]);
         // 小说章节
-        $chapterModel = new Chapter();
-        $chapterList = $chapterModel->where('novel', $id)->order('createtime ASC')->select()->toArray();
+        $chapterList = $chapterModel->getChaptersByWhere(['novel_id' => $novelId]);
         foreach ($chapterList as &$chapter) {
-            $chapter['link_url'] = url('/chapter/' . $chapter['id']);
+            $chapter['chapterLink'] = url('/chapter/' . $chapter['chapter_id']);
         }
         unset($chapter);
 
         // 抽取12章最新章节
-        $lastChapterList = $chapterModel->where('novel', $id)->order('createtime DESC')->select()->toArray();
-        foreach ($lastChapterList as &$chapter) {
-            $chapter['link_url'] = url('/chapter/' . $chapter['id']);
+        $latestChapterList = $chapterModel->getChaptersByWhere(['novel_id' => $novelId], '*', 12, 0, 'sort DESC');
+        foreach ($latestChapterList as &$chapter) {
+            $chapter['chapterLink'] = url('/chapter/' . $chapter['chapter_id']);
         }
         unset($chapter);
-        $this->assign('last_chapter_list', $lastChapterList);
+        $this->assign('last_chapter_list', $latestChapterList);
 
-        // 章节组与小说章节绑定
+        // 以章节组ID将章节做分组
         foreach ($chapterGroupList as &$chapterGroup) {
             foreach ($chapterList as &$chapter) {
-                if ($chapter['chapter_group'] === $chapterGroup['id']) {
+                if ($chapter['chapter_group_id'] === $chapterGroup['chapter_id']) {
                     $chapterGroup['chapters'][] = $chapter;
                 }
             }
             unset($chapter);
         }
         unset($chapterGroup);
-        $this->assign('chapter_group_chapters', $chapterGroupList);
+        $this->assign('chapterGroupList', $chapterGroupList);
 
 
         // todo: update novel field `click`

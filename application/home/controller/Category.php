@@ -23,12 +23,11 @@ class Category extends Common
         // 热门小说
         $novelModel = new Novel();
         $condition = [
-            'novel.isend' => 0,
-            'novel.is_deleted' => 0,
+            'novel.is_end' => 0,
             'novel.category' => $categoryId
         ];
-        $field = 'novel.*, author.name AS authorName, category.name AS categoryName';
-        $hotestNovels = $novelModel->getAllCategoryNovels($condition, $field, 6);
+        $field = 'r_novel.*, author_name AS authorName, category_name AS categoryName';
+        $hotestNovels = $novelModel->getNovelsByJoin($condition, $field, 6);
         foreach ($hotestNovels as &$novel) {
             $novel['novelLink'] = url('/novel/' . $novel['id']);
         }
@@ -38,9 +37,7 @@ class Category extends Common
 //        dump($novelModel->getLastSql());die;
 
         // 最近更新
-        $condition = 'novel.isend = 0 AND novel.is_deleted = 0 AND novel.category = ' . $categoryId;
-        $field = 'novel.*, author.name AS authorName, category.name AS categoryName, chapter.name AS chapterName, chapter.id AS chapterId';
-        $latestUpdatedNovels = $novelModel->getCategoryLatestUpdatedNovels($condition, $field);
+        $latestUpdatedNovels = $novelModel->getLatestUpdatedNovelsByWhere(['is_end' => 0, 'r_novel.category_id' => $categoryId]);
 //        dump($latestUpdatedNovels);
 //        dump($novelModel->getLastSql());die;
 
@@ -54,12 +51,11 @@ class Category extends Common
 
         // 推荐
         $condition = [
-            'novel.isend' => 0,
-            'novel.is_recommend' => 1,
-            'novel.is_deleted' => 0,
+            'is_end' => 0,
+            'is_recommend' => 1,
         ];
-        $field = 'novel.*, author.name AS authorName, category.name AS categoryName, category.alias AS categoryAlias';
-        $recommendNovels = $novelModel->getAllCategoryNovels($condition, $field, 30);
+        $field = 'r_novel.*, author_name AS authorName, category_name AS categoryName, category_alias AS categoryAlias';
+        $recommendNovels = $novelModel->getNovelsByJoin($condition, $field, 30);
         foreach ($recommendNovels as &$novel) {
             $novel['novelLink'] = url('/novel/' . $novel['id']);
         }
@@ -82,11 +78,10 @@ class Category extends Common
         // 热门小说
         $novelModel = new Novel();
         $condition = [
-            'novel.isend' => 1,
-            'novel.is_deleted' => 0,
+            'novel.is_end' => 1,
         ];
-        $field = 'novel.*, author.name AS authorName, category.name AS categoryName';
-        $hotestNovels = $novelModel->getAllCategoryNovels($condition, $field, 6);
+        $field = 'r_novel.*, author_name AS authorName, category_name AS categoryName';
+        $hotestNovels = $novelModel->getNovelsByJoin($condition, $field, 6);
         foreach ($hotestNovels as &$novel) {
             $novel['novelLink'] = url('/novel/' . $novel['id']);
         }
@@ -96,9 +91,7 @@ class Category extends Common
 //        dump($novelModel->getLastSql());die;
 
         // 最近更新
-        $condition = 'novel.isend = 1 AND novel.is_deleted = 0';
-        $field = 'novel.*, author.name AS authorName, category.name AS categoryName, chapter.name AS chapterName, chapter.id AS chapterId';
-        $latestUpdatedNovels = $novelModel->getCategoryLatestUpdatedNovels($condition, $field);
+        $latestUpdatedNovels = $novelModel->getLatestUpdatedNovelsByWhere(['is_end' => 1]);
 //        dump($latestUpdatedNovels);
 //        dump($novelModel->getLastSql());die;
 
@@ -112,12 +105,11 @@ class Category extends Common
 
         // 推荐
         $condition = [
-            'novel.isend' => 1,
-            'novel.is_recommend' => 1,
-            'novel.is_deleted' => 0,
+            'is_end' => 1,
+            'is_recommend' => 1,
         ];
-        $field = 'novel.*, author.name AS authorName, category.name AS categoryName, category.alias AS categoryAlias';
-        $recommendNovels = $novelModel->getAllCategoryNovels($condition, $field, 30);
+        $field = 'r_novel.*, author_name AS authorName, category_name AS categoryName, category_alias AS categoryAlias';
+        $recommendNovels = $novelModel->getNovelsByJoin($condition, $field, 30);
         foreach ($recommendNovels as &$novel) {
             $novel['novelLink'] = url('/novel/' . $novel['id']);
         }

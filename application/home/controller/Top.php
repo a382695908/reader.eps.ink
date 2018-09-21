@@ -16,7 +16,6 @@ class Top extends Common
         $novelModel = new \app\home\model\Novel();
         // 小说总榜
         $condition = [
-            'is_deleted' => 0,
             'isend' => 0,
         ];
         $novelList = $novelModel->where($condition)->order('clicks DESC')->limit(0, 15)->select()->toArray();
@@ -37,7 +36,6 @@ class Top extends Common
         foreach ($categoryList as &$category) {
             $condition = [
                 'category' => $category['id'],
-                'is_deleted' => 0,
                 'isend' => 0,
             ];
             $novelList = $novelModel->where($condition)->order('clicks DESC')->limit(0, 15)->select()->toArray();

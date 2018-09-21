@@ -38,12 +38,11 @@ class Index extends Common
         foreach ($categoryList as $category) {
             $categoryId = $category['id'];
             $condition = [
-                'novel.isend' => 0,
-                'novel.is_deleted' => 0,
-                'novel.category' => $categoryId
+                'isend' => 0,
+                'category_id' => $categoryId
             ];
-            $field = 'novel.*, author.name AS authorName, category.name AS categoryName';
-            $categoryNovels = $novelModel->getAllCategoryNovels($condition, $field, 13);
+            $field = 'r_novel.*, author_name AS authorName, category_name AS categoryName';
+            $categoryNovels = $novelModel->getNovelsByJoin($condition, $field, 13);
             foreach ($categoryNovels as $key => $novel) {
                 $novel['novelLink'] = url('/novel/' . $novel['id']);
 
@@ -66,9 +65,7 @@ class Index extends Common
         $this->assign('categoryNovelList', $categoryNovelList);
 
         // 最近更新
-        $condition = 'novel.isend = 0';
-        $field = 'novel.*, author.name AS authorName, category.name AS categoryName, chapter.name AS chapterName, chapter.id AS chapterId';
-        $latestUpdatedNovels = $novelModel->getLatestUpdatedNovelsByWhere($condition, $field);
+        $latestUpdatedNovels = $novelModel->getLatestUpdatedNovelsByWhere(['is_end' => 0]);
         foreach ($latestUpdatedNovels as &$novel) {
             $novel['novelLink'] = url('/novel/' . $novel['id']);
             $novel['chapterLink'] = url('/chapter/' . $novel['chapterId']);
@@ -78,9 +75,7 @@ class Index extends Common
         $this->assign('latestUpdatedNovels', $latestUpdatedNovels);
 
         // 最新入库
-        $condition = 'novel.isend = 0';
-        $field = 'novel.*, author.name AS authorName, category.alias AS categoryAlias';
-        $latestCreatedNovels = $novelModel->getLatestCreatedNovelsByWhere($condition, $field);
+        $latestCreatedNovels = $novelModel->getLatestCreatedNovelsByWhere(['is_end' => 0]);
         foreach ($latestCreatedNovels as &$novel) {
             $novel['novelLink'] = url('/novel/' . $novel['id']);
         }

@@ -1,7 +1,8 @@
 <?php
 namespace app\home\controller;
 
-use think\Facade\Session;
+use app\home\model\Chapter as ChapterModel;
+use app\home\model\Novel;
 
 class Chapter extends Common
 {
@@ -13,25 +14,17 @@ class Chapter extends Common
      */
     public function index($id)
     {
-        // 获取小说分类信息
-        $category_list = Session::get('category_list');
-        foreach ($category_list as &$category) {
-            $category['link'] = url('/category/' . $category['id']);
-        }
-        unset($category);
-        $this->assign('category_list', $category_list);
+        $this->init_view();
 
-        $id = intval($id);
-        $chapterModel = new \app\home\model\Chapter();
-        $chapter = $chapterModel->where('id', $id)->find();
+        $chapterId = intval($id);
+        $chapterModel = new ChapterModel();
+        $chapter = $chapterModel->getChapterByChapterId($chapterId);
         $chapter['content'] = html_entity_decode($chapter['content']);
-//        echo $chapter['content'];
-//        dump($chapter['content']);exit;
         $this->assign('chapter', $chapter);
 
-        $novelModel = new \app\home\model\Novel();
-        $novel = $novelModel->where('id', $chapter['novel'])->find();
-        $novel['link_url'] = url('/novel/' . $novel['id']);
+        $novelModel = new Novel();
+        $novel = $novelModel->getNovelByNovelId($chapter['novel_id']);
+        $novel['novelLink'] = url('/novel/' . $novel['id']);
         $this->assign('novel', $novel);
 
         return $this->fetch();
