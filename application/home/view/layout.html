@@ -28,13 +28,11 @@
     </div>
 </div>
 
-<!--<div style="display: none" id="visitor_info"><script type="text/javascript" src="http://ip.chinaz.com/getip.aspx"></script></div>-->
-
 <div class="nav">
     <ul>
         <li class="this"><a href="/" title="读读读">首页</a></li>
         {volist name="categoryList" id="category"}
-        <li><a href="{$category.categoryLink}">{$category.alias}</a></li>
+        <li><a href="{$category.categoryLink}">{$category.category_alias}</a></li>
         {/volist}
 
         <li><a href="{:url('/top')}">排行榜</a></li>

@@ -6,12 +6,12 @@
             <div class="item">
                 <div class="p10">
                     <div class="image">
-                        <a href="{$hotest.novelLink}" target="_blank"><img src="{$hotest.cover}" alt="{$hotest.name}"/></a>
+                        <a href="{$hotest.novelLink}" target="_blank"><img src="{$hotest.cover}" alt="{$hotest.novel_name}"/></a>
                     </div>
                     <dl>
                         <dt>
                             <span>{$hotest.authorName}</span>
-                            <a href="{$hotest.novelLink}" target="_blank">{$hotest.name}</a>
+                            <a href="{$hotest.novelLink}" target="_blank">{$hotest.novel_name}</a>
                         </dt>
                         <dd>{$hotest.introduction}</dd>
                     </dl>
@@ -23,8 +23,7 @@
             <h2>强力推荐</h2>
             <ul class="lis">
                 {volist name="hotNovels" id="hot"}
-                <li><span class="s1">[{$hot.categoryAlias}]</span><span class="s2"><a href="{$hot.novelLink}">{$hot.name}</a></span><span
-                        class="s5">{$hot.authorName}</span></li>
+                <li><span class="s1">[{$hot.categoryAlias}]</span><span class="s2"><a href="{$hot.novelLink}">{$hot.novel_name}</a></span><span class="s5">{$hot.authorName}</span></li>
                 {/volist}
             </ul>
         </div>
@@ -32,24 +31,23 @@
     <div class="type bd">
         {volist name="categoryNovelList" id="category_novel"}
         <div class="block">
-            <h2>{$category_novel.name}</h2>
+            <h2>{$category_novel.categoryName}</h2>
 
             <div class="p10">
                 <div class="top">
                     <div class="image">
-                        <a href="{$category_novel.topNovel.novelLink}" target="_blank"><img
-                                src="{$category_novel.topNovel.cover}" alt="{$category_novel.topNovel.name}"/></a>
+                        <a href="{$category_novel.topNovel.novelLink}" target="_blank"><img src="{$category_novel.topNovel.cover}" alt="{$category_novel.topNovel.novel_name}"/></a>
                     </div>
                     <dl>
                         <dt>
-                            <a href="{$category_novel.topNovel.novelLink}" target="_blank">{$category_novel.topNovel.name}</a>
+                            <a href="{$category_novel.topNovel.novelLink}" target="_blank">{$category_novel.topNovel.novel_name}</a>
                         </dt>
                         <dd>{$category_novel.topNovel.introduction}</dd>
                     </dl>
                 </div>
                 <ul>
                     {volist name="category_novel.novels" id="novel"}
-                    <li><a href="{$novel.novelLink}" target="_blank" title="{$novel.name}">{$novel.name}</a>/{$novel.authorName}
+                    <li><a href="{$novel.novelLink}" target="_blank" title="{$novel.novel_name}">{$novel.novel_name}</a>/{$novel.authorName}
                     </li>
                     {/volist}
                 </ul>
@@ -66,7 +64,7 @@
                 <li>
                     <span class="s1">[{$novel.categoryName}]</span>
                             <span class="s2">
-                                <a href="{$novel.novelLink}">{$novel.name}</a>
+                                <a href="{$novel.novelLink}">{$novel.novel_name}</a>
                             </span>
                             <span class="s3">
                                 <a href="{$novel.chapterLink}">{$novel.chapterName}</a>
@@ -84,7 +82,7 @@
                 <li>
                     <span class="s1">[{$novel.categoryAlias}]</span>
                             <span class="s2">
-                                <a href="{$novel.novelLink}">{$novel.name}</a>
+                                <a href="{$novel.novelLink}">{$novel.novel_name}</a>
                             </span>
                     <span class="s5">{$novel.authorName}</span>
                 </li>

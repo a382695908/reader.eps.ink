@@ -85,9 +85,9 @@ class Novel extends Model
             return false;
         }
         $list = $this->field($field)
-            ->join('category', 'r_novel.category_id = r_category.category_id')
-            ->join('author', 'r_novel.author_id = r_author.author_id')
-            ->join('chapter', 'r_novel.latest_chapter_id = r_chapter.chapter_id', 'LEFT')
+            ->join('r_category', 'r_novel.category_id = r_category.category_id')
+            ->join('r_author', 'r_novel.author_id = r_author.author_id')
+            ->join('r_chapter', 'r_novel.latest_chapter_id = r_chapter.chapter_id', 'LEFT')
             ->where($condition)->limit($limit, $offset)
             ->order($orderBy)->select();
         return (empty($list)) ? [] : $list;
@@ -121,14 +121,25 @@ class Novel extends Model
     /**
      * 根据条件查询最近更新的小说
      * @Author: eps
-     * @param array $where
+     * @param array $condition
      * @return array|bool|\PDOStatement|string|\think\Collection
      */
-    public function getLatestUpdatedNovelsByWhere($where = array())
+    public function getLatestUpdatedNovelsByWhere($condition = array(), $limit = 30, $offset = NULL)
     {
-        $field = 'r_novel.*, author_name AS authorName, category_name AS categoryName, chapter_name AS chapterName, chapter_id AS chapterId';
-        $list = $this->getNovelsByJoin($where, $field, 30, null, 'r_novel.update_time DESC');
+        $list = $this->getNovelsByJoin($condition, 'r_novel.*,author_name AS authorName,category_name AS categoryName,chapter_name AS chapterName,chapter_id AS chapterId', $limit, $offset, 'r_novel.update_time DESC');
         return (empty($list)) ? [] : $list;
+    }
+
+    /**
+     * 根据条件查询小说的数量
+     * @Author: eps
+     * @param array $condition
+     * @return array|bool|\PDOStatement|string|\think\Collection
+     */
+    public function countNovelsByWhere($condition = array())
+    {
+        $number = $this->where($condition)->count('novel_id');
+        return $number;
     }
 
     /**
@@ -138,65 +149,27 @@ class Novel extends Model
      */
     public function getLatestCreatedNovelsByWhere($condition = array())
     {
-        $field = 'r_novel.*, author_name AS authorName, category_alias AS categoryAlias';
-        $list = $this->getNovelsByJoin($condition, $field, 30, null, 'r_novel.create_time DESC');
-        return (empty($list)) ? [] : $list;
+        return $this->getNovelsByJoin($condition, 'r_novel.*,author_name AS authorName,category_alias AS categoryAlias', 30, null, 'r_novel.create_time DESC');
     }
 
     /**
-     * 最热门小说
+     * 查询最热门小说
      * @Author: eps
-     * @param string $field
-     * @param int $limit
-     * @param string $orderBy
-     * @return array|mixed|\PDOStatement|string|\think\Collection
+     * @return array|\PDOStatement|string|\think\Collection
      */
-    public function getHotestNovels($field = '*', $limit = 4, $orderBy = 'novel.clicks DESC')
+    public function getHotestNovels()
     {
-        $hotestNovelsCache = self::OPEN_CACHE ? Cache::get('hotestNovels') : self::OPEN_CACHE;
-        if ($hotestNovelsCache) {
-            return $hotestNovelsCache;
-        } else {
-            $condition = [
-                'novel.is_end' => 0,
-                'novel.ishotest' => 1,
-            ];
-            $list = $this->field($field)->alias('novel')
-                ->join('author author', 'novel.author = author.id')
-                ->where($condition)->limit($limit)
-                ->order($orderBy)->select();
-            Cache::set('hotestNovels', $list);
-        }
-        return (empty($list)) ? [] : $list;
+        return $this->getNovelsByJoin(['is_end' => 0, 'is_hotest' => 1], 'r_novel.*,author_name AS authorName', 4, 0, 'clicks DESC');
     }
 
     /**
-     * 热门小说
+     * 查询热门小说
      * @Author: eps
-     * @param string $field
-     * @param int $limit
-     * @param string $orderBy
-     * @return array|mixed|\PDOStatement|string|\think\Collection
+     * @return array|bool|\PDOStatement|string|\think\Collection
      */
-    public function getHotNovels($field = '*', $limit = 9, $orderBy = 'novel.clicks DESC')
+    public function getHotNovels()
     {
-        $hotNovelsCache = self::OPEN_CACHE ? Cache::get('hotNovels') : self::OPEN_CACHE;
-        if ($hotNovelsCache) {
-            return $hotNovelsCache;
-        } else {
-            $condition = [
-                'novel.is_end' => 0,
-                'novel.ishot' => 1,
-            ];
-
-            $list = $this->field($field)->alias('novel')
-                ->join('author author', 'novel.author = author.id')
-                ->join('category category', 'novel.category = category.id')
-                ->where($condition)->limit($limit)
-                ->order($orderBy)->select();
-            Cache::set('hotNovels', $list);
-        }
-        return (empty($list)) ? [] : $list;
+        return $this->getNovelsByJoin(['is_end' => 0, 'is_hot' => 1], 'r_novel.*,author_name AS authorName,category_alias AS categoryAlias', 9, 0, 'clicks DESC');
     }
 
     // === BackStage Method ===
