@@ -63,10 +63,16 @@ class Novel extends Model
      * @param string $orderBy
      * @return $this|array
      */
-    public function getNovelsByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = 'id ASC')
+    public function getNovelsByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = 'novel_id ASC')
     {
         $list = $this->field($field)->where($condition)->order($orderBy)->limit($limit, $offset)->select();
         return (empty($list)) ? [] : $list;
+    }
+
+    public function getNovelByWhere($condition = array(), $field = '*')
+    {
+        $row = $this->field($field)->where($condition)->find();
+        return (empty($row)) ? [] : $row;
     }
 
     /**
