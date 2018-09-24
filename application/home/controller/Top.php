@@ -1,6 +1,8 @@
 <?php
 namespace app\home\controller;
 
+use app\home\model\Novel;
+
 class Top extends Common
 {
     /**
@@ -13,38 +15,29 @@ class Top extends Common
         $initViewData = $this->init_view();
         $categoryList = $initViewData['categoryList'];
 
-        $novelModel = new \app\home\model\Novel();
         // 小说总榜
-        $condition = [
-            'is_deleted' => 0,
-            'isend' => 0,
-        ];
-        $novelList = $novelModel->where($condition)->order('clicks DESC')->limit(0, 15)->select()->toArray();
-        $category_keyby_cid = array_keyby($categoryList, 'id');
+        $novelModel = new Novel();
+        $novelList = $novelModel->getNovelsByWhere(['is_end' => 0], '*', 0, 15, 'clicks DESC');
+        $categoryList = array_keyby($categoryList, 'category_id');
+
         $index = 1;
         foreach ($novelList as &$novel) {
-            $novel['is_top'] = ($index <= 3);
-            $novel['link_url'] = url('/novel/' . $novel['id']);
-            $catgory_id = $novel['category'];
-            $novel['category_name'] = $category_keyby_cid[$catgory_id]['name'];
+            $novel['is_top'] = $index <= 3;
+            $novel['novelLink'] = url('/novel/' . $novel['novel_id']);
+            $novel['category_name'] = $categoryList[$novel['category_id']]['category_name'];
             $novel['index'] = $index;
             $index++;
         }
         unset($novel);
-        $this->assign('all_rank_list', $novelList);
+        $this->assign('allRankList', $novelList);
 
         // 各个分类的排行榜
         foreach ($categoryList as &$category) {
-            $condition = [
-                'category' => $category['id'],
-                'is_deleted' => 0,
-                'isend' => 0,
-            ];
-            $novelList = $novelModel->where($condition)->order('clicks DESC')->limit(0, 15)->select()->toArray();
+            $novelList = $novelModel->getNovelsByWhere(['category_id' => $category['category_id'], 'is_end' => 0], '*', 0, 15, 'clicks DESC');
             $index = 1;
             foreach ($novelList as &$novel) {
-                $novel['is_top'] = ($index <= 3);
-                $novel['link_url'] = url('/novel/' . $novel['id']);
+                $novel['is_top'] = $index <= 3;
+                $novel['novelLink'] = url('/novel/' . $novel['novel_id']);
                 $novel['index'] = $index;
                 $index++;
             }

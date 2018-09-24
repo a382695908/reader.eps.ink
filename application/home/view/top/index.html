@@ -3,11 +3,11 @@
     <div class="block bd">
         <h2>小说总榜</h2>
         <ul class="tli">
-            {volist name="all_rank_list" id="novel"}
+            {volist name="allRankList" id="novel"}
             <li
             <?php if ($novel['is_top']) echo 'class="top"'; ?>>
             <em>{$novel.index}</em>
-            <a href="{$novel.link_url}">{$novel.name}</a>
+            <a href="{$novel.novelLink}">{$novel.novel_name}</a>
             <span class="rate">{$novel.category_name}</span>
             </li>
             {/volist}
@@ -15,14 +15,14 @@
     </div>
     {volist name="all_cat_rank_list" id="category"}
     <div class="block bd">
-        <h2>{$category.name}</h2>
+        <h2>{$category.category_name}</h2>
         <ul class="tli">
             {volist name="category['rank_list']" id="novel"}
             <li
             <?php if ($novel['is_top']) echo 'class="top"'; ?>>
             <em>{$novel.index}</em>
-            <a href="{$novel.link_url}" title="{$novel.name}">{$novel.name}</a>
-            <span class="rate">{$category.name}</span>
+            <a href="{$novel.novelLink}" title="{$novel.novel_name}">{$novel.novel_name}</a>
+            <span class="rate">{$category.category_name}</span>
             </li>
             {/volist}
         </ul>

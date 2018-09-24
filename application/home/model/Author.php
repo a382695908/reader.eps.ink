@@ -6,32 +6,26 @@ use think\Model;
 class Author extends Model
 {
     /**
-     * getAuthorByName
+     * 根据作者名查询一条作者记录
      * @Author: eps
      * @param $authorName
      * @return array|null|\PDOStatement|string|Model
      */
-    public function getAuthorByName($authorName)
+    public function getAuthorByAuthorName($authorName)
     {
-        $condition = [
-            'name' => $authorName
-        ];
-        $row = $this->where($condition)->find();
+        $row = $this->where('author_name', $authorName)->find();
         return (empty($row)) ? [] : $row;
     }
 
     /**
-     * getAuthorById
+     * 根据作者id查询一条作者记录
      * @Author: eps
      * @param $authorId
      * @return array|null|\PDOStatement|string|Model
      */
-    public function getAuthorById($authorId)
+    public function getAuthorByAuthorId($authorId)
     {
-        $condition = [
-            'id' => $authorId
-        ];
-        $row = $this->where($condition)->find();
+        $row = $this->where('author_id', $authorId)->find();
         return (empty($row)) ? [] : $row;
     }
 

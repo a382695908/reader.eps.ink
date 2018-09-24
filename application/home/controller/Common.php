@@ -19,21 +19,23 @@ use think\facade\Session;
 
 class Common extends Controller
 {
-    // 被我抓住了 那就不能给面子
+    // 机器人请求限制
     const ROBOT_REQUEST_TIMES = 50;
     const ROBOT_REQUEST_INTERVAL = 30;
 
-    // 没被我抓住, 那就给你点面子
+    // 正常请求限制
     const REQUEST_TIMES = 100;
     const REQUEST_INTERVAL = 60;
 
+    // 是否打开缓存
     const OPEN_CACHE = false;
 
+    // 构造方法
     public function __construct()
     {
         parent::__construct();
         $time = time();
-        $requestIp = getIp();
+        $requestIp = get_ip();
 
         // 黑名单ip
         $this->checkIsBlack($requestIp);
@@ -55,8 +57,10 @@ class Common extends Controller
         $this->initSession();
     }
 
+    // ----------  同包方法 ----------
+
     /**
-     * apiSuccess
+     * API响应成功
      * @Author: eps
      * @param $code
      * @param $message
@@ -74,7 +78,7 @@ class Common extends Controller
     }
 
     /**
-     * apiError
+     * API响应错误
      * @Author: eps
      * @param $code
      * @param $message
@@ -92,7 +96,7 @@ class Common extends Controller
     }
 
     /**
-     * setAccessDeny
+     * 设置拒绝访问
      * @Author: eps
      * @param null $ipBlackList
      * @param string $denyMessage
@@ -118,6 +122,11 @@ class Common extends Controller
         exit;
     }
 
+    /**
+     * 初始化前台页面的数据
+     * @Author: eps
+     * @return array
+     */
     protected function init_view()
     {
         // 获取小说分类信息
@@ -126,7 +135,7 @@ class Common extends Controller
             $categoryList = [];
         }
         foreach ($categoryList as &$category) {
-            $category['categoryLink'] = url('/category/' . $category['id']);
+            $category['categoryLink'] = url('/category/' . $category['category_id']);
         }
         unset($category);
         $this->assign('categoryList', $categoryList);
@@ -136,12 +145,19 @@ class Common extends Controller
         $friendLinks = $friendLinkModel->getFriendLinks();
         $this->assign('friendLinks', $friendLinks);
 
+        $this->assign('header', '读读读');
+
         return ['categoryList' => $categoryList, 'friendLinks' => $friendLinks];
     }
 
+    // ----------  私有方法 ----------
+
+    /**
+     * Session 初始化
+     * @Author: eps
+     */
     private function initSession()
     {
-        // Session 初始化
         if (!Session::get('categoryList')) {
             $categoryModel = new Category();
             $categoryList = $categoryModel->getCategorys()->toArray();
@@ -149,6 +165,11 @@ class Common extends Controller
         }
     }
 
+    /**
+     * 检查请求是否是黑名单
+     * @Author: eps
+     * @param $requestIp
+     */
     private function checkIsBlack($requestIp)
     {
         if (Session::get('assessDenied') == 1) {
@@ -176,6 +197,13 @@ class Common extends Controller
         }
     }
 
+    /**
+     * 检查请求限制
+     * @Author: eps
+     * @param $agent
+     * @param $time
+     * @param $requestIp
+     */
     private function checkReqestLimit($agent, $time, $requestIp)
     {
         // 请求限制
@@ -227,7 +255,11 @@ class Common extends Controller
         }
     }
 
-    // 处理网站访问
+    /**
+     * 处理网站访问信息
+     * @Author: eps
+     * @param $time
+     */
     private function doSiteVisit($time)
     {
         // 构造访问数据
@@ -263,6 +295,13 @@ class Common extends Controller
         }
     }
 
+    /**
+     * 处理网站访客信息
+     * @Author: eps
+     * @param $requestIp
+     * @param $agent
+     * @param $time
+     */
     private function doSiteVisitor($requestIp, $agent, $time)
     {
         // 收集请求信息

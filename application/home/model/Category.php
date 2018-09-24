@@ -7,7 +7,7 @@ use think\Model;
 class Category extends Model
 {
     /**
-     * getCategorys
+     * 查询所有分类
      * @Author: eps
      * @return array|\PDOStatement|string|\think\Collection
      */
@@ -24,47 +24,38 @@ class Category extends Model
     }
 
     /**
-     * getCategoryById
+     * 根据分类ID查询分类
      * @Author: eps
      * @param $categoryId
      * @return array|null|\PDOStatement|string|Model
      */
-    public function getCategoryById($categoryId)
+    public function getCategoryByCategoryId($categoryId)
     {
-        $condition = [
-            'id' => $categoryId
-        ];
-        $row = $this->where($condition)->find();
+        $row = $this->where('category_id', $categoryId)->find();
         return (empty($row)) ? [] : $row;
     }
 
     /**
-     * getCategoryByAlias
+     * 根据分类别名查询分类
      * @Author: eps
      * @param $categoryAlias
      * @return array|null|\PDOStatement|string|Model
      */
     public function getCategoryByAlias($categoryAlias)
     {
-        $condition = [
-            'alias' => $categoryAlias
-        ];
-        $row = $this->where($condition)->find();
+        $row = $this->where('category_alias', $categoryAlias)->find();
         return (empty($row)) ? [] : $row;
     }
 
     /**
-     * getCategoryByName
+     * 根据分类名查询分类
      * @Author: eps
      * @param $categoryName
      * @return array|null|\PDOStatement|string|Model
      */
     public function getCategoryByName($categoryName)
     {
-        $condition = [
-            'name' => $categoryName
-        ];
-        $row = $this->where($condition)->find();
+        $row = $this->where('category_name', $categoryName)->find();
         return (empty($row)) ? [] : $row;
     }
 

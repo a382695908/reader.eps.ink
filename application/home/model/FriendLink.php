@@ -15,7 +15,7 @@ use think\Model;
 class FriendLink extends Model
 {
     /**
-     * getFriendLinks
+     * 查询所有友情链接
      * @Author: eps
      * @return array|\PDOStatement|string|\think\Collection
      */

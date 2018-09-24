@@ -3,6 +3,7 @@ namespace app\home\model;
 
 use think\Model;
 
-class Bookcase extends Model {
+class Bookcase extends Model
+{
 
 }
