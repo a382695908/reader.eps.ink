@@ -9,8 +9,7 @@ for (let argv of argvList) {
         argv = argv.split('=');
         if (argv.length == 2) {
             params[argv[0]] = argv[1];
-        }
-        else if (argv.length == 1) {
+        } else if (argv.length == 1) {
             command = argv[0];
         }
     }
@@ -23,7 +22,7 @@ if (!command) {
 (function (e) {
     var t;
     for (t in e) {
-        return ;
+        return;
     }
     console.log('no argvs!');
     process.exit(0);
