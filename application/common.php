@@ -54,7 +54,7 @@ if (!function_exists('paginate')) {
      * @Author: eps
      * @return string
      */
-    function paginate($currentPage, $maxPage, $categoryId)
+    function paginate($currentPage, $maxPage, $categoryId = NULL)
     {
         $html = '';
 
@@ -62,15 +62,34 @@ if (!function_exists('paginate')) {
             $currentPage = $maxPage;
         }
 
-        $html = $html . ' <a class="a-btn" href="' . url('/category/' . $categoryId . '/page/1') . '">首页</a>';
+        if ($categoryId) {
+            $list = [
+                '/category/' . $categoryId . '/page/1', // 首页
+                '/category/' . $categoryId . '/page/' . ($currentPage - 1), // 上一页
+                '/category/' . $categoryId . '/page/', // 每一页
+                '/category/' . $categoryId . '/page/' . ($currentPage + 1), // 下一页
+                '/category/' . $categoryId . '/page/' . $maxPage // 尾页
+            ];
+        } else {
+            $list = [
+                '/full/page/1', // 首页
+                '/full/page/' . ($currentPage - 1), // 上一页
+                '/full/page/', // 每一页
+                '/full/page/' . ($currentPage + 1), // 下一页
+                '/full/page/' . $maxPage // 尾页
+            ];
+        }
+
+
+        $html = $html . ' <a class="a-btn" href="' . url($list[0]) . '">首页</a>';
         if ($currentPage >= 1) {
             if ($currentPage > 1) {
-                $html = $html . ' <a class="a-btn" href="' . url('/category/' . $categoryId . '/page/' . ($currentPage - 1)) . '">上一页</a>';
+                $html = $html . ' <a class="a-btn" href="' . url($list[1]) . '">上一页</a>';
             }
 
             if ($currentPage < 10) {
                 $startIndex = 1;
-                $endIndex = 10;
+                $endIndex = $maxPage < 10 ? $maxPage : 10;
             } else {
                 $startIndex = $currentPage - 5;
                 $endIndex = $currentPage + 5;
@@ -80,15 +99,15 @@ if (!function_exists('paginate')) {
                 if ($index == $currentPage) {
                     $html = $html . ' <b class="a-btn a-active">' . $index . '</b>';
                 } else {
-                    $html = $html . ' <a class="a-btn" href="' . url('/category/' . $categoryId . '/page/' . $index) . '">' . $index . '</a>';
+                    $html = $html . ' <a class="a-btn" href="' . url($list[2] . $index) . '">' . $index . '</a>';
                 }
             }
         }
 
         if ($maxPage > 1 && $currentPage < $maxPage) {
-            $html = $html . ' <a class="a-btn" style="width:50px;" href="' . url('/category/' . $categoryId . '/page/' . ($currentPage + 1)) . '">下一页</a>';
+            $html = $html . ' <a class="a-btn" style="width:50px;" href="' . url($list[3]) . '">下一页</a>';
         }
-        $html = $html . ' <a class="a-btn" href="' . url('/category/' . $categoryId . '/page/' . $maxPage) . '">尾页</a>';
+        $html = $html . ' <a class="a-btn" href="' . url($list[4]) . '">尾页</a>';
 
         return $html;
     }

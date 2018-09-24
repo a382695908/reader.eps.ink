@@ -145,6 +145,8 @@ class Common extends Controller
         $friendLinks = $friendLinkModel->getFriendLinks();
         $this->assign('friendLinks', $friendLinks);
 
+        $this->assign('header', '读读读');
+
         return ['categoryList' => $categoryList, 'friendLinks' => $friendLinks];
     }
 

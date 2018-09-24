@@ -22,18 +22,19 @@ class Novel extends Common
         $novelModel = new NovelModel();
         // 获取小说信息
         $novelId = intval($id);
-        $authorModel = new Author();
-        $novel = $novelModel->getNovelByWhere(['novel_id' => $novelId]);
-        $novel['authorName'] = $authorModel->getAuthorByAuthorId($novel['author'])['name'];
-        $novel['novelLink'] = url('/novel/' . $novel['id']);
-        foreach ($categoryList as $category) {
-            if ($novel['category'] == $category['id']) {
-                $novel['categoryName'] = $category['name'];
-                break;
-            }
+        $novel = $novelModel->getNovelsByJoin(
+            ['r_novel.novel_id' => $novelId],
+            'r_novel.*,author_name AS authorName,category_name AS categoryName',
+            1, 0
+        );
+        if (empty($novel)) {
+            die;
         }
+        $novel = $novel[0];
+        $novel['novelLink'] = url('/novel/' . $novel['novel_id']);
+
         $novel['stateText'] = $novel['is_end'] == 1 ? '已完结' : '连载中';
-        $novel['updateAt'] = date('Y-m-d H:i:s', $novel['updatetime']);
+        $novel['updateAt'] = date('Y-m-d H:i:s', $novel['update_time']);
 
         $chapterModel = new Chapter();
         $novel['latestChapterUrl'] = url('/chapter/' . $novel['latest_chapter_id']);
@@ -42,7 +43,7 @@ class Novel extends Common
 
         // 小说章节组信息
         $chapterGroupModel = new ChapterGroup();
-        $chapterGroupList = $chapterGroupModel->getChapterGroupsByWhere(['novel_id' => $novelId]);
+        $chapterGroupList = $chapterGroupModel->getChapterGroupsByWhere(['novel_id' => $novelId])->toArray();
         // 小说章节
         $chapterList = $chapterModel->getChaptersByWhere(['novel_id' => $novelId]);
         foreach ($chapterList as &$chapter) {
@@ -56,12 +57,12 @@ class Novel extends Common
             $chapter['chapterLink'] = url('/chapter/' . $chapter['chapter_id']);
         }
         unset($chapter);
-        $this->assign('last_chapter_list', $latestChapterList);
+        $this->assign('latestChapterList', $latestChapterList);
 
         // 以章节组ID将章节做分组
         foreach ($chapterGroupList as &$chapterGroup) {
             foreach ($chapterList as &$chapter) {
-                if ($chapter['chapter_group_id'] === $chapterGroup['chapter_id']) {
+                if ($chapter['chapter_group_id'] === $chapterGroup['chapter_group_id']) {
                     $chapterGroup['chapters'][] = $chapter;
                 }
             }

@@ -6,30 +6,30 @@
     <div class="path">
         <div class="p">
             <a href="/">读读读</a> &gt;
-            <a href="{$novel.link_url}">{$novel.name}</a>
+            <a href="{$novel.novelLink}">{$novel.novel_name}</a>
 
             <div style="float: right;">
                 <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()"
-                   data-novelid="{$novel.id}" onclick="addIntoBookCase()">加入书架</a>
+                   data-novelid="{$novel.novel_id}" onclick="addIntoBookCase()">加入书架</a>
                 <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()"
-                   data-novelid="{$novel.id}" onclick="recommendNovel()">推荐本书</a>
+                   data-novelid="{$novel.novel_id}" onclick="recommendNovel()">推荐本书</a>
             </div>
 
         </div>
     </div>
     <div class="info">
         <div class="cover">
-            <img src="{$novel.cover}" alt="{$novel.name}"/>
+            <img src="{$novel.cover}" alt="{$novel.novel_name}"/>
         </div>
-        <h2>{$novel.name}</h2>
+        <h2>{$novel.novel_name}</h2>
 
         <div class="small">
-            <span>作者：{$novel.author_name}</span>
-            <span>分类：{$novel.category_name}</span>
-            <span>状态：{$novel.state_text}</span>
+            <span>作者：{$novel.authorName}</span>
+            <span>分类：{$novel.categoryName}</span>
+            <span>状态：{$novel.stateText}</span>
             <span>字数：{$novel.words}</span>
             <span class="last">更新时间：{$novel.updateAt}</span>
-            <span class="last">最新章节：<a href="{$novel.last_chapter_url}">{$novel.last_chapter_name}</a></span>
+            <span class="last">最新章节：<a href="{$novel.latestChapterUrl}">{$novel.latestChapterName}</a></span>
         </div>
         <div class="intro">
             <span>简介：</span>
@@ -48,14 +48,14 @@
 
 <div class="listmain">
     <dl>
-        <dt>《{$novel.name}》最新章节</dt>
-        {volist name='last_chapter_list' id='item'}
-        <dd><a href="{$item.link_url}">{$item.name}</a></dd>
+        <dt>《{$novel.novel_name}》最新章节</dt>
+        {volist name='latestChapterList' id='item'}
+        <dd><a href="{$item.chapterLink}">{$item.chapter_name}</a></dd>
         {/volist}
-        {volist name='chapter_group_chapters' id='chapter_group'}
-        <dt>{$chapter_group.name}</dt>
+        {volist name='chapterGroupList' id='chapter_group'}
+        <dt>{$chapter_group.chapter_group_name}</dt>
         {volist name="chapter_group['chapters']" id='chapter'}
-        <dd><a href="{$chapter.link_url}">{$chapter.name}</a></dd>
+        <dd><a href="{$chapter.chapterLink}">{$chapter.chapter_name}</a></dd>
         {/volist}
         {/volist}
     </dl>

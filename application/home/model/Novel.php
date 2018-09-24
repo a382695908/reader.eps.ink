@@ -1,14 +1,10 @@
 <?php
 namespace app\home\model;
 
-use think\facade\Cache;
 use think\Model;
 
 class Novel extends Model
 {
-    // 是否打开缓存
-    const OPEN_CACHE = FALSE;
-
     /**
      * 根据小说ID查询小说
      * @Author: eps
@@ -19,42 +15,6 @@ class Novel extends Model
     {
         $row = $this->where('novel_id', $novelId)->find();
         return (empty($row)) ? [] : $row;
-    }
-
-    /**
-     * 根据条件查询小说
-     * @Author: eps
-     * @param array $where
-     * @param string $fields
-     * @return array|null|\PDOStatement|string|Model
-     */
-    public function getNovelByWhere($where = array(), $fields = '*')
-    {
-        $row = $this->field($fields)->where($where)->find();
-        return (empty($row)) ? [] : $row;
-    }
-
-    /**
-     * 根据作者ID查询小说
-     * @Author: eps
-     * @param $authorId
-     * @return array|null|\PDOStatement|string|Model
-     */
-    public function getNovelsByAuthorId($authorId)
-    {
-        $list = $this->where('author_id', $authorId)->select();
-        return (empty($list)) ? [] : $list;
-    }
-
-    /**
-     * 根据作者名查询小说
-     * @Author: eps
-     * @param $authorName
-     * @return array|null|\PDOStatement|string|Model
-     */
-    public function getNovelsByAuthorName($authorName)
-    {
-
     }
 
     /**
@@ -105,17 +65,8 @@ class Novel extends Model
      */
     public function getNovelsByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = 'id ASC')
     {
-        $list = $this->field($field)->where($condition)->order($orderBy)->limit($limit, $offset);
+        $list = $this->field($field)->where($condition)->order($orderBy)->limit($limit, $offset)->select();
         return (empty($list)) ? [] : $list;
-    }
-
-    /**
-     * TODO 查询所有已完结的小说
-     * @Author: eps
-     */
-    public function getClosedNovels()
-    {
-
     }
 
     /**
@@ -149,7 +100,11 @@ class Novel extends Model
      */
     public function getLatestCreatedNovelsByWhere($condition = array())
     {
-        return $this->getNovelsByJoin($condition, 'r_novel.*,author_name AS authorName,category_alias AS categoryAlias', 30, null, 'r_novel.create_time DESC');
+        return $this->getNovelsByJoin(
+            $condition,
+            'r_novel.*,author_name AS authorName,category_alias AS categoryAlias',
+            30,
+            null, 'r_novel.create_time DESC');
     }
 
     /**

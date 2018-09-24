@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta http-equiv="Cache-Control" content="no-transform"/>
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <meta http-equiv="mobile-agent" content="format=html5; url=http://m.shuquge.com"/>
-    <meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.shuquge.com"/>
-    <title>读读读</title>
-    <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
-</head>
-
+{include file="/header"}
 <body>
 
 <div class="header">
     <div class="wrap">
         <div class="logo">
-            <a href="/" title="读读读_读读读">读读读_读读读<em>{localhost}</em></a>
+            <a href="/" title="读读读_读读读">读读读_读读读</a>
         </div>
         <div class="search">
             <div class="form">
@@ -27,6 +16,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="nav">
     <ul>
@@ -44,17 +34,7 @@
 {__CONTENT__}
 </body>
 
-<div class="footer">
-    <div class="link">
-        {volist name="friendLinks" id="link"}
-        <a href="{$link.url}" target="_blank">{$link.name}</a>
-        {/volist}
-    </div>
-    <hr/>
-    <p>本站所有小说为转载作品，所有章节均由网友上传，转载至本站只是为了宣传本书让更多读者欣赏。</p>
-
-    <p>Copyright &copy; 2018 读读读 All Rights Reserved.</p>
-</div>
+{include file="/footer"}
 
 </body>
 

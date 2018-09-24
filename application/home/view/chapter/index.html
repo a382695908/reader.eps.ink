@@ -4,7 +4,7 @@
     <div class="path">
         <div class="p">
             <a href="/">读读读</a> &gt;
-            <a href="{$novel.link_url}">{$novel.name}</a> &gt;{$chapter.name}
+            <a href="{$novel.novelLink}">{$novel.novel_name}</a> &gt;{$chapter.chapter_name}
                 <span class="oninfo">
                     <div id="page_set">
                         <select onchange="setFont(0);" id="font" name="font">
@@ -86,29 +86,27 @@
                 </span>
 
             <div style="float: right;">
-                <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()"
-                   data-novelid="{$novel.id}" onclick="addIntoBookCase()">加入书架</a>
-                <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()"
-                   data-novelid="{$novel.id}" onclick="recommendNovel()">推荐本书</a>
+                <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()" data-novelid="{$novel.novel_id}" onclick="addIntoBookCase()">加入书架</a>
+                <a style="margin: 15px;padding: 5px;background-color: #459DF5;color:#ffffff;" href="javascript:void()" data-novelid="{$novel.novel_id}" onclick="recommendNovel()">推荐本书</a>
             </div>
         </div>
     </div>
     <div class="content">
-        <h1>{$chapter.name}</h1>
-        <!--<div class="link">-->
-        <!--<span>-->
-        <!--推荐阅读：-->
-        <!--<a href="http://www.shuquge.com/txt/71331/index.html">系统之长姐难为</a>-->
-        <!--<a href="http://www.shuquge.com/txt/73269/index.html">修真之我是女主</a>-->
-        <!--<a href="http://www.shuquge.com/txt/30668/index.html">修真聊天群</a>-->
-        <!--</span>-->
-        <!--</div>-->
+        <h1>{$chapter.chapter_name}</h1>
+        <div class="link">
+        <span>
+        推荐阅读：
+        <a href="http://www.shuquge.com/txt/71331/index.html">系统之长姐难为</a>
+        <a href="http://www.shuquge.com/txt/73269/index.html">修真之我是女主</a>
+        <a href="http://www.shuquge.com/txt/30668/index.html">修真聊天群</a>
+        </span>
+        </div>
         <div id="content" class="showtxt"><?php echo $chapter['content'];?></div>
         <div class="page_chapter">
             <ul>
-                <li><a href="17468919.html">上一章</a></li>
-                <li><a href="/txt/63542/index.html">返回目录</a></li>
-                <li><a href="/txt/63542/index.html">下一章</a></li>
+                <li><a href="{$lastChapterLink}">上一章</a></li>
+                <li><a href="{$novel.novelLink}">返回目录</a></li>
+                <li><a href="{$nextChapterLink}">下一章</a></li>
             </ul>
         </div>
     </div>

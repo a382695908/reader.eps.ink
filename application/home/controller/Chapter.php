@@ -24,9 +24,18 @@ class Chapter extends Common
 
         $novelModel = new Novel();
         $novel = $novelModel->getNovelByNovelId($chapter['novel_id']);
-        $novel['novelLink'] = url('/novel/' . $novel['id']);
+        $novel['novelLink'] = url('/novel/' . $novel['novel_id']);
         $this->assign('novel', $novel);
 
+        if ($novel['latest_chapter_id'] == $id) {
+            $nextChapterLink = $novel['novelLink'];
+        } else {
+            $nextChapterLink = url('/chapter/' . ($chapter['sort'] + 1));
+        }
+
+        $this->assign('nextChapterLink', $nextChapterLink);
+        $lastChapterLink = $chapter['sort'] > 1 ? url('/chapter/' . ($chapter['sort'] - 1)) : $novel['novelLink'];
+        $this->assign('lastChapterLink', $lastChapterLink);
         return $this->fetch();
     }
 

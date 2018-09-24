@@ -18,7 +18,7 @@ class Bookcase extends Common
         }
 
 //        $condition = array(
-//            'userid' => $user['id'],
+//            'userid' => $user['user_id'],
 //        );
         // select
         // $this->assign('bookcases', $xs);
@@ -56,10 +56,10 @@ class Bookcase extends Common
         // session('userinfo')
 
         // bookcase
-        $condition = array(
-            'xsid' => $id,
-            'userid' => $user['id'],
-        );
+//        $condition = array(
+//            'xsid' => $id,
+//            'userid' => $user['user_id'],
+//        );
         // find
         // save
     }
