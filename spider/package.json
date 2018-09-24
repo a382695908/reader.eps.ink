@@ -1,7 +1,7 @@
 {
   "name": "spider",
   "version": "1.0.0",
-  "description": "spider for project reader",
+  "description": "spider for reader.eps.ink",
   "main": "index.js",
   "scripts": {
     "test-home": "node index.js controller url=http://www.shuquge.com/",
