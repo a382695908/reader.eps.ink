@@ -1,5 +1,5 @@
 <?php
-namespace app\home\command;
+namespace app\admin\command;
 
 use app\home\model\Author;
 use app\home\model\Category;

@@ -10,5 +10,5 @@
 // +----------------------------------------------------------------------
 
 return [
-    'app\home\command\Spider',
+    'app\admin\command\Spider',
 ];

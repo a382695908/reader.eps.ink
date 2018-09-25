@@ -30,21 +30,6 @@ class Chapter extends Model
         return empty($row) ? '' : $row['chapter_name'];
     }
 
-    public function getChaptersByNovelId()
-    {
-
-    }
-
-    public function getChaptersByAuthorId($authorId, $field = '*', $limit = 0, $offset = null, $orderBy = 'sort ASC')
-    {
-
-    }
-
-    public function getChaptersByJoin($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = 'sort ASC')
-    {
-
-    }
-
     /**
      * 根据条件查询章节
      * @Author: eps
@@ -71,36 +56,5 @@ class Chapter extends Model
     {
 
     }
-
-    // === BackStage Method ===
-    public function addChapter($data = array())
-    {
-
-    }
-
-    public function addChapters($data = array())
-    {
-
-    }
-
-    public function updateChapterById($authorId, $data = array())
-    {
-
-    }
-
-    public function updateChapterByName($authorName, $data = array())
-    {
-
-    }
-
-    public function deleteChapterById($authorId)
-    {
-
-    }
-
-    public function deleteChaptersByWhere($condition = array())
-    {
-
-    }
-
+    
 }

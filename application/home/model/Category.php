@@ -24,18 +24,6 @@ class Category extends Model
     }
 
     /**
-     * 根据分类ID查询分类
-     * @Author: eps
-     * @param $categoryId
-     * @return array|null|\PDOStatement|string|Model
-     */
-    public function getCategoryByCategoryId($categoryId)
-    {
-        $row = $this->where('category_id', $categoryId)->find();
-        return (empty($row)) ? [] : $row;
-    }
-
-    /**
      * 根据分类别名查询分类
      * @Author: eps
      * @param $categoryAlias
@@ -57,51 +45,5 @@ class Category extends Model
     {
         $row = $this->where('category_name', $categoryName)->find();
         return (empty($row)) ? [] : $row;
-    }
-
-    public function getCategorysByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = '')
-    {
-
-    }
-
-    public function getCategorysLikeName($name = '', $field = '*', $limit = 0, $offset = null, $orderBy = '')
-    {
-
-    }
-
-    public function getCategorysLikeAlias($name = '', $field = '*', $limit = 0, $offset = null, $orderBy = '')
-    {
-
-    }
-
-    // === BackStage Method ===
-    public function addCategory($data = array())
-    {
-
-    }
-
-    public function addCategorys($data = array())
-    {
-
-    }
-
-    public function updateCategoryById($authorId, $data = array())
-    {
-
-    }
-
-    public function updateCategoryByName($authorName, $data = array())
-    {
-
-    }
-
-    public function deleteCategoryById($authorId)
-    {
-
-    }
-
-    public function deleteCategorysByWhere($condition = array())
-    {
-
     }
 }

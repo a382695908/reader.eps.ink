@@ -5,26 +5,6 @@ use think\Model;
 
 class ChapterGroup extends Model
 {
-    public function getChapterGroupById()
-    {
-
-    }
-
-    public function getChaptersByName()
-    {
-
-    }
-
-    public function getChaptersLikeName()
-    {
-
-    }
-
-    public function getChapterGroupByNovelId()
-    {
-
-    }
-
     /**
      * 根据条件查询章节组
      * @Author: eps
@@ -40,22 +20,4 @@ class ChapterGroup extends Model
         $list = $this->field($fields)->where($where)->order($orderBy)->limit($limit, $offset)->select();
         return empty($list) ? [] : $list;
     }
-
-    // === BackStage Method ===
-    public function addChapterGroup($data)
-    {
-
-    }
-
-    public function updateChapterGroup($data = array())
-    {
-
-    }
-
-    public function deleteChapterGroupByChapterGroupId($chapterGroupId)
-    {
-
-    }
-
-
 }

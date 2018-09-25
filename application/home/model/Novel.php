@@ -18,18 +18,6 @@ class Novel extends Model
     }
 
     /**
-     * 根据分类ID查询小说
-     * @Author: eps
-     * @param $categoryId
-     * @return array|\PDOStatement|string|\think\Collection
-     */
-    public function getNovelsByCategoryId($categoryId)
-    {
-        $novels = $this->where('category_id', $categoryId)->select();
-        return (empty($novels)) ? [] : $novels;
-    }
-
-    /**
      * 通过联结分类表和作者表查询小说
      * @Author: eps
      * @param array $condition
@@ -133,35 +121,16 @@ class Novel extends Model
         return $this->getNovelsByJoin(['is_end' => 0, 'is_hot' => 1], 'r_novel.*,author_name AS authorName,category_alias AS categoryAlias', 9, 0, 'clicks DESC');
     }
 
-    // === BackStage Method ===
+
     public function addNovel($data = array())
     {
         $data['create_time'] = time();
         return $this->insert($data, true, true);
     }
 
-    public function updateNovel($data = array(), $where = array()) {
+    public function updateNovel($data = array(), $where = array())
+    {
         $data['update_time'] = time();
         return $this->update($data, $where);
-    }
-
-    public function updateNovelById($authorId, $data = array())
-    {
-
-    }
-
-    public function updateNovelByName($authorName, $data = array())
-    {
-
-    }
-
-    public function deleteNovelById($authorId)
-    {
-
-    }
-
-    public function deleteNovelsByWhere($condition = array())
-    {
-
     }
 }
