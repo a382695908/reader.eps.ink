@@ -51,19 +51,11 @@ class Spider extends Command
             $authorRaw = $authorModel->getAuthorByAuthorName($value['authorName']);
             $novelRaw = $novelModel->getNovelByWhere(['novel_name' => $value['novelName']]);
 
-            if (
-                $authorRaw
-                && $novelRaw
-                && $novelRaw['author_id'] == $authorRaw['author_id']
-            ) {
-                continue;
-            }
-
             $novelModel->startTrans();
             // 作者ID
-            $authorId = $authorRaw ? $authorRaw['author_id'] : 0;
-            if (!$authorRaw) {
-                $authorId = $authorModel->insert(['author_name' => $value['authorName']]);
+            $authorId = $authorRaw ? $authorRaw['author_id'] : NULL;
+            if (!$authorRaw && $value['authorName']) {
+                $authorId = $authorModel->insert(['author_name' => $value['authorName']], true, true);
             }
 
             $insertData = [];
@@ -80,22 +72,12 @@ class Spider extends Command
                 ];
             }
 
-            // TODO 出现了同名小说不同作者的情况.... 那就,,,那先就什么也不做
-            if (
-                $authorRaw
-                && $novelRaw
-                && $novelRaw['author_id'] != $authorRaw['author_id']
-            ) {
-
-            }
-
             if (!empty($insertData)) {
-                $insertData['create_time'] = $time;
-                $novelId = $novelModel->insert($insertData);
+                $novelId = $novelModel->addNovel($insertData);
             }
             if (!empty($updateData)) {
-                $updateData['update_time'] = $time;
-                $bool = $novelModel->update($updateData, ['novel_id' => $novelRaw['novel_id']]);
+                $updateData['is_hotest'] = 1;
+                $bool = $novelModel->updateNovel($updateData, ['novel_id' => $novelRaw['novel_id']]);
             }
 
             $novelModel->commit();
@@ -110,20 +92,11 @@ class Spider extends Command
             $novelRaw = $novelModel->getNovelByWhere(['novel_name' => $value['novelName']]);
             $categoryRaw = $categoryModel->getCategoryByAlias($value['categoryAlias']);
 
-            if (
-                $authorRaw
-                && $novelRaw
-                && $novelRaw['author_id'] == $authorRaw['author_id']
-                && $novelRaw['category_id'] == $categoryRaw['category_id']
-            ) {
-                continue;
-            }
-
             $novelModel->startTrans();
             // 作者ID
-            $authorId = $authorRaw ? $authorRaw['author_id'] : 0;
-            if (!$authorRaw) {
-                $authorId = $authorModel->insert(['author_name' => $value['authorName']]);
+            $authorId = $authorRaw ? $authorRaw['author_id'] : NULL;
+            if (!$authorRaw && $value['authorName']) {
+                $authorId = $authorModel->insert(['author_name' => $value['authorName']], true, true);
             }
 
             $insertData = [];
@@ -139,38 +112,77 @@ class Spider extends Command
                 ];
             }
 
-            // TODO 出现了同名小说不同作者的情况.... 那就,,,那先就什么也不做
-            if (
-                $authorRaw
-                && $novelRaw
-                && $novelRaw['author_id'] != $authorRaw['author_id']
-            ) {
-
-            }
-
-            if ($novelRaw && $novelRaw['category_id'] != $categoryRaw['category_id']) {
-                $updateData = [
-                    'category_id' => $categoryRaw['category_id'],
-                    'is_hot' => 1,
-                ];
+            if ($novelRaw && !$novelRaw['category_id']) {
+                $updateData['category_id'] = $categoryRaw['category_id'];
             }
 
             if (!empty($insertData)) {
-                $insertData['create_time'] = $time;
-                $novelId = $novelModel->insert($insertData);
+                $novelId = $novelModel->addNovel($insertData);
             }
             if (!empty($updateData)) {
-                $updateData['update_time'] = $time;
-                $bool = $novelModel->update($updateData, ['novel_id' => $novelRaw['novel_id']]);
+                $updateData['is_hot'] = 1;
+                $bool = $novelModel->updateNovel($updateData, ['novel_id' => $novelRaw['novel_id']]);
             }
 
             $novelModel->commit();
         }
         unset($value);
 
-//        categoryNovel
+        // 分类下的小说
+        $time = time();
+        foreach ($jsonData['categoryNovel'] as &$value) {
+            // 查询是否已存在该小说
+            $authorRaw = $authorModel->getAuthorByAuthorName($value['authorName']);
+            $novelRaw = $novelModel->getNovelByWhere(['novel_name' => $value['novelName']]);
+            $categoryRaw = $categoryModel->getCategoryByCategoryName($value['categoryName']);
+
+            $novelModel->startTrans();
+            // 作者ID
+            $authorId = $authorRaw ? $authorRaw['author_id'] : NULL;
+            if (!$authorRaw && $value['authorName']) {
+                $authorId = $authorModel->insert(['author_name' => $value['authorName']], true, true);
+            }
+
+            $insertData = [];
+            $updateData = [];
+
+            if (!$novelRaw) {
+                $insertData = [
+                    'author_id' => $authorId,
+                    'category_id' => $categoryRaw['category_id'],
+                    'novel_name' => $value['novelName'],
+                    'from_url' => $value['novelLink'],
+                    'is_hot' => 1,
+                    'introduction' => $value['desc'] ?: '',
+                    'cover' => $value['novelImg'] ?: '',
+                ];
+            }
+
+            if ($novelRaw && !$novelRaw['category_id']) {
+                $updateData['category_id'] = $categoryRaw['category_id'];
+            }
+            if ($novelRaw && !$novelRaw['author_id'] && $authorId) {
+                $updateData['author_id'] = $authorId;
+            }
+            if ($novelRaw && !$novelRaw['cover'] && $value['novelImg']) {
+                $updateData['cover'] = $value['novelImg'];
+            }
+            if ($novelRaw && !$novelRaw['introduction'] && $value['desc']) {
+                $updateData['introduction'] = $value['desc'];
+            }
+
+            if (!empty($insertData)) {
+                $novelId = $novelModel->addNovel($insertData);
+            }
+            if (!empty($updateData)) {
+                $bool = $novelModel->updateNovel($updateData, ['novel_id' => $novelRaw['novel_id']]);
+            }
+
+            $novelModel->commit();
+        }
+        unset($value);
+
 //        latestUpdateNovel
 //        latestAddNovel
-
     }
 }

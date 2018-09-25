@@ -53,7 +53,7 @@ class Category extends Model
      * @param $categoryName
      * @return array|null|\PDOStatement|string|Model
      */
-    public function getCategoryByName($categoryName)
+    public function getCategoryByCategoryName($categoryName)
     {
         $row = $this->where('category_name', $categoryName)->find();
         return (empty($row)) ? [] : $row;
