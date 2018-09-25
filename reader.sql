@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-09-24 15:27:47
+Date: 2018-09-25 13:40:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -59,86 +59,84 @@ CREATE TABLE `r_author` (
   `author_name` varchar(50) NOT NULL COMMENT '作者名',
   PRIMARY KEY (`author_id`),
   UNIQUE KEY `author_name` (`author_name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COMMENT='作者表';
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COMMENT='作者表';
 
 -- ----------------------------
 -- Records of r_author
 -- ----------------------------
-INSERT INTO `r_author` VALUES ('30', '6号鼠标');
+INSERT INTO `r_author` VALUES ('39', '6号鼠标');
 INSERT INTO `r_author` VALUES ('48', 'cuslaa');
-INSERT INTO `r_author` VALUES ('18', '一剑清新');
-INSERT INTO `r_author` VALUES ('42', '严七官');
-INSERT INTO `r_author` VALUES ('24', '中华娇子大熊猫');
+INSERT INTO `r_author` VALUES ('47', '严七官');
+INSERT INTO `r_author` VALUES ('30', '中华娇子大熊猫');
 INSERT INTO `r_author` VALUES ('69', '九尾玄龟');
+INSERT INTO `r_author` VALUES ('19', '乱');
 INSERT INTO `r_author` VALUES ('31', '争斤论两花花帽');
-INSERT INTO `r_author` VALUES ('22', '任我笑');
-INSERT INTO `r_author` VALUES ('10', '农夫一拳');
+INSERT INTO `r_author` VALUES ('41', '会说话的肘子');
+INSERT INTO `r_author` VALUES ('29', '写字板');
+INSERT INTO `r_author` VALUES ('66', '农夫一拳');
+INSERT INTO `r_author` VALUES ('21', '冬日之阳');
 INSERT INTO `r_author` VALUES ('9', '净无痕');
-INSERT INTO `r_author` VALUES ('56', '北国之鸟');
-INSERT INTO `r_author` VALUES ('73', '十年狂欢');
-INSERT INTO `r_author` VALUES ('67', '半世散人');
-INSERT INTO `r_author` VALUES ('41', '叫天');
-INSERT INTO `r_author` VALUES ('28', '叱咤风云');
-INSERT INTO `r_author` VALUES ('75', '咖啡香味');
-INSERT INTO `r_author` VALUES ('49', '嗷世巅锋');
+INSERT INTO `r_author` VALUES ('59', '北国之鸟');
+INSERT INTO `r_author` VALUES ('76', '十年狂欢');
+INSERT INTO `r_author` VALUES ('49', '叫天');
+INSERT INTO `r_author` VALUES ('23', '唐家三少');
+INSERT INTO `r_author` VALUES ('50', '嗷世巅锋');
 INSERT INTO `r_author` VALUES ('5', '圣骑士的传说(书坊)');
-INSERT INTO `r_author` VALUES ('47', '地黄丸');
-INSERT INTO `r_author` VALUES ('38', '夜十三');
-INSERT INTO `r_author` VALUES ('72', '天妒遗计');
+INSERT INTO `r_author` VALUES ('51', '地黄丸');
+INSERT INTO `r_author` VALUES ('37', '夜十三');
+INSERT INTO `r_author` VALUES ('75', '天妒遗计');
 INSERT INTO `r_author` VALUES ('2', '天蚕土豆');
-INSERT INTO `r_author` VALUES ('13', '妖夜');
-INSERT INTO `r_author` VALUES ('51', '孑与2');
-INSERT INTO `r_author` VALUES ('17', '孤单地飞');
-INSERT INTO `r_author` VALUES ('23', '寒刀客');
-INSERT INTO `r_author` VALUES ('68', '小小鲤鱼王');
-INSERT INTO `r_author` VALUES ('15', '张家三叔');
+INSERT INTO `r_author` VALUES ('24', '宅猪');
+INSERT INTO `r_author` VALUES ('28', '寒刀客');
+INSERT INTO `r_author` VALUES ('71', '小小鲤鱼王');
 INSERT INTO `r_author` VALUES ('4', '忘语');
 INSERT INTO `r_author` VALUES ('3', '我吃西红柿');
-INSERT INTO `r_author` VALUES ('66', '我是贝币');
-INSERT INTO `r_author` VALUES ('32', '无冬夜');
-INSERT INTO `r_author` VALUES ('14', '无敌小贝');
-INSERT INTO `r_author` VALUES ('70', '明月地上霜');
-INSERT INTO `r_author` VALUES ('40', '更俗');
-INSERT INTO `r_author` VALUES ('54', '木士');
-INSERT INTO `r_author` VALUES ('12', '极地风刃');
+INSERT INTO `r_author` VALUES ('27', '无妄虫灾');
+INSERT INTO `r_author` VALUES ('68', '明月地上霜');
+INSERT INTO `r_author` VALUES ('58', '晒着太阳的猫');
+INSERT INTO `r_author` VALUES ('40', '晨星LL');
+INSERT INTO `r_author` VALUES ('56', '木士');
+INSERT INTO `r_author` VALUES ('73', '机器人布里茨');
+INSERT INTO `r_author` VALUES ('16', '极地风刃');
+INSERT INTO `r_author` VALUES ('25', '梦朝南');
 INSERT INTO `r_author` VALUES ('44', '流浪的猴');
-INSERT INTO `r_author` VALUES ('63', '浙三爷');
-INSERT INTO `r_author` VALUES ('52', '浮梦流年');
-INSERT INTO `r_author` VALUES ('20', '淡淡竹君');
-INSERT INTO `r_author` VALUES ('61', '清风天使');
-INSERT INTO `r_author` VALUES ('36', '潇潇清枫');
-INSERT INTO `r_author` VALUES ('29', '潇铭');
-INSERT INTO `r_author` VALUES ('19', '烽火戏诸侯');
-INSERT INTO `r_author` VALUES ('46', '牧尘客');
-INSERT INTO `r_author` VALUES ('45', '王大忽悠');
-INSERT INTO `r_author` VALUES ('25', '王小蛮');
-INSERT INTO `r_author` VALUES ('33', '皇家雇佣猫');
-INSERT INTO `r_author` VALUES ('65', '礼祐');
-INSERT INTO `r_author` VALUES ('55', '秦弄月');
-INSERT INTO `r_author` VALUES ('26', '突刺');
-INSERT INTO `r_author` VALUES ('39', '糖醋于');
-INSERT INTO `r_author` VALUES ('7', '耳东水寿');
+INSERT INTO `r_author` VALUES ('55', '浮梦流年');
+INSERT INTO `r_author` VALUES ('10', '淡淡竹君');
+INSERT INTO `r_author` VALUES ('32', '潇铭');
+INSERT INTO `r_author` VALUES ('6', '烽火戏诸侯');
+INSERT INTO `r_author` VALUES ('52', '牧尘客');
+INSERT INTO `r_author` VALUES ('54', '王大忽悠');
+INSERT INTO `r_author` VALUES ('35', '皇家雇佣猫');
+INSERT INTO `r_author` VALUES ('67', '礼祐');
+INSERT INTO `r_author` VALUES ('64', '秦弄月');
+INSERT INTO `r_author` VALUES ('33', '糖醋于');
+INSERT INTO `r_author` VALUES ('22', '耳东水寿');
 INSERT INTO `r_author` VALUES ('1', '耳根');
-INSERT INTO `r_author` VALUES ('21', '良心');
-INSERT INTO `r_author` VALUES ('37', '花都大少');
-INSERT INTO `r_author` VALUES ('35', '莫辰子');
-INSERT INTO `r_author` VALUES ('11', '莫默');
-INSERT INTO `r_author` VALUES ('58', '落尘');
-INSERT INTO `r_author` VALUES ('6', '裴屠狗');
-INSERT INTO `r_author` VALUES ('27', '许轩陌');
-INSERT INTO `r_author` VALUES ('64', '轻语江湖');
-INSERT INTO `r_author` VALUES ('50', '长不大的肥猫');
-INSERT INTO `r_author` VALUES ('74', '阡之陌一');
-INSERT INTO `r_author` VALUES ('43', '雨天下雨');
-INSERT INTO `r_author` VALUES ('71', '青烟一夜');
-INSERT INTO `r_author` VALUES ('57', '风雨白鸽');
+INSERT INTO `r_author` VALUES ('26', '良心');
+INSERT INTO `r_author` VALUES ('38', '花都大少');
+INSERT INTO `r_author` VALUES ('18', '莫默');
+INSERT INTO `r_author` VALUES ('63', '落尘');
+INSERT INTO `r_author` VALUES ('70', '蝴蝶蓝');
+INSERT INTO `r_author` VALUES ('8', '裴屠狗');
+INSERT INTO `r_author` VALUES ('77', '轻泉流响');
+INSERT INTO `r_author` VALUES ('11', '轻语江湖');
+INSERT INTO `r_author` VALUES ('20', '辰东');
+INSERT INTO `r_author` VALUES ('74', '那一只蚊子');
+INSERT INTO `r_author` VALUES ('46', '长不大的肥猫');
+INSERT INTO `r_author` VALUES ('45', '雨天下雨');
+INSERT INTO `r_author` VALUES ('42', '零九二五');
+INSERT INTO `r_author` VALUES ('72', '青烟一夜');
+INSERT INTO `r_author` VALUES ('53', '青玉狮子');
+INSERT INTO `r_author` VALUES ('17', '风一色');
+INSERT INTO `r_author` VALUES ('61', '风雨白鸽');
+INSERT INTO `r_author` VALUES ('36', '飞天鱼');
 INSERT INTO `r_author` VALUES ('60', '骑马钓鱼');
-INSERT INTO `r_author` VALUES ('53', '高月');
-INSERT INTO `r_author` VALUES ('8', '高楼大厦');
+INSERT INTO `r_author` VALUES ('43', '高月');
+INSERT INTO `r_author` VALUES ('7', '高楼大厦');
 INSERT INTO `r_author` VALUES ('34', '黄枫雨天');
 INSERT INTO `r_author` VALUES ('62', '黑乎乎的老妖');
-INSERT INTO `r_author` VALUES ('16', '黑色枷锁');
-INSERT INTO `r_author` VALUES ('59', '龙人');
+INSERT INTO `r_author` VALUES ('57', '龙人');
+INSERT INTO `r_author` VALUES ('65', '龙飞有妖气');
 
 -- ----------------------------
 -- Table structure for r_bookcase
@@ -204,6 +202,7 @@ CREATE TABLE `r_chapter` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `from_url` varchar(255) NOT NULL DEFAULT '' COMMENT '来源链接',
   PRIMARY KEY (`chapter_id`),
   KEY `novel_id` (`novel_id`) USING BTREE,
   KEY `chapter_group_id` (`chapter_group_id`) USING BTREE,
@@ -212,12 +211,11 @@ CREATE TABLE `r_chapter` (
   CONSTRAINT `r_chapter_ibfk1` FOREIGN KEY (`novel_id`) REFERENCES `r_novel` (`novel_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `r_chapter_ibfk2` FOREIGN KEY (`chapter_group_id`) REFERENCES `r_chapter_group` (`chapter_group_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `r_chapter_ibfk3` FOREIGN KEY (`author_id`) REFERENCES `r_author` (`author_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='小说章节表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='小说章节表';
 
 -- ----------------------------
 -- Records of r_chapter
 -- ----------------------------
-INSERT INTO `r_chapter` VALUES ('1', '1', '1', '1', '写在连载前', '&nbsp;&nbsp;&nbsp;&nbsp;亲爱的读者大大们，说心里话，我现在心里既激动，又难过。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;激动的是，你们又可以登上我的小车，在我这个粉嫩帅气00后司机的行驶中，带你们去体验故事里的跌宕起伏，惊心动魄。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;至于难过的是……我的假期没了……我的心好痛，需要安慰。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;不过我也休息够了，感觉全身上下都精力充沛，充满了码字的力量，很多时候一想到新书，就不吐不快。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;更是想念我最最最最亲爱的读者小哥哥，读者小姐姐们，来，抱一下吧。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;然后再向大家汇报一下这几个月我的生活，假期这段时间，我是拼了老命减肥，现在看到镜子里的自己，我都觉得，天啊，此人好帅，他是谁……\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;咳咳，你们想知道我的独门减肥秘诀么？\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;同时，这段日子，我在休息之余，也在完善新书的思路，新书对我来说，是一次很大很大的挑战，我始终在考虑，仙侠小说如何能开出不同的花朵。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;我曾经在之前的多本书里，加入了很多元素，也取得了一些成绩，可心里总是觉得，有些不大满意，我认为仙侠小说，是可以写出更好，更精彩，甚至不同背景的故事。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;背景这两个字，请大家划重点……\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;现在已经准备很充分了，这一次的新书，我觉得很满意，尤其是故事里的主人公，你们明天就会知道，他是如何的与众不同……\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;也会明白，我为了这本书，付出了多大的努力与辛酸，现在想想，为了写这本书，我真是拼了老命啊。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;友情提醒，明天开始，出现高能，请大家系好安全带……\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;我们，明天中午12点，见！\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;最后，一念永恒的外传，我之前是发在了公众微信号里，有读者没看过，我在下面发一下。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;差点忘了喊一句，求收藏啊！！！！减肥秘诀换收藏！！！！！\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;####\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;岁月悠悠，一晃而过。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;永恒灵界星光璀璨，一百零八万族群繁荣昌盛，一代代强者辈出，太古也好，主宰也罢，纷纷如雨后春笋一般，在各自的时代里，成为明亮的而星辰。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;尤其是永恒仙域，更是这无尽星辰中最特殊，也是最明亮的一颗。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;白小纯的故事，已经化作了传说，随着多年后他带着亲人朋友离开了永恒仙域，他曾经的往事，在这永恒灵界内已然成为了神话，哪怕多年过去，也依旧时常别人提起，那一段时光的辉煌，似乎从某种程度上，就已经代表了永恒灵界巅峰的历史。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;没有人知道白小纯去了什么地方，只能从一些当年魁皇朝留下的典籍里找到一些蛛丝马迹，似乎当年的记录者，隐隐的告诉世人，白小纯以及他的亲人，朋友，去了一个没有人知道的地方，在那里过着幸福快乐的生活。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;这段典籍里的内容，被世人认可，接受，在整个永恒灵界内，哪怕到了现在，也都还是被所有人这么认为。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;同时每一代，都有修士试图去寻找白小纯，试图去追寻当年的历史，去亲眼看一看，曾经的最强者。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;只是无论是谁，都无法找到白小纯以及他亲人朋友的痕迹。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;此刻，在永恒灵界之外，那是一片苍茫的星空，存在了无尽的雾气，看不清太远，只能看到在那星空的尘雾内，隐隐有一个身影，正一脸感慨，甚至还带着一些激动，飞速前行。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“我终于……终于逃出来了！！”这身影看起来是个青年，白白嫩嫩，穿着一身白袍，此刻似很振奋，就仿佛从笼子里飞出，拥抱了自由的小鸟……\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“她们太过分了，我就是太实在，太老实了，不然怎么会被这么欺负！”这青年长叹一声，只是他虽看似白嫩，可目中的机灵，使得他看起来虽不是蔫坏，可也绝对不是一个老实人。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;此人，正是白小纯。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;在典籍里，当年他居住在永恒仙域一段岁月后，带着亲人朋友离去，过着幸福快乐的生活，实际上虽也是如此，可时间长了后，白小纯的性子，他有些受不了，尤其是宋君婉、周紫陌、侯小妹、公孙婉儿还有杜凌菲众女对他这里，看管之严，已经到了让白小纯觉得发指的程度……\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“她们不让任何女子和我说话，更不让我一个人外出，居然说我走到哪里，就会祸害到哪里，担心我将家里都祸害崩溃了……这也罢了，就连炼丹，也都不允许！”\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“我白小纯是那种人么！”\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“不让我和女子说话可以，不让我出去玩我也忍了，不让我炼丹我也戒了，可都老夫老妻了，她们居然还时而争吵，尤其是还哄不好，讲不出道理，一个架能抄一千年……”白小纯愤愤，一想到宋君婉等人争论一件事情未果，全部看向自己，让自己选择谁对时的目光，白小纯就要抓狂。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“还是逃出来清净啊……趁着大年三十，她们都在忙，我赶紧逃出去溜达溜达。”白小纯感慨中，飞速前行，他已经想好了，这一次出来，一定要好好散散心。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;感慨中，白小纯速度飞快，每一步落下，都是跨越时空，他的目标已经选好，正是小乌龟的来源之地，未央道域。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;可就在他要踏入未央道域的瞬间，白小纯忽然神色一动，看向右侧，似在那苍茫雾气里，有所发现。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“第四步的气息……不对，这上面还有第五步的道韵！”白小纯眨了眨眼，右手抬起在那苍茫中一抓，瞬间就有一道长虹从雾气内刹那飞来，直接就落在了白小纯的手中。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;那是一个瓶子，准确说的，是一个漂流瓶。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;在这苍茫星空内，不知漂流了多久，直至方才白小纯路过时察觉，将其取来。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“有点意思。”白小纯眨了眨眼，看着手中的漂流瓶，打开后仔细一看，发现里面居然有一张纸条。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;带着好奇，白小纯将这纸条取出，打开一看，顿时乐了。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“这是谁写的啊，要成为有钱人？”白小纯正笑时，忽然神色一动，只见这纸条上竟有一丝丝因果升起，好似要与白小纯连在一起的样子。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;这一幕，让白小纯眼睛睁大，左手掐诀立刻斩断因果。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“这家伙太坏了啊，这是谁啊，他的道居然蕴含了因果，只要碰到这纸条，就会无形之中如给他写下欠条一般，在因果上欠他钱！！”白小纯神色古怪，看了看纸条后，哼了一声。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“想钱想疯了啊！”嘀咕了一句后，白小纯索性大手一挥，在这纸条上，用自己的道，在那句发财字迹的后面，添加了一句。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“发财有什么好的，长生才是最重要的！我要长生！”\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;写完后，正要塞入漂流瓶内，白小纯忽然犹豫了一下，重新打开纸条，在自己那句后面，又加了一句。\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“只找一个道侣！”\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;做完这些，白小纯心满意足，想着以后若是还有人看到这个漂流瓶，听从自己规劝的样子，他就觉得自己也算是将人生经历告诉了后来者，小袖一甩，将这漂流瓶扔入苍茫后，身体一晃，带着得意，直奔未央道域！\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;“有机会遇到那个穷疯了的家伙，一定要好好和他理论一下！居然敢让我欠他钱？我送他一嘴发情致幻丹！”\r\n<br>\r\n<br>&nbsp;&nbsp;&nbsp;&nbsp;#####\r\n<br>', '0', '0', '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for r_chapter_group
@@ -233,12 +231,11 @@ CREATE TABLE `r_chapter_group` (
   KEY `sort` (`sort`),
   KEY `novel_id` (`novel_id`),
   CONSTRAINT `r_chapter_group_ibfk2` FOREIGN KEY (`novel_id`) REFERENCES `r_novel` (`novel_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='小说章节组表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='小说章节组表';
 
 -- ----------------------------
 -- Records of r_chapter_group
 -- ----------------------------
-INSERT INTO `r_chapter_group` VALUES ('1', '《三寸人间》正文卷', '1', '1537770334', '0');
 
 -- ----------------------------
 -- Table structure for r_feedback
@@ -284,8 +281,8 @@ INSERT INTO `r_friend_link` VALUES ('2', '胡荣的博客', 'http://www.eps.ink'
 DROP TABLE IF EXISTS `r_novel`;
 CREATE TABLE `r_novel` (
   `novel_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '小说id',
-  `author_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '作者id',
-  `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类id',
+  `author_id` int(11) unsigned DEFAULT NULL COMMENT '作者id',
+  `category_id` int(11) unsigned DEFAULT NULL COMMENT '分类id',
   `latest_chapter_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最近更新章节id',
   `novel_name` varchar(50) NOT NULL COMMENT '小说名',
   `cover` varchar(255) NOT NULL DEFAULT '' COMMENT '封面',
@@ -302,18 +299,97 @@ CREATE TABLE `r_novel` (
   `is_recommend` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐小说',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `from_url` varchar(255) NOT NULL DEFAULT '' COMMENT '来源链接',
   PRIMARY KEY (`novel_id`),
   KEY `category_id` (`category_id`) USING BTREE,
   KEY `author_id` (`author_id`),
   KEY `create_time` (`create_time`) USING BTREE,
   CONSTRAINT `r_novel_ibfk1` FOREIGN KEY (`author_id`) REFERENCES `r_author` (`author_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `r_novel_ibfk2` FOREIGN KEY (`category_id`) REFERENCES `r_category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='小说表';
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8mb4 COMMENT='小说表';
 
 -- ----------------------------
 -- Records of r_novel
 -- ----------------------------
-INSERT INTO `r_novel` VALUES ('1', '1', '2', '1', '三寸人间', 'http://www.shuquge.com/files/article/image/63/63542/63542s.jpg', '举头三尺无神明，掌心三寸是人间。这是耳根继《仙逆》《求魔》《我欲封天》《一念永恒》后，创作的第五部长篇小说《三寸人间》。', '0', '0', '0', '0', '0', '0', '0', '1', '1', '1', '1537770334', '0');
+INSERT INTO `r_novel` VALUES ('80', '1', '2', '0', '三寸人间', 'http://www.shuquge.com/files/article/image/63/63542/63542s.jpg', '举头三尺无神明，掌心三寸是人间。这是耳根继《仙逆》《求魔》《我欲封天》《一念永恒》后，创作的第五部长篇小说《三寸人间》。', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '1537851725', '1537851726', 'http://www.shuquge.com/txt/63542/index.html');
+INSERT INTO `r_novel` VALUES ('81', '2', '1', '0', '元尊', 'http://www.shuquge.com/files/article/image/5/5809/5809s.jpg', '吾有一口玄黄气，可吞天地日月星。天蚕土豆最新鼎力大作，2017年度必看玄幻小说。', '0', '0', '0', '0', '0', '0', '0', '1', '1', '0', '1537851726', '1537851726', 'http://www.shuquge.com/txt/5809/index.html');
+INSERT INTO `r_novel` VALUES ('82', '3', '2', '0', '飞剑问道', 'http://www.shuquge.com/files/article/image/8/8072/8072s.jpg', '在这个世界，有狐仙、河神、水怪、大妖，也有求长生的修行者。    修行者们，    开法眼，可看妖魔鬼怪。    炼一口飞剑，可千里杀敌。    千里眼、顺风耳，更可探查四方。    ……    秦府二公子‘秦云’，便是一位修行者……', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '1537851726', '1537851726', 'http://www.shuquge.com/txt/8072/index.html');
+INSERT INTO `r_novel` VALUES ('83', '4', '2', '0', '凡人修仙传仙界篇', 'http://www.shuquge.com/files/article/image/8/8400/8400s.jpg', '凡人修仙，风云再起时空穿梭，轮回逆转金仙太乙，大罗道祖三千大道，法则至尊《凡人修仙传》仙界篇，一个韩立叱咤仙界的故事，一个凡人小子修仙的不灭传说。', '0', '0', '0', '0', '0', '0', '0', '1', '1', '0', '1537851726', '1537851726', 'http://www.shuquge.com/txt/8400/index.html');
+INSERT INTO `r_novel` VALUES ('84', '5', '3', '0', '修真聊天群', 'http://www.shuquge.com/files/article/image/30/30668/30668s.jpg', '某天，宋书航意外加入了一个仙侠中二病资深患者的交流群，里面的群友们都以‘道友’相称，群名片都是各种府主、洞主、真人、天师。连群主走失的宠物犬都称为大妖犬离家出走。整天聊的是炼丹、闯秘境、炼功经验啥的。\n    突然有一天，潜水良久的他突然发现……群里每一个群员，竟然全部是修真者，能移山倒海、长生千年的那种！\n    啊啊啊啊，世界观在一夜间彻底崩碎啦！', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '1537851727', 'http://www.shuquge.com/txt/30668/index.html');
+INSERT INTO `r_novel` VALUES ('85', '6', '1', '0', '剑来', 'http://www.shuquge.com/files/article/image/8/8659/8659s.jpg', '大千世界，无奇不有。我陈平安，唯有一剑，可搬山，倒海，降妖，镇魔，敕神，摘星，断江，摧城，开天！', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '1537851726', 'http://www.shuquge.com/txt/8659/index.html');
+INSERT INTO `r_novel` VALUES ('86', '7', '1', '0', '太初', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/9255/index.html');
+INSERT INTO `r_novel` VALUES ('87', '8', '7', '0', '诸天投影', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/81791/index.html');
+INSERT INTO `r_novel` VALUES ('88', '9', '1', '0', '伏天氏', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/8279/index.html');
+INSERT INTO `r_novel` VALUES ('89', '10', '2', '0', '木仙传', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/78930/index.html');
+INSERT INTO `r_novel` VALUES ('90', '11', '6', '0', '奶爸的异界餐厅', 'http://www.shuquge.com/files/article/image/79/79077/79077s.jpg', '诺兰大陆的混乱之城中，有着一家奇怪的餐厅。在这里，精灵要和矮人拼桌，兽人被严禁喧哗，巨龙只能围坐在餐厅前的小广场上，恶魔甚至需要自己带特制的凳子……但就是这么一家规矩奇葩的餐厅，门口却每天都排着长队。    精灵们不顾仪态的撸串，巨龙们握着漏勺围坐在火锅前，恶魔们吃着可爱的团子……    “这里的美食在大陆上找不到第二家！这个老板是个天才！”有客人这样评价，然后偷偷看了一眼门口的的方向：“还有，千万别想着抓走老板或者吃霸王餐，不然你会死的很惨。”    “吃饭，给钱，不然通通打死。”一个可爱的小萝莉在门口', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '1537851728', 'http://www.shuquge.com/txt/79077/index.html');
+INSERT INTO `r_novel` VALUES ('91', '16', '1', '0', '都市至强者降临', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/75724/index.html');
+INSERT INTO `r_novel` VALUES ('92', '17', '1', '0', '绝世药神', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/76118/index.html');
+INSERT INTO `r_novel` VALUES ('93', '18', '1', '0', '武炼巅峰', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/248/index.html');
+INSERT INTO `r_novel` VALUES ('94', '19', '1', '0', '全职法师', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/17684/index.html');
+INSERT INTO `r_novel` VALUES ('95', '20', '1', '0', '圣墟', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/72929/index.html');
+INSERT INTO `r_novel` VALUES ('96', '21', '1', '0', '崛起诸天', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/80454/index.html');
+INSERT INTO `r_novel` VALUES ('97', '22', '1', '0', '民调局异闻录之勉传', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/53240/index.html');
+INSERT INTO `r_novel` VALUES ('98', '23', '1', '0', '琴帝', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/74825/index.html');
+INSERT INTO `r_novel` VALUES ('99', '24', '1', '0', '牧神记', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/73779/index.html');
+INSERT INTO `r_novel` VALUES ('100', '1', '2', '0', '仙逆', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/74671/index.html');
+INSERT INTO `r_novel` VALUES ('101', '25', '2', '0', '都市之少年仙尊', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/80111/index.html');
+INSERT INTO `r_novel` VALUES ('102', '26', '2', '0', '反套路快穿', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851726', '0', 'http://www.shuquge.com/txt/78748/index.html');
+INSERT INTO `r_novel` VALUES ('103', '3', '2', '0', '莽荒纪', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/343/index.html');
+INSERT INTO `r_novel` VALUES ('104', '27', '2', '0', '天才传说', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/9187/index.html');
+INSERT INTO `r_novel` VALUES ('105', '9', '2', '0', '太古神王', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/13306/index.html');
+INSERT INTO `r_novel` VALUES ('106', '28', '2', '0', '江湖奇功录', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/79041/index.html');
+INSERT INTO `r_novel` VALUES ('107', '29', '2', '0', '天神学院', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/78790/index.html');
+INSERT INTO `r_novel` VALUES ('108', '30', '2', '0', '细胞修神', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/74966/index.html');
+INSERT INTO `r_novel` VALUES ('109', '31', '3', '0', '我的1979', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/58724/index.html');
+INSERT INTO `r_novel` VALUES ('110', '32', '3', '0', '近身狂兵', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/29752/index.html');
+INSERT INTO `r_novel` VALUES ('111', '33', '3', '0', '仙药供应商', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/73894/index.html');
+INSERT INTO `r_novel` VALUES ('112', '34', '3', '0', '我的冰山总裁老婆', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/67262/index.html');
+INSERT INTO `r_novel` VALUES ('113', '35', '3', '0', '重塑人生三十年', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/75712/index.html');
+INSERT INTO `r_novel` VALUES ('114', '36', '3', '0', '万古神帝', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/33476/index.html');
+INSERT INTO `r_novel` VALUES ('115', '37', '3', '0', '特种兵在都市之诡刃', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/80976/index.html');
+INSERT INTO `r_novel` VALUES ('116', '38', '3', '0', '极品全能学生', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/35077/index.html');
+INSERT INTO `r_novel` VALUES ('117', '39', '3', '0', '重生之超级银行系统', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/76138/index.html');
+INSERT INTO `r_novel` VALUES ('118', '40', '3', '0', '我在末世有套房', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/25294/index.html');
+INSERT INTO `r_novel` VALUES ('119', '41', '3', '0', '大王饶命', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/76106/index.html');
+INSERT INTO `r_novel` VALUES ('120', '42', '3', '0', '天庭小狱卒', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/67529/index.html');
+INSERT INTO `r_novel` VALUES ('121', null, '4', '0', '楚臣', 'http://www.shuquge.com/files/article/image/74/74433/74433s.jpg', '唐季既没，诸侯崛起，天佑帝起于草莽之间，于江淮地区创立楚国已经十二年，与占据中原的梁国以及占据河东、幽燕地区的晋国，成为当世最为强大的三大霸主，天下征战不休、民不聊生……早年，天佑帝为制衡手握重权的大将及地方上的节度使们，在朝堂之上扶持皇后徐氏一脉的外戚势力，但到天佑十二年间，外戚势力也尾大不掉，成为危及帝朝统治的大弊。    【更俗的书迷世界，俗人部落VIP群：385122373，微信公众号：gengsu1979】', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/74433/index.html');
+INSERT INTO `r_novel` VALUES ('122', '43', '4', '0', '大宋超级学霸', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/42553/index.html');
+INSERT INTO `r_novel` VALUES ('123', '44', '4', '0', '重生之战神吕布', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/79296/index.html');
+INSERT INTO `r_novel` VALUES ('124', '45', '4', '0', '山沟皇帝', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851727', '0', 'http://www.shuquge.com/txt/73627/index.html');
+INSERT INTO `r_novel` VALUES ('125', '46', '4', '0', '三国之我是袁术', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/80303/index.html');
+INSERT INTO `r_novel` VALUES ('126', '47', '4', '0', '绝对荣誉', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/76964/index.html');
+INSERT INTO `r_novel` VALUES ('127', '48', '4', '0', '宰执天下', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/1647/index.html');
+INSERT INTO `r_novel` VALUES ('128', '49', '4', '0', '崇祯聊天群', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/74686/index.html');
+INSERT INTO `r_novel` VALUES ('129', '50', '4', '0', '红楼名侦探', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/75180/index.html');
+INSERT INTO `r_novel` VALUES ('130', '51', '4', '0', '寒门贵子', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/38135/index.html');
+INSERT INTO `r_novel` VALUES ('131', '52', '4', '0', '帝国吃相', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/81377/index.html');
+INSERT INTO `r_novel` VALUES ('132', '53', '4', '0', '乱清', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/1265/index.html');
+INSERT INTO `r_novel` VALUES ('133', '54', '4', '0', '新特工学生', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/74243/index.html');
+INSERT INTO `r_novel` VALUES ('134', null, '5', '0', '极灵混沌决', 'http://www.shuquge.com/files/article/image/41/41188/41188s.jpg', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/41188/index.html');
+INSERT INTO `r_novel` VALUES ('135', '55', '5', '0', '劫天运', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/38478/index.html');
+INSERT INTO `r_novel` VALUES ('136', '43', '5', '0', '三国之兵临天下', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/42828/index.html');
+INSERT INTO `r_novel` VALUES ('137', '56', '5', '0', '情天可补', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/42939/index.html');
+INSERT INTO `r_novel` VALUES ('138', '57', '5', '0', '魔兽战神', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/58449/index.html');
+INSERT INTO `r_novel` VALUES ('139', '58', '5', '0', '绝世狂神', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/44292/index.html');
+INSERT INTO `r_novel` VALUES ('140', '59', '5', '0', '阴阳师秘录', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/37745/index.html');
+INSERT INTO `r_novel` VALUES ('141', '60', '5', '0', '麻衣神算子', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/39016/index.html');
+INSERT INTO `r_novel` VALUES ('142', '61', '5', '0', '侠盗神医', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/58490/index.html');
+INSERT INTO `r_novel` VALUES ('143', '62', '5', '0', '网游之剑走偏锋', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/64126/index.html');
+INSERT INTO `r_novel` VALUES ('144', '63', '5', '0', '无上传承', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/41956/index.html');
+INSERT INTO `r_novel` VALUES ('145', '64', '5', '0', '国师重生之都市风水师', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/73228/index.html');
+INSERT INTO `r_novel` VALUES ('146', '65', '5', '0', '黄河古事', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/34092/index.html');
+INSERT INTO `r_novel` VALUES ('147', '66', '6', '0', '海贼：厌世之歌', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/75773/index.html');
+INSERT INTO `r_novel` VALUES ('148', '67', '6', '0', '时崎狂三的位面之旅', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/75881/index.html');
+INSERT INTO `r_novel` VALUES ('149', '68', '6', '0', '我修的可能是假仙', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/73528/index.html');
+INSERT INTO `r_novel` VALUES ('150', '69', '6', '0', '最强齐天大圣', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/75907/index.html');
+INSERT INTO `r_novel` VALUES ('151', '70', '6', '0', '王者时刻', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/6149/index.html');
+INSERT INTO `r_novel` VALUES ('152', '71', '6', '0', '宠物小精灵之全球在线', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/75036/index.html');
+INSERT INTO `r_novel` VALUES ('153', '72', '6', '0', '网游之神级炼妖师', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/75850/index.html');
+INSERT INTO `r_novel` VALUES ('154', '73', '6', '0', '英雄联盟之决胜巅峰', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851728', '0', 'http://www.shuquge.com/txt/44935/index.html');
+INSERT INTO `r_novel` VALUES ('155', '74', '6', '0', '轮回乐园', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851729', '0', 'http://www.shuquge.com/txt/73988/index.html');
+INSERT INTO `r_novel` VALUES ('156', '75', '6', '0', '火影神树之果在异界', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851729', '0', 'http://www.shuquge.com/txt/75346/index.html');
+INSERT INTO `r_novel` VALUES ('157', '76', '6', '0', '网游之逍遥派大弟子', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851729', '0', 'http://www.shuquge.com/txt/70209/index.html');
+INSERT INTO `r_novel` VALUES ('158', '77', '6', '0', '宠物小精灵之庭树', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1537851729', '0', 'http://www.shuquge.com/txt/74820/index.html');
 
 -- ----------------------------
 -- Table structure for r_todo
@@ -382,13 +458,14 @@ CREATE TABLE `r_visit` (
   `date` tinyint(3) unsigned NOT NULL COMMENT '星期几',
   `visit` int(10) unsigned NOT NULL COMMENT '访问量',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='网站访问记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='网站访问记录表';
 
 -- ----------------------------
 -- Records of r_visit
 -- ----------------------------
 INSERT INTO `r_visit` VALUES ('1', '2018', '9', '23', '7', '22');
-INSERT INTO `r_visit` VALUES ('2', '2018', '9', '24', '1', '264');
+INSERT INTO `r_visit` VALUES ('2', '2018', '9', '24', '1', '328');
+INSERT INTO `r_visit` VALUES ('3', '2018', '9', '25', '2', '14');
 
 -- ----------------------------
 -- Table structure for r_visitor
@@ -417,7 +494,7 @@ CREATE TABLE `r_visitor` (
 -- ----------------------------
 -- Records of r_visitor
 -- ----------------------------
-INSERT INTO `r_visitor` VALUES ('1', '0', '127.0.0.1', '0', '1', '0', 'Chrome', 'WebKit', 'Windows', '10.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36', '1537713221', '0', '1537774036', '1799dadf9a79ff6a597220e5d7d48f2b', '286');
+INSERT INTO `r_visitor` VALUES ('1', '0', '127.0.0.1', '0', '1', '0', 'Chrome', 'WebKit', 'Windows', '10.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36', '1537713221', '0', '1537851761', '1799dadf9a79ff6a597220e5d7d48f2b', '364');
 
 -- ----------------------------
 -- Table structure for r_wx_pay_log
