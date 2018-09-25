@@ -78,7 +78,7 @@ class Index extends Common
         }
         unset($novel);
         $this->assign('latestCreatedNovels', $latestCreatedNovels);
-        return $this->fetch();
+        return $this->fetch('home@index/index');
     }
 
     /**

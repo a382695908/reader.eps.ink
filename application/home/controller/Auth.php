@@ -9,13 +9,13 @@ class Auth extends Common
     public function login_view()
     {
         $this->init_view();
-        return $this->fetch('login');
+        return $this->fetch('home@auth/login');
     }
 
     public function register_view()
     {
         $this->init_view();
-        return $this->fetch('register');
+        return $this->fetch('home@auth/register');
     }
 
     /**

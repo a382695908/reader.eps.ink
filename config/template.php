@@ -33,6 +33,6 @@ return [
     // 标签库标签结束标记
     'taglib_end' => '}',
 
-    'layout_on' => true,
-    'layout_name' => 'layout'
+//    'layout_on' => true,
+//    'layout_name' => 'layout'
 ];
