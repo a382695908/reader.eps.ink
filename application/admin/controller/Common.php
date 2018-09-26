@@ -49,7 +49,7 @@ class Common extends Controller
     protected function checkValidToken($token, $time)
     {
         if (!Session::get('is_login')) {
-            return $this->apiError(AppCode::ADMIN_IS_LOGIN);
+            return $this->apiError(AppCode::ADMIN_NO_LOGIN);
         }
         if (!is_string($token)) {
             return $this->apiError(AppCode::TOKEN_TYPE_ERROR);
@@ -64,11 +64,11 @@ class Common extends Controller
         if ($time !== Session::get('login_time')) {
             return $this->apiError(AppCode::LOGIN_TIME_MATCH_FAIL);
         }
-        // 如果超出一小时
-        if ($time > Session::get('login_time') + 3600) {
-            Session::clear();
-            Session::destroy();
-            return $this->apiError(AppCode::LOGIN_TIME_OVER_TIME);
-        }
+        // TODO 如果超出一小时 (暂时不打开)
+//        if ($time > Session::get('login_time') + 3600) {
+//            Session::clear();
+//            Session::destroy();
+//            return $this->apiError(AppCode::LOGIN_TIME_OVER_TIME);
+//        }
     }
 }

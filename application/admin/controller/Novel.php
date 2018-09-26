@@ -7,6 +7,7 @@
 namespace app\admin\controller;
 
 use app\home\model\Novel as NovelModel;
+use app\admin\model\AppCode;
 use think\facade\Request;
 
 class Novel extends Common
@@ -18,7 +19,7 @@ class Novel extends Common
         parent::__construct();
         $this->req = Request::instance();
         if (!$this->req->isAjax()) {
-            return $this->apiError(1, '非ajax请求!');
+            return $this->apiError(AppCode::IS_NOT_AJAX);
         }
     }
 

@@ -1,7 +1,9 @@
 <?php
 namespace app\admin\controller;
 
+use app\admin\model\AppCode;
 use think\facade\Request;
+use app\admin\model\Category as CategoryModel;
 
 class Category extends Common
 {
@@ -12,7 +14,7 @@ class Category extends Common
         parent::__construct();
         $this->req = Request::instance();
         if (!$this->req->isAjax()) {
-            return $this->apiError(1, '非ajax请求!');
+            return $this->apiError(AppCode::IS_NOT_AJAX);
         }
     }
 
@@ -23,7 +25,9 @@ class Category extends Common
      */
     public function categorys()
     {
-        return $this->apiSuccess(0, '查询成功', $categoryList);
+        $categoryModel = new CategoryModel();
+        $categoryList = $categoryModel->getCategorysByWhere();
+        return $this->apiSuccess(AppCode::OK, $categoryList);
     }
 
     /**
@@ -33,7 +37,9 @@ class Category extends Common
      */
     public function category()
     {
-        return $this->apiSuccess(0, '查询成功', $category);
+        $categoryModel = new CategoryModel();
+        $category = $categoryModel->getCategoryByWhere();
+        return $this->apiSuccess(AppCode::OK, $category);
     }
 
     /**
@@ -42,6 +48,8 @@ class Category extends Common
      */
     public function edit_category()
     {
-
+        $categoryModel = new CategoryModel();
+        $bool = $categoryModel->updateCategoryByWhere();
+        return $this->apiSuccess(AppCode::UPDATE_OK);
     }
 }

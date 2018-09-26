@@ -6,8 +6,9 @@
  */
 namespace app\admin\controller;
 
-use app\home\model\Novel;
+use app\admin\model\AppCode;
 use think\facade\Request;
+use app\admin\model\Chapter as ChapterModel;
 
 class Chapter extends Common
 {
@@ -18,7 +19,7 @@ class Chapter extends Common
         parent::__construct();
         $this->req = Request::instance();
         if (!$this->req->isAjax()) {
-            return $this->apiError(1, '非ajax请求!');
+            return $this->apiError(AppCode::IS_NOT_AJAX);
         }
     }
 
@@ -29,7 +30,9 @@ class Chapter extends Common
      */
     public function chapters()
     {
-        return $this->apiSuccess(0, '查询成功', $chapterList);
+        $chapterModel = new ChapterModel();
+        $chapterList = $chapterModel->getCategorysByWhere();
+        return $this->apiSuccess(AppCode::OK, $chapterList);
     }
 
     /**
@@ -39,7 +42,9 @@ class Chapter extends Common
      */
     public function chapter()
     {
-        return $this->apiSuccess(0, '查询成功', $chapter);
+        $chapterModel = new ChapterModel();
+        $chapter = $chapterModel->getCategoryByWhere();
+        return $this->apiSuccess(AppCode::OK, $chapter);
     }
 
     /**
@@ -48,6 +53,7 @@ class Chapter extends Common
      */
     public function edit_chapter()
     {
-
+        $chapterModel = new ChapterModel();
+        $bool = $chapterModel->updateCategoryByWhere();
     }
 }

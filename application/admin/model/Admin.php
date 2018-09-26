@@ -7,9 +7,6 @@ class Admin extends Model
 {
     public function getAdminByAccount($account)
     {
-        if (empty($account)) {
-            return false;
-        }
         $row = $this->where('account', $account)->find();
         return empty($row) ? [] : $row;
     }

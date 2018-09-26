@@ -1,13 +1,9 @@
 <?php
-/**
- * NAME: Novel.php
- * Author: eps
- * DateTime: 9/25/2018 11:44 PM
- */
 namespace app\admin\controller;
 
-use app\home\model\Novel;
+use app\admin\model\AppCode;
 use think\facade\Request;
+use app\admin\model\Author as AuthorModel;
 
 class Author extends Common
 {
@@ -18,7 +14,7 @@ class Author extends Common
         parent::__construct();
         $this->req = Request::instance();
         if (!$this->req->isAjax()) {
-            return $this->apiError(1, '非ajax请求!');
+            return $this->apiError(AppCode::IS_NOT_AJAX);
         }
     }
 
@@ -29,7 +25,9 @@ class Author extends Common
      */
     public function authors()
     {
-        return $this->apiSuccess(0, '查询成功', $authorList);
+        $authorModel = new AuthorModel();
+        $authorList = $authorModel->getAuthorsByWhere();
+        return $this->apiSuccess(AppCode::OK, $authorList);
     }
 
     /**
@@ -39,7 +37,9 @@ class Author extends Common
      */
     public function author()
     {
-        return $this->apiSuccess(0, '查询成功', $author);
+        $authorModel = new AuthorModel();
+        $author = $authorModel->getAuthorByWhere();
+        return $this->apiSuccess(AppCode::OK, $author);
     }
 
     /**
@@ -48,6 +48,8 @@ class Author extends Common
      */
     public function edit_author()
     {
-
+        $authorModel = new AuthorModel();
+        $bool = $authorModel->updateAuthorByWhere();
+        return $this->apiSuccess(AppCode::UPDATE_OK);
     }
 }

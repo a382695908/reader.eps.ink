@@ -27,7 +27,7 @@ class Auth extends Common
     public function login()
     {
         if (Session::get('is_login')) {
-            return $this->apiError(AppCode::ADMIN_IS_LOGIN);
+            return $this->apiError(AppCode::ADMIN_HAD_LOGIN);
         }
 
         $account = $this->req->post('account');
@@ -50,7 +50,7 @@ class Auth extends Common
         }
 
         $logModel = new Log();
-        $logModel->log_login($admin['admin_id'], ['ip' => $this->req->ip()]);
+        $logModel->logLogin($admin['admin_id'], ['ip' => $this->req->ip()]);
 
         $time = time();
         $adminModel->updateByAdminId($admin['admin_id'], ['login_time' => $time]);
@@ -63,7 +63,7 @@ class Auth extends Common
         Session::set('user_token', $data['user_token']);
         Session::set('login_time', $time);
 
-        return $this->apiSuccess(0, '查询成功', $data);
+        return $this->apiSuccess(AppCode::LOGIN_OK, $data);
     }
 
     /**
@@ -75,11 +75,11 @@ class Auth extends Common
     {
         $this->checkValidToken($this->req->post('user_token'), $this->req->post('login_time'));
         if (!Session::get('is_login')) {
-            return $this->apiError(-1, '请求错误!');
+            return $this->apiError(AppCode::ADMIN_NO_LOGIN);
         }
         Session::clear();
         Session::destroy();
-        return $this->apiSuccess(1, '退出成功!');
+        return $this->apiSuccess(AppCode::EXIT_OK);
     }
 
 

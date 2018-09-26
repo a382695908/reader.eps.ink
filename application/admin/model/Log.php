@@ -5,13 +5,7 @@ use think\Model;
 
 class Log extends Model
 {
-    public function addLog($data = array())
-    {
-        $data['create_time'] = time();
-        return $this->insert($data, false, true);
-    }
-
-    public function log_login($adminId, $data)
+    public function logLogin($adminId, $data)
     {
         if (!$adminId) {
             return false;
@@ -22,6 +16,6 @@ class Log extends Model
             'operate_data' => json_encode($data),
             'create_time' => time(),
         ];
-        return $this->addLog($logData);
+        return $this->insert($logData, false, true);
     }
 }

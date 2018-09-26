@@ -11,9 +11,20 @@ class Novel extends Model
         return $this->insert($data, true, true);
     }
 
-    public function updateNovel($data = array(), $where = array())
+    public function getNovelsByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = 'novel_id ASC')
     {
-        $data['update_time'] = time();
-        return $this->update($data, $where);
+        $list = $this->field($field)->where($condition)->order($orderBy)->limit($limit, $offset)->select();
+        return (empty($list)) ? [] : $list;
+    }
+
+    public function getNovelByWhere($condition = array(), $field = '*')
+    {
+        $row = $this->field($field)->where($condition)->find();
+        return (empty($row)) ? [] : $row;
+    }
+
+    public function updateNovelByWhere($condition = array(), $data = array())
+    {
+        return $this->update($data, $condition);
     }
 }
