@@ -46,7 +46,7 @@ Route::post('/sponsor', '@home/feedBack/sponsor');
 
 
 // ---- 后台 ----
-
+Route::post('/admin/api/login', '@admin/auth/login');
 Route::get('/admin/api/novels', '@admin/novel/novels');
 Route::get('/admin/api/novel', '@admin/novel/novel');
 

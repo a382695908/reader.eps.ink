@@ -1,13 +1,11 @@
 <?php
-/**
- * NAME: Novel.php
- * Author: eps
- * DateTime: 9/25/2018 11:44 PM
- */
 namespace app\admin\controller;
 
-use app\home\model\Novel;
+use app\admin\model\Admin;
+use app\admin\model\Log;
+use app\admin\model\AppCode;
 use think\facade\Request;
+use think\facade\Session;
 
 class Auth extends Common
 {
@@ -18,18 +16,70 @@ class Auth extends Common
         parent::__construct();
         $this->req = Request::instance();
         if (!$this->req->isAjax()) {
-            return $this->apiError(1, '非ajax请求!');
+            return $this->apiError(AppCode::IS_NOT_AJAX);
         }
     }
 
+    /**
+     * 登录
+     * @Author: eps
+     */
     public function login()
     {
+        if (Session::get('is_login')) {
+            return $this->apiError(AppCode::ADMIN_IS_LOGIN);
+        }
 
+        $account = $this->req->post('account');
+        $password = $this->req->post('password');
+
+        if (!is_string($account) || !is_string($password)) {
+            return $this->apiError(AppCode::LOGIN_PARAM_TYPE_ERROR);
+        }
+        if (empty($account) || empty($password)) {
+            return $this->apiError(AppCode::LOGIN_PARAM_EMPTY);
+        }
+
+        $adminModel = new Admin();
+        $admin = $adminModel->getAdminByAccount($account);
+        if (empty($admin)) {
+            return $this->apiError(AppCode::ADMIN_NOT_EXISTS);
+        }
+        if (!password_verify($password, $admin['password'])) {
+            return $this->apiError(AppCode::PASSWORD_MATCH_FAIL);
+        }
+
+        $logModel = new Log();
+        $logModel->log_login($admin['admin_id'], ['ip' => $this->req->ip()]);
+
+        $time = time();
+        $adminModel->updateByAdminId($admin['admin_id'], ['login_time' => $time]);
+
+        $data = [
+            'user_token' => md5($admin['admin_id'] . $time),
+            'login_time' => $time,
+        ];
+        Session::set('is_login', 1);
+        Session::set('user_token', $data['user_token']);
+        Session::set('login_time', $time);
+
+        return $this->apiSuccess(0, '查询成功', $data);
     }
 
+    /**
+     * 退出
+     * @Author: eps
+     * @return \think\response\Json
+     */
     public function logout()
     {
-
+        $this->checkValidToken($this->req->post('user_token'), $this->req->post('login_time'));
+        if (!Session::get('is_login')) {
+            return $this->apiError(-1, '请求错误!');
+        }
+        Session::clear();
+        Session::destroy();
+        return $this->apiSuccess(1, '退出成功!');
     }
 
 

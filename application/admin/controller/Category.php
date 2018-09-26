@@ -1,12 +1,6 @@
 <?php
-/**
- * NAME: Novel.php
- * Author: eps
- * DateTime: 9/25/2018 11:44 PM
- */
 namespace app\admin\controller;
 
-use app\home\model\Novel;
 use think\facade\Request;
 
 class Category extends Common

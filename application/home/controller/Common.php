@@ -69,12 +69,7 @@ class Common extends Controller
      */
     protected function apiSuccess($code, $message, $data = [])
     {
-        $responseData = [
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
-        return json($responseData);
+        return json(['code' => $code, 'message' => $message, 'data' => $data]);
     }
 
     /**
@@ -87,12 +82,7 @@ class Common extends Controller
      */
     protected function apiError($code, $message, $data = [])
     {
-        $responseData = [
-            'code' => $code,
-            'message' => $message,
-            'data' => $data
-        ];
-        return json($responseData);
+        return json(['code' => $code, 'message' => $message, 'data' => $data]);
     }
 
     /**

@@ -53,6 +53,9 @@ class Auth extends Common
      */
     public function logout()
     {
+        if (!Session::get('userinfo')) {
+            return $this->apiError(-1, '请求错误!');
+        }
         Session::clear();
         Session::destroy();
         return $this->apiSuccess(1, '退出成功!');
