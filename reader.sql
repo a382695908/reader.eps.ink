@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-09-25 13:40:36
+Date: 2018-09-28 13:38:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,35 +20,19 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `r_admin`;
 CREATE TABLE `r_admin` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `account` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `salt` varchar(10) NOT NULL,
-  `avatar` varchar(255) NOT NULL,
-  `nickname` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='后台管理员表';
+  `admin_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '管理员ID',
+  `account` varchar(50) NOT NULL COMMENT '管理员账号',
+  `password` varchar(80) NOT NULL COMMENT '管理员密码',
+  `avatar` varchar(255) NOT NULL COMMENT '管理员头像',
+  `nickname` varchar(30) NOT NULL COMMENT '管理员昵称',
+  `login_time` int(11) unsigned NOT NULL COMMENT '登录时间',
+  PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='后台管理员表';
 
 -- ----------------------------
 -- Records of r_admin
 -- ----------------------------
-
--- ----------------------------
--- Table structure for r_admin_login_log
--- ----------------------------
-DROP TABLE IF EXISTS `r_admin_login_log`;
-CREATE TABLE `r_admin_login_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) unsigned NOT NULL,
-  `login_time` int(11) NOT NULL DEFAULT '0' COMMENT '登录时间',
-  `login_place` varchar(50) NOT NULL COMMENT '登录地点',
-  `login_ip` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='登录日志表';
-
--- ----------------------------
--- Records of r_admin_login_log
--- ----------------------------
+INSERT INTO `r_admin` VALUES ('1', 'reader.eps.ink', '$2y$10$BNd/.HDngSIj7GaKvb.OY.I0wQU4LcaSK8POrj0BRydg8rpTX03kq', '', 'admin', '1537974053');
 
 -- ----------------------------
 -- Table structure for r_author
@@ -57,86 +41,89 @@ DROP TABLE IF EXISTS `r_author`;
 CREATE TABLE `r_author` (
   `author_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '作者id',
   `author_name` varchar(50) NOT NULL COMMENT '作者名',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`author_id`),
-  UNIQUE KEY `author_name` (`author_name`) USING BTREE
+  UNIQUE KEY `author_name` (`author_name`) USING BTREE,
+  KEY `create_time` (`create_time`)
 ) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COMMENT='作者表';
 
 -- ----------------------------
 -- Records of r_author
 -- ----------------------------
-INSERT INTO `r_author` VALUES ('39', '6号鼠标');
-INSERT INTO `r_author` VALUES ('48', 'cuslaa');
-INSERT INTO `r_author` VALUES ('47', '严七官');
-INSERT INTO `r_author` VALUES ('30', '中华娇子大熊猫');
-INSERT INTO `r_author` VALUES ('69', '九尾玄龟');
-INSERT INTO `r_author` VALUES ('19', '乱');
-INSERT INTO `r_author` VALUES ('31', '争斤论两花花帽');
-INSERT INTO `r_author` VALUES ('41', '会说话的肘子');
-INSERT INTO `r_author` VALUES ('29', '写字板');
-INSERT INTO `r_author` VALUES ('66', '农夫一拳');
-INSERT INTO `r_author` VALUES ('21', '冬日之阳');
-INSERT INTO `r_author` VALUES ('9', '净无痕');
-INSERT INTO `r_author` VALUES ('59', '北国之鸟');
-INSERT INTO `r_author` VALUES ('76', '十年狂欢');
-INSERT INTO `r_author` VALUES ('49', '叫天');
-INSERT INTO `r_author` VALUES ('23', '唐家三少');
-INSERT INTO `r_author` VALUES ('50', '嗷世巅锋');
-INSERT INTO `r_author` VALUES ('5', '圣骑士的传说(书坊)');
-INSERT INTO `r_author` VALUES ('51', '地黄丸');
-INSERT INTO `r_author` VALUES ('37', '夜十三');
-INSERT INTO `r_author` VALUES ('75', '天妒遗计');
-INSERT INTO `r_author` VALUES ('2', '天蚕土豆');
-INSERT INTO `r_author` VALUES ('24', '宅猪');
-INSERT INTO `r_author` VALUES ('28', '寒刀客');
-INSERT INTO `r_author` VALUES ('71', '小小鲤鱼王');
-INSERT INTO `r_author` VALUES ('4', '忘语');
-INSERT INTO `r_author` VALUES ('3', '我吃西红柿');
-INSERT INTO `r_author` VALUES ('27', '无妄虫灾');
-INSERT INTO `r_author` VALUES ('68', '明月地上霜');
-INSERT INTO `r_author` VALUES ('58', '晒着太阳的猫');
-INSERT INTO `r_author` VALUES ('40', '晨星LL');
-INSERT INTO `r_author` VALUES ('56', '木士');
-INSERT INTO `r_author` VALUES ('73', '机器人布里茨');
-INSERT INTO `r_author` VALUES ('16', '极地风刃');
-INSERT INTO `r_author` VALUES ('25', '梦朝南');
-INSERT INTO `r_author` VALUES ('44', '流浪的猴');
-INSERT INTO `r_author` VALUES ('55', '浮梦流年');
-INSERT INTO `r_author` VALUES ('10', '淡淡竹君');
-INSERT INTO `r_author` VALUES ('32', '潇铭');
-INSERT INTO `r_author` VALUES ('6', '烽火戏诸侯');
-INSERT INTO `r_author` VALUES ('52', '牧尘客');
-INSERT INTO `r_author` VALUES ('54', '王大忽悠');
-INSERT INTO `r_author` VALUES ('35', '皇家雇佣猫');
-INSERT INTO `r_author` VALUES ('67', '礼祐');
-INSERT INTO `r_author` VALUES ('64', '秦弄月');
-INSERT INTO `r_author` VALUES ('33', '糖醋于');
-INSERT INTO `r_author` VALUES ('22', '耳东水寿');
-INSERT INTO `r_author` VALUES ('1', '耳根');
-INSERT INTO `r_author` VALUES ('26', '良心');
-INSERT INTO `r_author` VALUES ('38', '花都大少');
-INSERT INTO `r_author` VALUES ('18', '莫默');
-INSERT INTO `r_author` VALUES ('63', '落尘');
-INSERT INTO `r_author` VALUES ('70', '蝴蝶蓝');
-INSERT INTO `r_author` VALUES ('8', '裴屠狗');
-INSERT INTO `r_author` VALUES ('77', '轻泉流响');
-INSERT INTO `r_author` VALUES ('11', '轻语江湖');
-INSERT INTO `r_author` VALUES ('20', '辰东');
-INSERT INTO `r_author` VALUES ('74', '那一只蚊子');
-INSERT INTO `r_author` VALUES ('46', '长不大的肥猫');
-INSERT INTO `r_author` VALUES ('45', '雨天下雨');
-INSERT INTO `r_author` VALUES ('42', '零九二五');
-INSERT INTO `r_author` VALUES ('72', '青烟一夜');
-INSERT INTO `r_author` VALUES ('53', '青玉狮子');
-INSERT INTO `r_author` VALUES ('17', '风一色');
-INSERT INTO `r_author` VALUES ('61', '风雨白鸽');
-INSERT INTO `r_author` VALUES ('36', '飞天鱼');
-INSERT INTO `r_author` VALUES ('60', '骑马钓鱼');
-INSERT INTO `r_author` VALUES ('43', '高月');
-INSERT INTO `r_author` VALUES ('7', '高楼大厦');
-INSERT INTO `r_author` VALUES ('34', '黄枫雨天');
-INSERT INTO `r_author` VALUES ('62', '黑乎乎的老妖');
-INSERT INTO `r_author` VALUES ('57', '龙人');
-INSERT INTO `r_author` VALUES ('65', '龙飞有妖气');
+INSERT INTO `r_author` VALUES ('1', '耳根', '0', '0');
+INSERT INTO `r_author` VALUES ('2', '天蚕土豆', '0', '0');
+INSERT INTO `r_author` VALUES ('3', '我吃西红柿', '0', '0');
+INSERT INTO `r_author` VALUES ('4', '忘语', '0', '0');
+INSERT INTO `r_author` VALUES ('5', '圣骑士的传说(书坊)', '0', '0');
+INSERT INTO `r_author` VALUES ('6', '烽火戏诸侯', '0', '0');
+INSERT INTO `r_author` VALUES ('7', '高楼大厦', '0', '0');
+INSERT INTO `r_author` VALUES ('8', '裴屠狗', '0', '0');
+INSERT INTO `r_author` VALUES ('9', '净无痕', '0', '0');
+INSERT INTO `r_author` VALUES ('10', '淡淡竹君', '0', '0');
+INSERT INTO `r_author` VALUES ('11', '轻语江湖', '0', '0');
+INSERT INTO `r_author` VALUES ('16', '极地风刃', '0', '0');
+INSERT INTO `r_author` VALUES ('17', '风一色', '0', '0');
+INSERT INTO `r_author` VALUES ('18', '莫默', '0', '0');
+INSERT INTO `r_author` VALUES ('19', '乱', '0', '0');
+INSERT INTO `r_author` VALUES ('20', '辰东', '0', '0');
+INSERT INTO `r_author` VALUES ('21', '冬日之阳', '0', '0');
+INSERT INTO `r_author` VALUES ('22', '耳东水寿', '0', '0');
+INSERT INTO `r_author` VALUES ('23', '唐家三少', '0', '0');
+INSERT INTO `r_author` VALUES ('24', '宅猪', '0', '0');
+INSERT INTO `r_author` VALUES ('25', '梦朝南', '0', '0');
+INSERT INTO `r_author` VALUES ('26', '良心', '0', '0');
+INSERT INTO `r_author` VALUES ('27', '无妄虫灾', '0', '0');
+INSERT INTO `r_author` VALUES ('28', '寒刀客', '0', '0');
+INSERT INTO `r_author` VALUES ('29', '写字板', '0', '0');
+INSERT INTO `r_author` VALUES ('30', '中华娇子大熊猫', '0', '0');
+INSERT INTO `r_author` VALUES ('31', '争斤论两花花帽', '0', '0');
+INSERT INTO `r_author` VALUES ('32', '潇铭', '0', '0');
+INSERT INTO `r_author` VALUES ('33', '糖醋于', '0', '0');
+INSERT INTO `r_author` VALUES ('34', '黄枫雨天', '0', '0');
+INSERT INTO `r_author` VALUES ('35', '皇家雇佣猫', '0', '0');
+INSERT INTO `r_author` VALUES ('36', '飞天鱼', '0', '0');
+INSERT INTO `r_author` VALUES ('37', '夜十三', '0', '0');
+INSERT INTO `r_author` VALUES ('38', '花都大少', '0', '0');
+INSERT INTO `r_author` VALUES ('39', '6号鼠标', '0', '0');
+INSERT INTO `r_author` VALUES ('40', '晨星LL', '0', '0');
+INSERT INTO `r_author` VALUES ('41', '会说话的肘子', '0', '0');
+INSERT INTO `r_author` VALUES ('42', '零九二五', '0', '0');
+INSERT INTO `r_author` VALUES ('43', '高月', '0', '0');
+INSERT INTO `r_author` VALUES ('44', '流浪的猴', '0', '0');
+INSERT INTO `r_author` VALUES ('45', '雨天下雨', '0', '0');
+INSERT INTO `r_author` VALUES ('46', '长不大的肥猫', '0', '0');
+INSERT INTO `r_author` VALUES ('47', '严七官', '0', '0');
+INSERT INTO `r_author` VALUES ('48', 'cuslaa', '0', '0');
+INSERT INTO `r_author` VALUES ('49', '叫天', '0', '0');
+INSERT INTO `r_author` VALUES ('50', '嗷世巅锋', '0', '0');
+INSERT INTO `r_author` VALUES ('51', '地黄丸', '0', '0');
+INSERT INTO `r_author` VALUES ('52', '牧尘客', '0', '0');
+INSERT INTO `r_author` VALUES ('53', '青玉狮子', '0', '0');
+INSERT INTO `r_author` VALUES ('54', '王大忽悠', '0', '0');
+INSERT INTO `r_author` VALUES ('55', '浮梦流年', '0', '0');
+INSERT INTO `r_author` VALUES ('56', '木士', '0', '0');
+INSERT INTO `r_author` VALUES ('57', '龙人', '0', '0');
+INSERT INTO `r_author` VALUES ('58', '晒着太阳的猫', '0', '0');
+INSERT INTO `r_author` VALUES ('59', '北国之鸟', '0', '0');
+INSERT INTO `r_author` VALUES ('60', '骑马钓鱼', '0', '0');
+INSERT INTO `r_author` VALUES ('61', '风雨白鸽', '0', '0');
+INSERT INTO `r_author` VALUES ('62', '黑乎乎的老妖', '0', '0');
+INSERT INTO `r_author` VALUES ('63', '落尘', '0', '0');
+INSERT INTO `r_author` VALUES ('64', '秦弄月', '0', '0');
+INSERT INTO `r_author` VALUES ('65', '龙飞有妖气', '0', '0');
+INSERT INTO `r_author` VALUES ('66', '农夫一拳', '0', '0');
+INSERT INTO `r_author` VALUES ('67', '礼祐', '0', '0');
+INSERT INTO `r_author` VALUES ('68', '明月地上霜', '0', '0');
+INSERT INTO `r_author` VALUES ('69', '九尾玄龟', '0', '0');
+INSERT INTO `r_author` VALUES ('70', '蝴蝶蓝', '0', '0');
+INSERT INTO `r_author` VALUES ('71', '小小鲤鱼王', '0', '0');
+INSERT INTO `r_author` VALUES ('72', '青烟一夜', '0', '0');
+INSERT INTO `r_author` VALUES ('73', '机器人布里茨', '0', '0');
+INSERT INTO `r_author` VALUES ('74', '那一只蚊子', '0', '0');
+INSERT INTO `r_author` VALUES ('75', '天妒遗计', '0', '0');
+INSERT INTO `r_author` VALUES ('76', '十年狂欢', '0', '0');
+INSERT INTO `r_author` VALUES ('77', '轻泉流响', '0', '0');
 
 -- ----------------------------
 -- Table structure for r_bookcase
@@ -242,14 +229,14 @@ CREATE TABLE `r_chapter_group` (
 -- ----------------------------
 DROP TABLE IF EXISTS `r_feedback`;
 CREATE TABLE `r_feedback` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `feedback_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
   `type` tinyint(4) NOT NULL COMMENT '消息类型 0: 建议 1:举报',
   `title` varchar(30) NOT NULL,
   `content` text NOT NULL,
   `is_read` tinyint(4) NOT NULL COMMENT '状态 0: 未读 1:已读',
   `create_time` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`feedback_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='前台反馈表';
 
 -- ----------------------------
@@ -274,6 +261,25 @@ CREATE TABLE `r_friend_link` (
 -- ----------------------------
 INSERT INTO `r_friend_link` VALUES ('1', '百度', 'https://www.baidu.com', '0', '0');
 INSERT INTO `r_friend_link` VALUES ('2', '胡荣的博客', 'http://www.eps.ink', '0', '0');
+
+-- ----------------------------
+-- Table structure for r_log
+-- ----------------------------
+DROP TABLE IF EXISTS `r_log`;
+CREATE TABLE `r_log` (
+  `log_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '日志ID',
+  `admin_id` int(10) unsigned NOT NULL COMMENT '进行操作的管理员',
+  `operate_title` varchar(30) NOT NULL COMMENT '操作名称',
+  `operate_data` text NOT NULL COMMENT '操作的json数据',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '日志记录时间',
+  PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='登录日志表';
+
+-- ----------------------------
+-- Records of r_log
+-- ----------------------------
+INSERT INTO `r_log` VALUES ('1', '1', 'login', '{\"ip\":\"127.0.0.1\"}', '1537969376');
+INSERT INTO `r_log` VALUES ('2', '1', 'login', '{\"ip\":\"127.0.0.1\"}', '1537974052');
 
 -- ----------------------------
 -- Table structure for r_novel
@@ -458,14 +464,15 @@ CREATE TABLE `r_visit` (
   `date` tinyint(3) unsigned NOT NULL COMMENT '星期几',
   `visit` int(10) unsigned NOT NULL COMMENT '访问量',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='网站访问记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='网站访问记录表';
 
 -- ----------------------------
 -- Records of r_visit
 -- ----------------------------
 INSERT INTO `r_visit` VALUES ('1', '2018', '9', '23', '7', '22');
 INSERT INTO `r_visit` VALUES ('2', '2018', '9', '24', '1', '328');
-INSERT INTO `r_visit` VALUES ('3', '2018', '9', '25', '2', '14');
+INSERT INTO `r_visit` VALUES ('3', '2018', '9', '25', '2', '16');
+INSERT INTO `r_visit` VALUES ('4', '2018', '9', '26', '3', '155');
 
 -- ----------------------------
 -- Table structure for r_visitor
@@ -494,7 +501,7 @@ CREATE TABLE `r_visitor` (
 -- ----------------------------
 -- Records of r_visitor
 -- ----------------------------
-INSERT INTO `r_visitor` VALUES ('1', '0', '127.0.0.1', '0', '1', '0', 'Chrome', 'WebKit', 'Windows', '10.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36', '1537713221', '0', '1537851761', '1799dadf9a79ff6a597220e5d7d48f2b', '364');
+INSERT INTO `r_visitor` VALUES ('1', '0', '127.0.0.1', '0', '1', '0', 'Chrome', 'WebKit', 'Windows', '10.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36', '1537713221', '0', '1537965816', '1799dadf9a79ff6a597220e5d7d48f2b', '521');
 
 -- ----------------------------
 -- Table structure for r_wx_pay_log

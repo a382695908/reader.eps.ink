@@ -12,10 +12,10 @@ class AppCode
     const OK = 0; // 操作成功
     const FAIL = 1; // 操作失败
     const UPDATE_FAIL = 2; // 更新失败
-    const INSERT_FAIL = 3; // 插入失败
+    const INSERT_FAIL = 3; // 添加失败
     const DELETE_FAIL = 4; // 删除失败
     const EXIT_OK = 5; // 退出成功
-    const INSERT_OK = 6; // 插入成功
+    const INSERT_OK = 6; // 添加成功
     const UPDATE_OK = 7; // 更新成功
     const DELETE_OK = 8; // 删除成功
     const LOGIN_OK = 9; // 登录成功
@@ -36,6 +36,8 @@ class AppCode
     const LOGIN_TIME_MATCH_FAIL = 308; // 非法令牌
     const LOGIN_TIME_OVER_TIME = 309; // 请重新登录
     const ADMIN_NO_LOGIN = 310; // 管理员未登录
+    const AUTHOR_NOT_EXISTS = 311; // 作者不存在
+    const AUTHOR_PARAM_ERROR = 312; // 参数错误
 
     public static function getText($code)
     {
