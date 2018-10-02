@@ -1,22 +1,24 @@
 <?php
 namespace app\admin\controller;
 
-use app\admin\model\Admin;
+use app\admin\model\Admin as AdminModel;
 use app\admin\model\Log;
 use app\admin\model\AppCode;
 use think\facade\Request;
 use think\facade\Session;
 
-class Auth extends Common
+class Admin extends Common
 {
     private $req;
+    private $res;
 
     public function __construct()
     {
         parent::__construct();
         $this->req = Request::instance();
         if (!$this->req->isAjax()) {
-            return $this->apiError(AppCode::IS_NOT_AJAX);
+            $this->res = $this->apiError(AppCode::REQUEST_IS_NOT_AJAX);
+            return ;
         }
     }
 
@@ -26,27 +28,30 @@ class Auth extends Common
      */
     public function login()
     {
+        if ($this->res) {
+            return $this->res;
+        }
         if (Session::get('is_login')) {
-            return $this->apiError(AppCode::ADMIN_HAD_LOGIN);
+            return $this->apiError(AppCode::ADMIN_IS_LOGIN);
         }
 
         $account = $this->req->post('account');
         $password = $this->req->post('password');
 
         if (!is_string($account) || !is_string($password)) {
-            return $this->apiError(AppCode::LOGIN_PARAM_TYPE_ERROR);
+            return $this->apiError(AppCode::PARAM_ERROR);
         }
         if (empty($account) || empty($password)) {
-            return $this->apiError(AppCode::LOGIN_PARAM_EMPTY);
+            return $this->apiError(AppCode::PARAM_ERROR);
         }
 
-        $adminModel = new Admin();
+        $adminModel = new AdminModel();
         $admin = $adminModel->getAdminByAccount($account);
         if (empty($admin)) {
-            return $this->apiError(AppCode::ADMIN_NOT_EXISTS);
+            return $this->apiError(AppCode::ADMIN_IS_NOT_EXISTS);
         }
         if (!password_verify($password, $admin['password'])) {
-            return $this->apiError(AppCode::PASSWORD_MATCH_FAIL);
+            return $this->apiError(AppCode::ADMIN_PASSWORD_MATCH_FAIL);
         }
 
         $logModel = new Log();
@@ -60,6 +65,7 @@ class Auth extends Common
             'login_time' => $time,
         ];
         Session::set('is_login', 1);
+        Session::set('admin_id', $admin['admin_id']);
         Session::set('user_token', $data['user_token']);
         Session::set('login_time', $time);
 
@@ -73,10 +79,20 @@ class Auth extends Common
      */
     public function logout()
     {
-        $this->checkValidToken($this->req->post('user_token'), $this->req->post('login_time'));
-        if (!Session::get('is_login')) {
-            return $this->apiError(AppCode::ADMIN_NO_LOGIN);
+        if ($this->res) {
+            return $this->res;
         }
+        $res = $this->checkValidToken(
+            $this->req->post('user_token'),
+            $this->req->post('login_time')
+        );
+        if ($res) {
+            return $res;
+        }
+
+        $logModel = new Log();
+        $logModel->logLogout(Session::get('admin_id'), ['logout_time' => time()]);
+
         Session::clear();
         Session::destroy();
         return $this->apiSuccess(AppCode::EXIT_OK);

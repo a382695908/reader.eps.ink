@@ -47,14 +47,16 @@ Route::post('/sponsor', '@home/feedBack/sponsor');
 
 // ---- 后台 ----
 // 登录 & 退出
-Route::post('/admin/api/login', '@admin/auth/login');
-Route::post('/admin/api/logout', '@admin/auth/logout');
+Route::post('/admin/api/login', '@admin/admin/login');
+Route::post('/admin/api/logout', '@admin/admin/logout');
 
 // 作者
 Route::get('/admin/api/authors', '@admin/author/authors');
 Route::get('/admin/api/author', '@admin/author/author');
-Route::post('/admin/api/author/edit', '@admin/novel/edit_author');
-Route::post('/admin/api/author/add', '@admin/novel/add_author');
+Route::get('/admin/api/author_name_suggestion', '@admin/author/author_name_suggestion');
+Route::post('/admin/api/edit_author', '@admin/author/edit_author');
+Route::get('/admin/api/check_author_name', '@admin/author/check_author_name');
+Route::post('/admin/api/add_author', '@admin/author/add_author');
 
 // 分类
 Route::get('/admin/api/categorys', '@admin/category/categorys');

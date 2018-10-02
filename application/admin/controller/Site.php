@@ -13,7 +13,7 @@ class Site extends Common
         parent::__construct();
         $this->req = Request::instance();
         if (!$this->req->isAjax()) {
-            return $this->apiError(AppCode::IS_NOT_AJAX);
+            return $this->apiError(AppCode::REQUEST_IS_NOT_AJAX);
         }
     }
 

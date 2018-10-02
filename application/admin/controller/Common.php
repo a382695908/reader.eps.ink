@@ -22,9 +22,9 @@ class Common extends Controller
      * @param array $data
      * @return \think\response\Json
      */
-    protected function apiSuccess($code, $data = [])
+    protected function apiSuccess($code, $data = [], $message = '')
     {
-        return json(['code' => $code, 'message' => AppCode::getText($code), 'data' => $data]);
+        return json(['code' => $code, 'message' => $message ?: AppCode::getText($code), 'data' => $data]);
     }
 
     /**
@@ -34,9 +34,9 @@ class Common extends Controller
      * @param array $data
      * @return \think\response\Json
      */
-    protected function apiError($code, $data = [])
+    protected function apiError($code, $data = [], $message = '')
     {
-        return json(['code' => $code, 'message' => AppCode::getText($code), 'data' => $data]);
+        return json(['code' => $code, 'message' => $message ?: AppCode::getText($code), 'data' => $data]);
     }
 
     /**
@@ -44,31 +44,31 @@ class Common extends Controller
      * @Author: eps
      * @param $token
      * @param $time
-     * @return \think\response\Json
+     * @return null|\think\response\Json
      */
     protected function checkValidToken($token, $time)
     {
         if (!Session::get('is_login')) {
-            return $this->apiError(AppCode::ADMIN_NO_LOGIN);
+            return $this->apiError(AppCode::ADMIN_IS_NOT_LOGIN);
         }
         if (!is_string($token)) {
-            return $this->apiError(AppCode::TOKEN_TYPE_ERROR);
+            return $this->apiError(AppCode::PARAM_ERROR);
         }
         $time = intval($time);
         if (empty($token) || empty($time)) {
-            return $this->apiError(AppCode::CHECK_TOKEN_PARAM_EMPTY);
+            return $this->apiError(AppCode::PARAM_ERROR);
         }
-        if ($token !== Session::get('user_token')) {
-            return $this->apiError(AppCode::TOKEN_MATCH_FAIL);
-        }
-        if ($time !== Session::get('login_time')) {
-            return $this->apiError(AppCode::LOGIN_TIME_MATCH_FAIL);
-        }
-        // TODO 如果超出一小时 (暂时不打开)
+//        if ($token !== Session::get('user_token')) {
+//            return $this->apiError(AppCode::TOKEN_ERROR);
+//        }
+//        if ($time !== Session::get('login_time')) {
+//            return $this->apiError(AppCode::TOKEN_ERROR);
+//        }
 //        if ($time > Session::get('login_time') + 3600) {
 //            Session::clear();
 //            Session::destroy();
-//            return $this->apiError(AppCode::LOGIN_TIME_OVER_TIME);
+//            return $this->apiError(AppCode::TOKEN_ERROR);
 //        }
+        return NULL;
     }
 }
