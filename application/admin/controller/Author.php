@@ -36,14 +36,15 @@ class Author extends Common
         if ($this->res) {
             return $this->res;
         }
-        $authorName = $this->req->get('author_name', '');
-        $page = $this->req->get('page', 1);
 
-        $page = $page ? intval($page) : 1;
+        $page = $this->req->get('page', 1);
+        $page = intval($page);
         $page = $page > 0 ? $page : 1;
 
         $authorModel = new AuthorModel();
         $where = [];
+
+        $authorName = $this->req->get('author_name', '');
         if ($authorName) {
             array_push($where, ['author_name', 'LIKE', "%{$authorName}%"]);
         }

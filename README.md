@@ -11,3 +11,5 @@ composer update
 - thinkphp
 - jenssegers/agent
 - predis/predis
+- thinkphp 5.1
+- aliyuncs/oss-sdk-php

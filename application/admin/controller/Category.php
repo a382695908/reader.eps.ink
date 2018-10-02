@@ -39,14 +39,13 @@ class Category extends Common
         $status = $this->req->get('status', 0);
         $status = intval($status);
 
-
         $where = [];
         if ($status > 0 && ($status === 1 || $status === 2)) {
             $where['status'] = $status - 1;
         }
 
         $categoryModel = new CategoryModel();
-        $categoryList = $categoryModel->getCategorysByWhere($where);
+        $categoryList = $categoryModel->getCategorysByWhere($where, 'category_id,category_name,category_alias,status');
         return $this->apiSuccess(AppCode::OK, $categoryList);
     }
 
@@ -67,6 +66,8 @@ class Category extends Common
         }
         $categoryModel = new CategoryModel();
         $category = $categoryModel->getCategoryByWhere(['category_id' => $categoryId]);
+        $category['create_time'] = date('Y-m-d H:i:s', $category['create_time']);
+        $category['update_time'] = date('Y-m-d H:i:s', $category['update_time']);
         return $this->apiSuccess(AppCode::OK, $category);
     }
 
@@ -79,7 +80,7 @@ class Category extends Common
         if ($this->res) {
             return $this->res;
         }
-        $categoryId = $this->req->get('category_id', 0);
+        $categoryId = $this->req->post('category_id', 0);
         $categoryId = intval($categoryId);
         if ($categoryId <= 0) {
             return $this->apiError(AppCode::PARAM_ERROR);
@@ -94,12 +95,14 @@ class Category extends Common
         }
 
         $updateData = [];
+
         // 状态
         $status = $this->req->post('status', 0);
         $status = intval($status);
         if ($status > 0 && ($status === 1 || $status === 2)) {
             $updateData['status'] = $status - 1;
         }
+
         // 分类名
         $categoryName = $this->req->post('category_name', '');
         if (is_string($categoryName) && $categoryName) {
@@ -108,6 +111,10 @@ class Category extends Common
             }
             if (!is_chinese_str($categoryName)) {
                 return $this->apiError(AppCode::CATEGORY_REQUIRE_CHINESE);
+            }
+            $category = $categoryModel->getCategoryByWhere(['category_name' => $categoryName]);
+            if (!empty($category) && $category['category_id'] !== $categoryId) {
+                return $this->apiError(AppCode::CATEGORY_NAME_IS_EXISTS);
             }
             $updateData['category_name'] = $categoryName;
         }
@@ -120,6 +127,10 @@ class Category extends Common
             }
             if (!is_chinese_str($categoryAlias)) {
                 return $this->apiError(AppCode::CATEGORY_REQUIRE_CHINESE);
+            }
+            $category = $categoryModel->getCategoryByWhere(['category_alias' => $categoryAlias]);
+            if (!empty($category) && $category['category_id'] !== $categoryId) {
+                return $this->apiError(AppCode::CATEGORY_ALIAS_IS_EXISTS);
             }
             $updateData['category_alias'] = $categoryAlias;
         }
