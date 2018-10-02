@@ -168,7 +168,7 @@ class Author extends Common
         }
 
         $logModel = new Log();
-        $logModel->logEditAuthor(Session::get('admin_id'), ['edit_data' => $data]);
+        $logModel->logEditAuthor(Session::get('admin_id'), ['edit_data' => $data, 'form_data' => $this->req->post()]);
         return $this->apiError(AppCode::UPDATE_OK);
     }
 
@@ -199,7 +199,7 @@ class Author extends Common
         }
 
         $logModel = new Log();
-        $logModel->logAddAuthor(Session::get('admin_id'), ['add_data' => $data]);
+        $logModel->logAddAuthor(Session::get('admin_id'), ['add_data' => $data, 'form_data' => $this->req->post()]);
 
         return $this->apiSuccess(AppCode::INSERT_OK);
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * NAME: ErrorCode.php
+ * NAME: AppCode.php
  * Author: eps
  * DateTime: 9/26/2018 9:54 PM
  */
@@ -34,6 +34,14 @@ class AppCode
     const AUTHOR_IS_NOT_EXISTS = 200; // 作者不存在
     const AUTHOR_IS_EXISTS = 201; // 作者已存在
     const AUTHOR_NAME_IS_EXISTS = 202; // 该作者名已存在
+
+    // 分类
+    const CATEGORY_IS_NOT_EXISTS = 300; // 分类不存在
+    const CATEGORY_NAME_IS_EXISTS = 301; // 该分类名已存在
+    const CATEGORY_ALIAS_IS_EXISTS = 302; // 该分类别名已存在
+    CONST CATEGORY_NAME_LENGTH_REQUIRE = 303; // 分类名称长度必须为4
+    CONST CATEGORY_REQUIRE_CHINESE = 304; // 名称必须是全中文
+    CONST CATEGORY_ALIAS_LENGTH_REQUIRE = 305; // 分类别名名称长度必须为2
 
     public static function getText($code)
     {

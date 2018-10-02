@@ -20,6 +20,13 @@ class Category extends Model
 
     public function updateCategoryByWhere($condition = array(), $data = array())
     {
+        $data['update_time'] = time();
         return $this->update($data, $condition);
+    }
+
+    public function addCategory($data)
+    {
+        $data['create_time'] = time();
+        return $this->insert($data, false, true);
     }
 }
