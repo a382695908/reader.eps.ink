@@ -8,7 +8,6 @@ composer update
 ```
 
 ## composer依赖
-- thinkphp
 - jenssegers/agent
 - predis/predis
 - thinkphp 5.1

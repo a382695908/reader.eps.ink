@@ -70,13 +70,16 @@ Route::get('/admin/api/check_category_alias', '@admin/category/check_category_al
 Route::get('/admin/api/novels', '@admin/novel/novels');
 Route::get('/admin/api/novel', '@admin/novel/novel');
 Route::post('/admin/api/edit_novel', '@admin/novel/edit_novel');
+Route::post('/admin/api/toggle_novel_state', '@admin/novel/toggle_novel_state');
 Route::post('/admin/api/add_novel', '@admin/novel/add_novel');
+Route::get('/admin/api/check_novel_name', '@admin/novel/check_novel_name');
 
 // 小说章节组
 Route::get('/admin/api/novel/chapter_groups', '@admin/chapter/chapter_groups');
 Route::get('/admin/api/novel/chapter_group', '@admin/chapter_group/chapter_group');
-Route::post('/admin/api/novel/chapter_group/edit', '@admin/chapter_group/edit_chapter_group');
-Route::post('/admin/api/novel/chapter_group/add', '@admin/chapter_group/add_chapter_group');
+Route::post('/admin/api/novel/edit_chapter_group', '@admin/chapter_group/edit_chapter_group');
+Route::get('/admin/api/check_chapter_group_name', '@admin/novel/check_chapter_group_name');
+Route::post('/admin/api/novel/add_chapter_group', '@admin/chapter_group/add_chapter_group');
 
 // 小说章节
 Route::get('/admin/api/novel/chapters', '@admin/chapter/chapters');

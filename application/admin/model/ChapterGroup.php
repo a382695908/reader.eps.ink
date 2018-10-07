@@ -5,7 +5,7 @@ use think\Model;
 
 class ChapterGroup extends Model
 {
-    public function getChapterGroupsByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = 'chapter_group_id ASC')
+    public function getChapterGroupsByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = 'sort ASC')
     {
         $list = $this->field($field)->where($condition)->order($orderBy)->limit($limit, $offset)->select();
         return (empty($list)) ? [] : $list;

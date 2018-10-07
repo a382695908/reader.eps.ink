@@ -1,12 +1,8 @@
 <?php
-/**
- * NAME: Novel.php
- * Author: eps
- * DateTime: 9/25/2018 11:44 PM
- */
 namespace app\admin\controller;
 
 use app\admin\model\AppCode;
+use app\admin\model\ChapterGroup as ChapterGroupModel;
 use think\facade\Request;
 
 class ChapterGroup extends Common
@@ -18,8 +14,13 @@ class ChapterGroup extends Common
         parent::__construct();
         $this->req = Request::instance();
         if (!$this->req->isAjax()) {
-            return $this->apiError(AppCode::IS_NOT_AJAX);
+            $this->res = $this->apiError(AppCode::REQUEST_IS_NOT_AJAX);
+            return;
         }
+        $this->res = $this->checkValidToken(
+            $this->req->get('user_token') ?: $this->req->post('user_token'),
+            $this->req->get('login_time') ?: $this->req->post('login_time')
+        );
     }
 
     /**
@@ -29,7 +30,24 @@ class ChapterGroup extends Common
      */
     public function chapter_groups()
     {
-        return $this->apiSuccess(0, '查询成功', $chapterGroupList);
+        if ($this->res) {
+            return $this->res;
+        }
+        $novelId = intval($this->req->get('novel_id', 0));
+        if ($novelId <= 0) {
+            return $this->apiError(AppCode::PARAM_ERROR);
+        }
+        // 分页
+        $page = intval($this->req->get('page', 1));
+        $page = $page > 0 ? $page : 1;
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
+
+        $chapterGroupModel = new ChapterGroupModel();
+        $where = ['novel_id' => $novelId];
+        $chapterGroupList = $chapterGroupModel->getChapterGroupsByWhere($where, '*', $limit, $offset);
+
+        return $this->apiSuccess(AppCode::OK, $chapterGroupList);
     }
 
     /**
@@ -39,7 +57,19 @@ class ChapterGroup extends Common
      */
     public function chapter_group()
     {
-        return $this->apiSuccess(0, '查询成功', $chapterGroup);
+        if ($this->res) {
+            return $this->res;
+        }
+        $chapterGroupId = intval($this->req->get('chapter_group_id', 0));
+        if ($chapterGroupId <= 0) {
+            return $this->apiError(AppCode::PARAM_ERROR);
+        }
+        $chapterGroupModel = new ChapterGroupModel();
+        $where = ['chapter_group_id' => $chapterGroupId];
+        $chapterGroup = $chapterGroupModel->getChapterGroupByWhere($where);
+        $novel['create_time'] = date('Y-m-d H:i:s', $chapterGroup['create_time']);
+
+        return $this->apiSuccess(AppCode::OK, $chapterGroup);
     }
 
     /**
@@ -50,4 +80,24 @@ class ChapterGroup extends Common
     {
 
     }
+
+    /**
+     * 检查章节组名是否唯一
+     * @Author: eps
+     */
+    public function check_chapter_group_name()
+    {
+
+    }
+
+    /**
+     * 添加章节组
+     * @Author: eps
+     */
+    public function add_chapter_group()
+    {
+
+    }
+
+
 }

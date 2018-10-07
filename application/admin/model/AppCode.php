@@ -44,7 +44,10 @@ class AppCode
     const CATEGORY_ALIAS_LENGTH_REQUIRE = 305; // 分类别名名称长度必须为2
 
     // 小说
-    CONST NOVEL_IS_NOT_EXISTS = 400; // 小说不存在
+    const NOVEL_IS_NOT_EXISTS = 400; // 小说不存在
+    const NOVEL_IS_EXISTS = 401; // 小说已存在
+    const NOVEL_NAME_IS_EXISTS = 402; // 小说名不存在
+    const NOVEL_NAME_IS_NOT_EXISTS = 403; // 小说名已存在
 
     public static function getText($code)
     {
@@ -86,6 +89,9 @@ class AppCode
 
             // 小说
             self::NOVEL_IS_NOT_EXISTS           => '小说不存在', // 小说不存在
+            self::NOVEL_IS_EXISTS               => '小说已存在', // 小说已存在
+            self::NOVEL_NAME_IS_EXISTS          => '小说名不存在', // 小说名不存在
+            self::NOVEL_NAME_IS_NOT_EXISTS      => '小说名已存在', // 小说名已存在
         ];
         return isset($map[$code]) ? $map[$code] : '';
     }

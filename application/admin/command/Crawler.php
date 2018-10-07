@@ -1,9 +1,6 @@
 <?php
 namespace app\home\command;
 
-use app\home\model\Author;
-use app\home\model\Category;
-use app\home\model\Novel;
 use think\console\Command;
 use think\console\Input;
 use think\console\Output;
