@@ -78,7 +78,22 @@ class ChapterGroup extends Common
      */
     public function edit_chapter_group()
     {
+        if ($this->res) {
+            return $this->res;
+        }
+        $chapterGroupId = intval($this->req->post('chapter_group_id', 0));
+        if ($chapterGroupId < 1) {
+            return $this->apiError(AppCode::PARAM_ERROR);
+        }
+        $chapterGroupName = $this->req->post('chapter_group_name', '');
 
+        $data = ['chapter_group_name' => $chapterGroupName];
+        $chapterGroupModel = new ChapterGroupModel();
+        $bool = $chapterGroupModel->updateChapterGroupByWhere(['chapter_group_id' => $chapterGroupId], $data);
+        if (!$bool) {
+            return $this->apiError(AppCode::UPDATE_FAIL);
+        }
+        return $this->apiSuccess(AppCode::UPDATE_OK);
     }
 
     /**
@@ -87,7 +102,16 @@ class ChapterGroup extends Common
      */
     public function check_chapter_group_name()
     {
-
+        if ($this->res) {
+            return $this->res;
+        }
+        $chapterGroupName = $this->req->post('chapter_group_name', '');
+        $chapterGroupModel = new ChapterGroupModel();
+        $chapterGroup = $chapterGroupModel->getChapterGroupByWhere(['chapter_group_name' => $chapterGroupName]);
+        if (!empty($chapterGroup)) {
+            return $this->apiError(AppCode::CHAPTER_NAME_IS_EXISTS);
+        }
+        return $this->apiSuccess(AppCode::CHAPTER_NAME_IS_NOT_EXISTS);
     }
 
     /**
@@ -96,7 +120,22 @@ class ChapterGroup extends Common
      */
     public function add_chapter_group()
     {
+        if ($this->res) {
+            return $this->res;
+        }
+        $chapterGroupName = $this->req->post('chapter_group_name', '');
+        $novelId = $this->req->post('novel_id', 0);
 
+        $data = [
+            'chapter_group_name' => $chapterGroupName,
+            'novel_id'           => $novelId
+        ];
+        $chapterGroupModel = new ChapterGroupModel();
+        $chapterGroupId = $chapterGroupModel->addChapterGroup($data);
+        if (!$chapterGroupId) {
+            return $this->apiError(AppCode::INSERT_FAIL);
+        }
+        return $this->apiSuccess(AppCode::INSERT_OK);
     }
 
 

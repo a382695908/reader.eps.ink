@@ -49,6 +49,11 @@ class AppCode
     const NOVEL_NAME_IS_EXISTS = 402; // 小说名不存在
     const NOVEL_NAME_IS_NOT_EXISTS = 403; // 小说名已存在
 
+    // 小说章节组
+    const CHAPTER_NAME_IS_EXISTS = 500; // 章节组名已存在
+    const CHAPTER_NAME_IS_NOT_EXISTS = 501; // 章节组名已存在
+
+
     public static function getText($code)
     {
         $map = [

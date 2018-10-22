@@ -19,6 +19,13 @@ class Chapter extends Model
 
     public function updateChapterByWhere($condition = array(), $data = array())
     {
+        $data['update_time'] = time();
         return $this->update($data, $condition);
+    }
+
+    public function addChapter($data)
+    {
+        $data['create_time'] = time();
+        return $this->insert($data, false, true);
     }
 }

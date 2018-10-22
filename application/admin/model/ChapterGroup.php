@@ -19,7 +19,14 @@ class ChapterGroup extends Model
 
     public function updateChapterGroupByWhere($condition = array(), $data = array())
     {
+        $data['update_time'] = time();
         return $this->update($data, $condition);
+    }
+
+    public function addChapterGroup($data)
+    {
+        $data['create_time'] = time();
+        return $this->insert($data, false, true);
     }
 
 }

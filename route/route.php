@@ -84,8 +84,8 @@ Route::post('/admin/api/novel/add_chapter_group', '@admin/chapter_group/add_chap
 // 小说章节
 Route::get('/admin/api/novel/chapters', '@admin/chapter/chapters');
 Route::get('/admin/api/novel/chapter', '@admin/chapter/chapter');
-Route::post('/admin/api/novel/chapter/edit', '@admin/chapter/edit_chapter');
-Route::post('/admin/api/novel/chapter/add', '@admin/chapter/add_chapter');
+Route::post('/admin/api/novel/edit_chapter', '@admin/chapter/edit_chapter');
+Route::post('/admin/api/novel/add_chapter', '@admin/chapter/add_chapter');
 
 
 return [
