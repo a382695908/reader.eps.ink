@@ -81,15 +81,4 @@ class Index extends Common
         return $this->fetch('home@index/index');
     }
 
-    /**
-     * search
-     * @Author: eps
-     * @return \think\response\Json
-     */
-    public function search()
-    {
-        $search = trim($_POST['search']);
-        return $this->apiSuccess(1, '', [$search]);
-    }
-
 }

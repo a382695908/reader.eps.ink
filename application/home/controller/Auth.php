@@ -8,6 +8,7 @@ class Auth extends Common
 {
     public function login_view()
     {
+        $this->init_view();
         return $this->fetch('home@auth/login');
     }
 

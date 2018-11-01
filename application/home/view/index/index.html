@@ -7,7 +7,8 @@
             <div class="item">
                 <div class="p10">
                     <div class="image">
-                        <a href="{$hotest.novelLink}" target="_blank"><img src="{$hotest.cover}" alt="{$hotest.novel_name}"/></a>
+                        <a href="{$hotest.novelLink}" target="_blank"><img src="{$hotest.cover}"
+                                                                           alt="{$hotest.novel_name}"/></a>
                     </div>
                     <dl>
                         <dt>
@@ -24,7 +25,8 @@
             <h2>强力推荐</h2>
             <ul class="lis">
                 {volist name="hotNovels" id="hot"}
-                <li><span class="s1">[{$hot.categoryAlias}]</span><span class="s2"><a href="{$hot.novelLink}">{$hot.novel_name}</a></span><span class="s5">{$hot.authorName}</span></li>
+                <li><span class="s1">[{$hot.categoryAlias}]</span><span class="s2"><a href="{$hot.novelLink}">{$hot.novel_name}</a></span><span
+                        class="s5">{$hot.authorName}</span></li>
                 {/volist}
             </ul>
         </div>
@@ -37,7 +39,8 @@
             <div class="p10">
                 <div class="top">
                     <div class="image">
-                        <a href="{$category_novel.topNovel.novelLink}" target="_blank"><img src="{$category_novel.topNovel.cover}" alt="{$category_novel.topNovel.novel_name}"/></a>
+                        <a href="{$category_novel.topNovel.novelLink}" target="_blank"><img
+                                src="{$category_novel.topNovel.cover}" alt="{$category_novel.topNovel.novel_name}"/></a>
                     </div>
                     <dl>
                         <dt>
@@ -94,12 +97,9 @@
 </div>
 
 <script src="/static/js/third_party/sea.js"></script>
-<script>
+<script defer="defer" type="text/javascript">
     seajs.use('/static/js/entry');
     seajs.use('/static/js/home/index', function (reload) {
-        reload.init();
-    });
-    seajs.use('/static/js/common', function (reload) {
         reload.init();
     });
 </script>
