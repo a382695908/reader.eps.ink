@@ -47,7 +47,7 @@ class Top extends Common
         unset($category);
         $this->assign('all_cat_rank_list', $categoryList);
 
-        return $this->fetch();
+        return $this->fetch('home@top/index');
     }
 
 }

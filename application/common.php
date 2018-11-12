@@ -94,7 +94,7 @@ if (!function_exists('paginate')) {
                 $startIndex = $currentPage - 5;
                 $endIndex = $currentPage + 5;
             }
-            
+
             for ($index = $startIndex; $index <= $endIndex; $index++) {
                 if ($index == $currentPage) {
                     $html = $html . ' <b class="a-btn a-active">' . $index . '</b>';
@@ -110,5 +110,26 @@ if (!function_exists('paginate')) {
         $html = $html . ' <a class="a-btn" href="' . url($list[4]) . '">尾页</a>';
 
         return $html;
+    }
+}
+
+if (!function_exists('is_chinese_str')) {
+    function is_chinese_str($string = '')
+    {
+        if (empty($string)) {
+            return false;
+        }
+        $string = trim($string);
+        if (empty($string)) {
+            return false;
+        }
+
+        // /~!@#$%^&*()_+{}:<>?[],./;'`-=\|
+        $regex = "/\/|\~|\!|\@|\#|\\$|\%|\^|\&|\*|\(|\)|\_|\+|\{|\}|\:|\<|\>|\?|\[|\]|\,|\.|\/|\;|\'|\`|\-|\=|\\\|\|/";
+        if ($string !== preg_replace($regex, '', $string)) {
+            return false;
+        }
+
+        return preg_match('/^[\x7f-\xff]+$/', $string) ? true : false;
     }
 }

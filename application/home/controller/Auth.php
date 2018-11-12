@@ -9,13 +9,13 @@ class Auth extends Common
     public function login_view()
     {
         $this->init_view();
-        return $this->fetch('login');
+        return $this->fetch('home@auth/login');
     }
 
     public function register_view()
     {
         $this->init_view();
-        return $this->fetch('register');
+        return $this->fetch('home@auth/register');
     }
 
     /**
@@ -53,6 +53,9 @@ class Auth extends Common
      */
     public function logout()
     {
+        if (!Session::get('userinfo')) {
+            return $this->apiError(-1, '请求错误!');
+        }
         Session::clear();
         Session::destroy();
         return $this->apiSuccess(1, '退出成功!');

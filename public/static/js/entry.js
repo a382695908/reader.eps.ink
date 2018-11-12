@@ -8,6 +8,8 @@ seajs.config({
 });
 
 
-define('/static/js/entry', ['$', 'jscookie'], function (require, exports, module) {
+define('/static/js/entry', ['$', 'jscookie'], function (require, exports, module) {});
 
+seajs.use('/static/js/common', function (reload) {
+    reload.init();
 });

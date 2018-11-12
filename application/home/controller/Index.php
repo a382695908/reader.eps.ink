@@ -78,18 +78,7 @@ class Index extends Common
         }
         unset($novel);
         $this->assign('latestCreatedNovels', $latestCreatedNovels);
-        return $this->fetch();
-    }
-
-    /**
-     * search
-     * @Author: eps
-     * @return \think\response\Json
-     */
-    public function search()
-    {
-        $search = trim($_POST['search']);
-        return $this->apiSuccess(1, '', [$search]);
+        return $this->fetch('home@index/index');
     }
 
 }

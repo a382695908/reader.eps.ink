@@ -74,7 +74,7 @@ class Novel extends Common
 
         // todo: update novel field `click`
 
-        return $this->fetch();
+        return $this->fetch('home@novel/index');
     }
 
     /**

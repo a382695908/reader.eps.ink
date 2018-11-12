@@ -36,7 +36,7 @@ class Chapter extends Common
         $this->assign('nextChapterLink', $nextChapterLink);
         $lastChapterLink = $chapter['sort'] > 1 ? url('/chapter/' . ($chapter['sort'] - 1)) : $novel['novelLink'];
         $this->assign('lastChapterLink', $lastChapterLink);
-        return $this->fetch();
+        return $this->fetch('home@chapter/index');
     }
 
 }

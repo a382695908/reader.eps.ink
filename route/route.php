@@ -10,43 +10,81 @@
 // +----------------------------------------------------------------------
 
 // 注册 && 登录 && 退出
-Route::get('/login', 'Auth/login_view');
-Route::get('/register', 'Auth/register_view');
-Route::post('/login', 'Auth/login');
-Route::post('/register', 'Auth/register');
-Route::post('/logout', 'Auth/logout');
+Route::get('/login', '@home/auth/login_view');
+Route::get('/register', '@home/auth/register_view');
+Route::post('/login', '@home/auth/login');
+Route::post('/register', '@home/auth/register');
+Route::post('/logout', '@home/auth/logout');
 
 // 分类页面
-Route::get('/category/:cid', 'Category/index');
-Route::get('/category/:cid/page/:page', 'Category/index');
-
+Route::get('/category/:cid', '@home/category/index');
+Route::get('/category/:cid/page/:page', '@home/category/index');
 // 全本页面
-Route::get('/full', 'Category/isend');
-Route::get('/full/page/:page', 'Category/isend');
+Route::get('/full', '@home/category/isend');
+Route::get('/full/page/:page', '@home/category/isend');
 
 // 小说页面
-Route::get('/novel/:id', 'Novel/index');
-Route::get('/novel/search', 'Novel/search');
-Route::post('/novel/recommend', 'Novel/recommend');
+Route::get('/novel/:id', '@home/novel/index');
+Route::get('/novel/search', '@home/novel/search');
+Route::post('/novel/recommend', '@home/novel/recommend');
 
 // 小说章节阅读界面
-Route::get('/chapter/:id', 'Chapter/index');
+Route::get('/chapter/:id', '@home/chapter/index');
 
 // 排行榜
-Route::get('/top', 'Top/index');
+Route::get('/top', '@home/top/index');
 
 // 我的书架
-Route::get('/bookcase', 'Bookcase/index');
-Route::post('/bookcase/add', 'Bookcase/add');
-Route::post('/bookcase/delete', 'Bookcase/delete');
-
-// 访问网站
-Route::get('/ds', 'test/ds');
+Route::get('/bookcase', '@home/bookcase/index');
+Route::post('/bookcase/add', '@home/bookcase/add');
+Route::post('/bookcase/delete', '@home/bookcase/delete');
 
 // 反馈
-Route::post('/advise', 'FeedBack/advise');
-Route::post('/report', 'FeedBack/report');
-Route::post('/sponsor', 'FeedBack/sponsor');
+Route::post('/advise', '@home/feedBack/advise');
+Route::post('/report', '@home/feedBack/report');
+Route::post('/sponsor', '@home/feedBack/sponsor');
+
+// ---- 后台 ----
+// 登录 & 退出
+Route::post('/admin/api/login', '@admin/admin/login');
+Route::post('/admin/api/logout', '@admin/admin/logout');
+
+// 作者
+Route::get('/admin/api/authors', '@admin/author/authors');
+Route::get('/admin/api/author', '@admin/author/author');
+Route::get('/admin/api/author_name_suggestion', '@admin/author/author_name_suggestion');
+Route::post('/admin/api/edit_author', '@admin/author/edit_author');
+Route::get('/admin/api/check_author_name', '@admin/author/check_author_name');
+Route::post('/admin/api/add_author', '@admin/author/add_author');
+
+// 分类
+Route::get('/admin/api/categorys', '@admin/category/categorys');
+Route::get('/admin/api/category', '@admin/category/category');
+Route::post('/admin/api/edit_category', '@admin/category/edit_category');
+Route::post('/admin/api/add_category', '@admin/category/add_category');
+Route::get('/admin/api/check_category_name', '@admin/category/check_category_name');
+Route::get('/admin/api/check_category_alias', '@admin/category/check_category_alias');
+
+// 小说
+Route::get('/admin/api/novels', '@admin/novel/novels');
+Route::get('/admin/api/novel', '@admin/novel/novel');
+Route::post('/admin/api/edit_novel', '@admin/novel/edit_novel');
+Route::post('/admin/api/toggle_novel_state', '@admin/novel/toggle_novel_state');
+Route::post('/admin/api/add_novel', '@admin/novel/add_novel');
+Route::get('/admin/api/check_novel_name', '@admin/novel/check_novel_name');
+
+// 小说章节组
+Route::get('/admin/api/novel/chapter_groups', '@admin/chapter/chapter_groups');
+Route::get('/admin/api/novel/chapter_group', '@admin/chapter_group/chapter_group');
+Route::post('/admin/api/novel/edit_chapter_group', '@admin/chapter_group/edit_chapter_group');
+Route::get('/admin/api/check_chapter_group_name', '@admin/novel/check_chapter_group_name');
+Route::post('/admin/api/novel/add_chapter_group', '@admin/chapter_group/add_chapter_group');
+
+// 小说章节
+Route::get('/admin/api/novel/chapters', '@admin/chapter/chapters');
+Route::get('/admin/api/novel/chapter', '@admin/chapter/chapter');
+Route::post('/admin/api/novel/edit_chapter', '@admin/chapter/edit_chapter');
+Route::post('/admin/api/novel/add_chapter', '@admin/chapter/add_chapter');
 
 
 return [

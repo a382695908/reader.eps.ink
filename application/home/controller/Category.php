@@ -68,7 +68,7 @@ class Category extends Common
         unset($novel);
         $this->assign('recommendNovels', $recommendNovels);
 
-        return $this->fetch();
+        return $this->fetch('home@category/index');
     }
 
     /**
@@ -127,7 +127,7 @@ class Category extends Common
         unset($novel);
         $this->assign('recommendNovels', $recommendNovels);
 
-        return $this->fetch('index');
+        return $this->fetch('home@category/index');
     }
 
 }

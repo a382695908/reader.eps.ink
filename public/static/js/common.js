@@ -314,14 +314,28 @@ $(function () {
 });
 */
 
+
 define('/static/js/common', ['$', 'jscookie'], function (require, exports, module) {
     var jquery = require('$');
     var jscookie = require('jscookie');
     var reload = {};
 
+    var time = null;
+
+    function getTimeStamp() {
+        $.get({
+            url: '/get_timestamp',
+            success: function (data) {
+                console.log(data.time);
+                time = new Date(data.time);
+                console.log(time);
+            }
+        });
+    }
 
     reload.init = function () {
-
+        console.log('common');
+        getTimeStamp();
     };
     return reload;
 });

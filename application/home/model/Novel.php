@@ -18,18 +18,6 @@ class Novel extends Model
     }
 
     /**
-     * 根据分类ID查询小说
-     * @Author: eps
-     * @param $categoryId
-     * @return array|\PDOStatement|string|\think\Collection
-     */
-    public function getNovelsByCategoryId($categoryId)
-    {
-        $novels = $this->where('category_id', $categoryId)->select();
-        return (empty($novels)) ? [] : $novels;
-    }
-
-    /**
      * 通过联结分类表和作者表查询小说
      * @Author: eps
      * @param array $condition
@@ -63,10 +51,16 @@ class Novel extends Model
      * @param string $orderBy
      * @return $this|array
      */
-    public function getNovelsByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = 'id ASC')
+    public function getNovelsByWhere($condition = array(), $field = '*', $limit = 0, $offset = null, $orderBy = 'novel_id ASC')
     {
         $list = $this->field($field)->where($condition)->order($orderBy)->limit($limit, $offset)->select();
         return (empty($list)) ? [] : $list;
+    }
+
+    public function getNovelByWhere($condition = array(), $field = '*')
+    {
+        $row = $this->field($field)->where($condition)->find();
+        return (empty($row)) ? [] : $row;
     }
 
     /**
@@ -127,29 +121,16 @@ class Novel extends Model
         return $this->getNovelsByJoin(['is_end' => 0, 'is_hot' => 1], 'r_novel.*,author_name AS authorName,category_alias AS categoryAlias', 9, 0, 'clicks DESC');
     }
 
-    // === BackStage Method ===
+
     public function addNovel($data = array())
     {
-
+        $data['create_time'] = time();
+        return $this->insert($data, true, true);
     }
 
-    public function updateNovelById($authorId, $data = array())
+    public function updateNovel($data = array(), $where = array())
     {
-
-    }
-
-    public function updateNovelByName($authorName, $data = array())
-    {
-
-    }
-
-    public function deleteNovelById($authorId)
-    {
-
-    }
-
-    public function deleteNovelsByWhere($condition = array())
-    {
-
+        $data['update_time'] = time();
+        return $this->update($data, $where);
     }
 }
